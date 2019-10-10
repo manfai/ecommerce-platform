@@ -7,12 +7,12 @@ use Illuminate\Support\Str;
 
 class CouponCode extends Model
 {
-    // 用常量的方式定义支持的优惠券类型
+    // 用常量的方式定義支持的優惠券類型
     const TYPE_FIXED = 'fixed';
     const TYPE_PERCENT = 'percent';
 
     public static $typeMap = [
-        self::TYPE_FIXED   => '固定金额',
+        self::TYPE_FIXED   => '固定金額',
         self::TYPE_PERCENT => '比例',
     ];
 
@@ -33,15 +33,15 @@ class CouponCode extends Model
     protected $casts = [
         'enabled' => 'boolean',
     ];
-    // 指明这两个字段是日期类型
+    // 指明這兩個字段是日期類型
     protected $dates = ['not_before', 'not_after'];
 
     public static function findAvailableCode($length = 16)
     {
         do {
-            // 生成一个指定长度的随机字符串，并转成大写
+            // 生成一個指定長度的隨機字符串，並轉成大寫
             $code = strtoupper(Str::random($length));
-        // 如果生成的码已存在就继续循环
+        // 如果生成的碼已存在就繼續循環
         } while (self::query()->where('code', $code)->exists());
 
         return $code;
@@ -53,13 +53,13 @@ class CouponCode extends Model
         $str = '';
 
         if ($this->min_amount > 0) {
-            $str = '满'.$this->min_amount;
+            $str = '滿'.$this->min_amount;
         }
         if ($this->type === self::TYPE_PERCENT) {
-            return $str.'优惠'.$this->value.'%';
+            return $str.'優惠'.$this->value.'%';
         }
 
-        return $str.'减'.$this->value;
+        return $str.'減'.$this->value;
     }
 
 }

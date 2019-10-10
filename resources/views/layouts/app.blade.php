@@ -17,11 +17,30 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
     @stack('styles')
+    <style>
+    html{
+        height: 100vh;
+    }
+    #app{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    nav{
+        flex: 0 0 auto;
+    }
+    main{
+        flex: 1 0 auto;
+    }
+    footer{
+        flex: 0 0 auto;
+    }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="align-top" src="https://laravel.com/img/logomark.min.svg" alt="" height="30">
@@ -46,7 +65,7 @@
                             <a class="nav-link" href="{{ route('product') }}">{{ __('Shop') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('faqs') }}">{{ __('Blog') }}</a>
+                            <a class="nav-link" href="{{ route('blog') }}">{{ __('Blog') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cart') }}">{{ __('Cart') }}</a>
@@ -107,8 +126,9 @@
             @endif
         @endguest
 
-        <footer class="container">
-            <section class="pt-4 mb-md-5 pt-md-5">
+        <footer class="mt-auto bg-light">
+            <section class="container">
+            <div class="pt-4 mb-md-5 pt-md-5">
                 <div class="row">
                     <div class="col-12 col-md">
                         <img class="mb-2" src="https://laravel.com/img/logomark.min.svg" alt="" width="24"
@@ -145,6 +165,7 @@
                         </ul>
                     </div>
                 </div>
+            </div>
             </section>
         </footer>
     </div>

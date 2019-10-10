@@ -47,27 +47,27 @@
                     </div>
                     <span class="text-muted">$5.00</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between bg-light">
+
+                <li id="coupon" class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
-                        <h6 class="my-0">Promo code</h6>
-                        <small>EXAMPLECODE</small>
+                        <h6 class="my-0">Coupon code</h6>
+                        <small>EXAMPLECODE</small><small class="ml-3">Cancel</small>
                     </div>
                     <span class="text-success">-$5.00</span>
                 </li>
+
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Purchase Amount</span>
                     <strong>${{ number_format((float)$amount - 5,2,'.','')}}</strong>
                 </li>
             </ul>
 
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary">Redeem</button>
-                    </div>
+            <div class="input-group">
+                <input type="text" class="form-control py-4" name="coupon_code" placeholder="Promo code">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary px-4" id="btn-check-coupon">兌換</button>
                 </div>
-            </form>
+            </div>
         </div>
 
         <div class="col-md-8 order-md-1">
@@ -146,7 +146,63 @@
                 });
         });
 
+        // 检查按钮点击事件
+        $('#btn-check-coupon').click(function () {
+            // 获取用户输入的优惠码
+            var code = $('input[name=coupon_code]').val();
+            // 如果没有输入则弹框提示
+            if(!code) {
+                Swal.fire({
+                    title: '請輸入優惠碼',
+                    type: 'warning',
+                    showConfirmButton: false
+                });
+                return;
+            }
+            // 调用检查接口
+            axios.get('/coupon_codes/' + encodeURIComponent(code))
+                .then(function (response) {  // then 方法的第一个参数是回调，请求成功时会被调用
+                $('#coupon_desc').text(response.data.description); // 输出优惠信息
+                $('input[name=coupon_code]').prop('readonly', true); // 禁用输入框
+                $('#btn-cancel-coupon').show(); // 显示 取消 按钮
+                $('#btn-check-coupon').hide(); // 隐藏 检查 按钮
+                }, function (error) {
+                // 如果返回码是 404，说明优惠券不存在
+                if(error.response.status === 404) {
+                    Swal.fire({
+                        title: '优惠码不存在',
+                        type: 'error',
+                        showConfirmButton: false
+                    });
+                } else if (error.response.status === 403) {
+                // 如果返回码是 403，说明有其他条件不满足
+                    Swal.fire({
+                        title: error.response.data.msg,
+                        type: 'error',
+                        showConfirmButton: false
+                    });
+                } else {
+                // 其他错误
+                    Swal.fire({
+                        title: '系统内部错误',
+                        type: 'error',
+                        showConfirmButton: false
+                    });
+                }
+                })
+        });
+
+        // 隐藏 按钮点击事件
+        $('#btn-cancel-coupon').click(function () {
+            $('#coupon_desc').text(''); // 隐藏优惠信息
+            $('input[name=coupon_code]').prop('readonly', false);  // 启用输入框
+            $('#btn-cancel-coupon').hide(); // 隐藏 取消 按钮
+            $('#btn-check-coupon').show(); // 显示 检查 按钮
+        });
+            
     });
+
+ 
 
 </script>
 @endpush

@@ -47,3 +47,4 @@ Route::get('/address/{addressId}', 'UserAddressController@edit')->name('address.
 Route::put('/address/{addressId}', 'UserAddressController@update')->name('address.update');
 Route::delete('/address/{addressId}', 'UserAddressController@destroy')->name('address.destroy');
 
+Route::get('coupon_codes/{code}', 'CouponCodesController@show')->name('coupon_codes.show');
