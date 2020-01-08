@@ -117,6 +117,7 @@
                             <div class="form-group">
                                 <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus aria-describedby="emailHelp" placeholder="{{ __('E-Mail Address') }}">
                                 <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}">
+                                <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" required placeholder="{{ __('Confirmed Password') }}">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
