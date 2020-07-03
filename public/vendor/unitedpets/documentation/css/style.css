@@ -1,0 +1,429 @@
+/* ----------------------------------------------------
+  
+	File Name: style.css
+	Template Name: Documentation
+
+	1. IMPORT
+	2. SKELETON
+	
+------------------------------------------------------- */
+/* ----------------------------------------------------
+	SKELETON	
+------------------------------------------------------- */
+body {
+background:#fff;
+color:#777;
+font-size:16px;
+line-height:28px;
+font-weight:400;
+padding:0;
+font-family:Open sans;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	letter-spacing:0;
+font-weight:400;
+position:relative;
+padding:0 0 10px;
+font-weight:400;
+line-height:1.8;
+color:#242424;
+font-family:Open sans ;
+}
+
+h1 {
+font-size:32px;
+}
+
+h2 {
+		letter-spacing:-0.4px;
+
+font-size:28px;
+}
+
+h3 {
+font-size:24px;
+}
+
+h4 {
+font-size:28px;
+font-weight:900;
+line-height:1em;
+margin-top:40px;
+color: #106d92;
+}
+
+h5 {
+font-size:18px;
+font-weight:600;
+}
+
+h6 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+a {
+color:#106d92;
+font-weight:600;
+}
+
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a {
+text-decoration:none!important;
+}
+
+p {
+font-size:17px;
+font-weight:400;
+line-height:26px;
+}
+.glyphicon{color:#e1980e;
+margin:2px;}
+.p-end p {
+padding:0 0 5px;
+}
+
+img.aligncenter {
+display:block;
+text-align:center;
+display:block;
+margin:0 auto 20px;
+padding:0;
+border:0;
+background:none;
+}
+
+ul {
+padding:0;
+list-style:none;
+}
+
+ol li ul li {
+padding-left:20px;
+}
+
+img.alignleft {
+float:left;
+margin:6px 20px 6px 0;
+display:inline;
+border:0;
+background:none;
+padding:0;
+display:block;
+}
+
+img.alignright {
+padding:0;
+float:right;
+margin:6px 0 6px 20px;
+border:0;
+display:block;
+background:none;
+}
+
+::selection {
+background:#808080;
+/* Safari */
+color:#fff;
+}
+
+::-moz-selection {
+background:#808080;
+/* Firefox */
+color:#fff;
+}
+
+strong,b{font-weight:900;}
+blockquote {
+font-size:16px;
+line-height:32px;
+font-family:'Open sans', Georgia, "Times New Roman", serif;
+font-weight:400;
+font-style:italic;
+position:relative;
+width:auto;
+}
+
+blockquote small {
+display:block;
+margin-top:20px;
+}
+
+pre {
+line-height:18px;
+margin-bottom:18px;
+}
+
+.btn,a {
+outline:0!important;
+text-decoration:none!important;
+}
+
+ins {
+text-decoration:none;
+}
+
+sup {
+bottom:1ex;
+}
+
+sub {
+top:.5ex;
+}
+
+p {
+padding:0px;
+}
+
+.check li:before {
+content:"\f00c";
+font-family:FontAwesome;
+font-size:16px;
+left:0;
+color:#242424;
+padding-right:5px;
+position:relative;
+top:2px;
+}
+
+.check li {
+font-size:14px;
+list-style:none;
+margin-bottom:4px;
+}
+
+.check {
+margin-left:0;
+padding-left:0;
+}
+
+.section {
+padding:100px 0;
+position:relative;
+display:block;
+}
+
+.white  {
+background-color:#fff;
+}
+
+
+.grey {
+background-color:#f2f2f2;
+}
+
+.big-title h1 {
+font-size:52px;
+font-weight:300;
+margin-bottom:0;
+text-transform:capitalize;
+padding-bottom:0;
+font-family:Open sans;
+}
+
+.dark-text {
+font-size:3.825rem;
+font-weight:700;
+}
+
+h4 a {
+font-size:14px;
+font-weight:700;
+}
+
+.dark-text a {
+font-size:14px;
+font-weight:700;
+padding-left:20px;
+}
+
+hr{margin:30px;}
+
+.dark-text hr {
+margin-left:0;
+margin-top:20px;
+border-width:1px;
+border-color:#DCD9D9;
+}
+
+
+
+.intro1 li {
+list-style:none;
+}
+
+.intro a {
+font-weight:700;
+font-size:16px;
+}
+
+.lead {
+text-transform:capitalize;
+}
+
+.left-align img {
+margin-top:20px;
+margin-left:30px;
+}
+
+.drop-caps p:first-child::first-letter {
+color:#030303;
+display:block;
+float:left;
+font-size:75px;
+line-height:60px;
+text-transform:uppercase;
+margin-right:10px;
+margin-top:5px;
+padding:4px;
+}
+
+.drop-caps.full p:first-child::first-letter {
+background:#030303 none repeat scroll 0 0!important;
+color:#fff;
+margin-right:15px;
+padding:20px;
+font-size:36px;
+font-family:Georgia;
+border-radius:5px;
+}
+
+mark {
+background-color:#808080;
+color:#fff;
+padding:0 10px;
+}
+
+a:focus,a:hover {color:#808080;}
+
+.intro2 i {
+padding-right:10px;
+font-size:21px;
+}
+
+.intro2 {
+background-color:#808080;
+border:2px solid #5c8724;
+border-radius:5px;
+color:#fff;
+font-style:italic;
+padding:10px 20px;
+}
+
+.intro2 p {padding:0;}
+
+.intro2 a {
+color:#fff;
+font-weight:700;
+}
+
+.intro1 ul {
+padding:0 30px;
+}
+
+.intro1 .logo{
+margin-bottom:30px;
+}
+
+.btn-primary {
+background-color:#106d92;
+color:#fff!important;
+margin-top:10px;
+font-family:Open sans;
+font-weight:700;
+border:0;
+border-radius:0;
+padding:15px;
+display:inline-block;
+transition: all 0.4s ease-in-out; 
+}
+
+.btn-primary:hover,.btn-primary:focus {
+background-color:#808080;
+}
+
+.btn-info {
+background-color:#545454;
+border:1px solid #656565;
+}
+
+.btn-info:hover {
+background-color:#656565;
+border:1px solid #545454;
+}
+
+.navbar-inverse .navbar-nav > .active > a,.navbar-inverse .navbar-nav > .active > a:hover,.navbar-inverse .navbar-nav > .active > a:focus {
+color:#fff!important;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,.navbar-inverse .navbar-nav > li > a:focus,.navbar-inverse .navbar-nav > li > a .active {
+color:#fff;
+background-color:#808080;
+}
+
+.navbar-inverse {
+background-color:#222;
+height:60px;
+border:0;
+color:#fff;
+}
+
+.navbar-nav > li > a {
+line-height:30px;
+padding: 15px 25px;
+transition:all .2s ease-in-out;
+}
+
+.navbar-inverse .navbar-nav > .active > a,.navbar-inverse .navbar-nav > .active > a:hover,.navbar-inverse .navbar-nav > .active > a:focus {
+color:#fff;
+background-color:#106d92;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+color:#fff;
+text-transform:uppercase;
+font-size:13px;
+font-family:Open sans;
+font-weight:700;
+}
+
+.navbar-inverse .navbar-brand {
+color:#fff;
+font-weight:700;
+background:#808080;
+height:60px;
+line-height:30px;
+}
+
+.navbar-inverse li.btn {
+border-radius:0!important;
+padding:0;
+background:#34327C;
+}
+
+.navbar-inverse li.btn a {
+color:#fff!important;
+}
+
+#wrapper {
+padding-top:100px;
+}
+
+/************ max width 767px *************/
+@media max-width 767px{
+#wrapper {
+padding-top:20px;
+}
+
+.dark-text {
+font-size:3.125rem;
+font-weight:700;
+text-transform:uppercase;
+line-height:1em;
+margin-top:40px;
+}
+
+h4 {
+line-height:26px;
+}
+}
