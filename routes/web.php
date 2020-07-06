@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ProductController@category');
+Route::get('/', 'ProductController@welcome');
 
 Auth::routes(['verify' => true]);
 

@@ -1,0 +1,53 @@
+/* Template Name: United Pets 
+Veterinarian color scheme
+/* 
+/* Pale Blue*/
+ .feature-with-icon:hover i,.btn-quaternary,.badge-default,.bg-secondary,.dropdown-menu, .btn-primary, .back-to-top i:hover, .alert-secondary, .badge-secondary, .nav-pills .nav-link.active,.nav-pills .nav-link:hover,.nav-pills .nav-link:focus, .nav-pills .show>.nav-link,.list-group-item.active,figure.team-style2 figcaption .icons i, .page-link:hover, .page-link.active, .team-style1 .social,.btn-secondary:hover,.btn-secondary:focus{
+     background-color:#77AAAD;
+}
+ .bg-secondary{
+     background-color:#77AAAD!important;
+}
+ .section-heading h2:after,ul.social-media i,.owl-prev i:hover, .owl-next i:hover,.breadcrumb a:hover,.widget1 .colored-icons i,.navbar .dropdown-item:hover,.navbar .dropdown-item:focus,.navbar .nav-link:focus,.navbar .nav-item:hover,.navbar .nav-item .active ,.team-style2 .img-box a:hover li,.section-heading h2:before,.navbar-brand i,.serviceBox:hover .service-icon i,a,figure.team-style3 h6, figure.team-style2 .name h6, ul.custom li:before, .testimonial .content:before,.owl-theme .owl-nav [class*='owl-']:hover,.spinner .bounce1:after,.team-style2 span{
+     color:#77AAAD;
+}
+ .testimonial-pic > img,.text-secondary{
+     color:#77AAAD!important;
+}
+ .custom-link, .form-control:focus,.btn-primary,.list-group-item.active,.alert-secondary,.adopt-image,.team-style2 .img-box .social-icons li {
+     border-color:#77AAAD;
+}
+ .lds-ring div {
+     border: 6px solid #77AAAD;
+     border-color: #77AAAD transparent transparent transparent;
+}
+/* Dark Green */
+ .btn-quaternary:hover,.btn-quaternary:focus,.top-bar,.btn-tertiary,.nav-tabs .nav-link,.accordion-cards .card-body,.navbar-toggler:hover, .btn-primary:hover, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled):active, .back-to-top i, .accordion-cards .card-header, .page-item.active .page-link,.progress-bar,.service-hover-box .service-hover-caption, figure.team-style2 .name , .team-style1:hover .team-image,.page-link,footer,.nav-pills .nav-link{
+     background-color:#308685 ;
+}
+ .bg-primary{
+     background-color:#308685!important;
+}
+ .accordion .card-link,.serviceBox1 .title a:hover,.text-tertiary,.icon-box i,.blog-card .post-info:before,.color1,.header-text:before,ul.social-media li:hover i,.navbar-brand span,.adopt-card-info i,.counter .counter-icon {
+     color:#308685 ;
+}
+ .text-primary{
+    color:#308685!important ;
+}
+ .dropdown-menu:before {
+     border-bottom-color: #308685;
+}
+ .blog-card .card-img-top:hover,.btn-primary:hover, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled):active, .page-item.active .page-link{
+     border-color:#308685;
+}
+/* Blue */
+ .blog-box .date ,.feature-with-icon i,.btn-quaternary,.btn-secondary:not(:disabled):not(.disabled):active:focus,.breadcrumb ,.nav-tabs .nav-link.active,.nav-tabs .nav-link:hover,.btn-tertiary:hover,.bg-tertiary,.accordion .card-header a.collapsed:before,.accordion:before,.accordion a:before,.dropdown-item:focus, .dropdown-item:hover,.dropdown-item.active,.accordion-cards .card-header:hover,.accordion-cards .card-header:focus,.badge-primary,.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span, .alert-primary,.btn-secondary,.list-group-item-action:focus, .list-group-item-action:hover,.team-style1 .title:after,.team-style1 .title:before,.contact-icon .top-icon{
+     background-color:#32bddc;
+}
+ .accordion .card-link:hover, .accordion .card-link:focus,.navbar .nav-item.active a,.team-style1 .post:before,.owl-prev i, .owl-next i,.serviceBox2 .service-icon,.text-tertiary,.contact-image i,blockquote:after,blockquote:before,.team-style1:hover .social li a, figure.team-style3 i , .serviceBox .service-icon i,ul.checkmark li:before,.colored-icons i,a:hover,a:focus,.team-style1:hover .social li a:hover,a h5:hover,a h4:hover{
+     color:#32bddc;
+}
+ .contact-form3.bg-secondary .form-control:focus,.custom-link:hover, .custom-link:focus,.form-control,.alert-primary,.list-group-item-action:focus, .list-group-item-action:hover{
+     border-color:#32bddc;
+}
+ 

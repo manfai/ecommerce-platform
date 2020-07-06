@@ -8,9 +8,9 @@ use App\Exceptions\InvalidRequestException;
 
 class ProductController extends Controller
 {
-    public function category(Request $request)
+    public function welcome(Request $request)
     {
-        return view('products.category');
+        return view('welcome');
     }
 
     public function index(Request $request)

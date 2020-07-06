@@ -1,179 +1,351 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+      <!--[if IE]>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <![endif]-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- page title -->
+      <title>{{ config('app.name', 'Laravel') }}</title>
+      <!--[if lt IE 9]>
+      <script src="/js/respond.js"></script>
+      <![endif]-->
+      <!-- Font files -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,600,700%7CMontserrat:400,500,600,700" rel="stylesheet">
+      <link href="fonts/flaticon/flaticon.css" rel="stylesheet" type="text/css">
+      <link href="fonts/fontawesome/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+      <!-- Fav icons -->
+      <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+      <!-- Bootstrap core CSS -->
+      <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <!-- style CSS -->
+      <link href="/css/style.css" rel="stylesheet">
+      <!-- plugins CSS -->
+      <link href="/css/plugins.css" rel="stylesheet">
+      <!-- Colors CSS -->
+      <link href="/styles/maincolors.css" rel="stylesheet">
+	  <!-- LayerSlider CSS -->
+      <link rel="stylesheet" href="/vendor/layerslider/css/layerslider.css">
+      @stack('styles')
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
-    @stack('styles')
-    <style>
-    html{
-        height: 100vh;
-    }
-    #app{
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
-    nav{
-        flex: 0 0 auto;
-    }
-    main{
-        flex: 1 0 auto;
-    }
-    footer{
-        flex: 0 0 auto;
-    }
-    </style>
-</head>
-
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="align-top" src="https://laravel.com/img/logomark.min.svg" alt="" height="30">
-                    &nbsp;&nbsp;<span>{{ config('app.name', 'Laravel') }}</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('product') }}">{{ __('Shop') }}</a>
+    </head>
+    <!-- ==== body starts ==== -->
+    <body id="top">
+        <!-- Preloader  -->
+        <div id="preloader">
+         <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+               <div class="preloader-logo">
+                  <!--logo -->
+                  <img src="img/logo.png" alt="" class="img-fluid">
+                  <!--preloader circle -->
+                  <div class="lds-ring">
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                  </div>
+               </div>
+               <!--/preloader logo -->
+            </div>
+            <!--/row -->
+         </div>
+         <!--/container -->
+        </div>
+        <!--/Preloader ends -->
+        <nav id="main-nav" class="navbar-expand-xl fixed-top">
+            <!-- Start Top Bar -->
+            <div class="container-fluid top-bar" >
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <!-- Start Contact Info -->
+                        <ul class="contact-details float-left">
+                           <li><i class="fa fa-map-marker"></i>Wong Chuk Hang - Hong Kong</li>
+                           <li><i class="fa fa-envelope"></i><a href="mailto:info@unitedpet.com">info@unitedpet.com</a></li>
+                           <li><i class="fa fa-phone"></i>(852) 9351-7031</li>
+                        </ul>
+                        <!-- End Contact Info -->
+                        <!-- Start Social Links -->
+                        <ul class="social-list float-right list-inline">
+                            <li class="list-inline-item"><a  title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
+                           <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                           <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                        <!-- /End Social Links -->
+                     </div>
+                     <!-- col-md-12 -->
+                  </div>
+                  <!-- /row -->
+               </div>
+               <!-- /container -->
+            </div>
+            <!-- End Top bar -->
+            <!-- Navbar Starts -->
+            <div class="navbar container-fluid">
+               <div class="container ">
+                  <!-- logo -->
+                  <a class="nav-brand" href="index">
+                  <img src="img/logo.png" alt="" class="img-fluid">
+                  </a>
+                  <!-- Navbartoggler -->
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggle-icon">
+                  <i class="fas fa-bars"></i>
+                  </span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                     <ul class="navbar-nav ml-auto">
+                        <!-- menu item -->
+                        <li class="nav-item active">
+                           <a class="nav-link" href="index">Home
+                           </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('blog') }}">{{ __('Blog') }}</a>
+                        <!-- menu item -->
+                        <li class="d-none nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="about-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           About
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="about-dropdown">
+                              <a class="dropdown-item" href="about">About Style 1</a>
+                              <a class="dropdown-item" href="about2">About Style 2</a>
+                              <a class="dropdown-item" href="team">Our Team</a>
+                              <a class="dropdown-item" href="team-single">Team Single Page</a>
+                              <a class="dropdown-item" href="careers">Careers</a>
+                           </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('cart') }}">{{ __('Cart') }}</a>
+                        <!-- menu item -->
+                        <li class="d-none nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="services-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Services
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="services-dropdown">
+                              <a class="dropdown-item" href="services">Services Style 1</a>
+                              <a class="dropdown-item" href="services2">Services Style 2</a>
+                              <a class="dropdown-item" href="services-single">Services Single</a>
+                           </div>
                         </li>
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                            @endif
-                        @else
+                        <!-- menu item -->
+                        <li class="d-none nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Adopt
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="adopt-dropdown">
+                              <a class="dropdown-item" href="adoption">Adoption Gallery</a>
+                              <a class="dropdown-item" href="adoption-single">Adoption Single Page</a>
+                              <a class="dropdown-item" href="adoption-stories">Adoption Stories</a>
+                              <a class="dropdown-item" href="events">Events</a>
+                              <a class="dropdown-item" href="event-single">Events Single Page</a>
+                           </div>
+                        </li>
+                        <!-- menu item -->
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('home') }}">
-                                    {{ __('Profile') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Sign Out') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
+                           <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Shop
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="gallery-dropdown">
+                              <a class="dropdown-item" href="gallery">Gallery Style 1</a>
+                              <a class="dropdown-item" href="gallery2">Gallery Style 2</a>
+                           </div>
                         </li>
-                        @endguest
-                    </ul>
-                </div>
+                        <!-- menu item -->
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="contact-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Contact
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="contact-dropdown">
+                              <a class="dropdown-item" href="contact">Contact Style 1</a>
+                              <a class="dropdown-item" href="contact2">Contact Style 2</a>
+                              <a class="dropdown-item" href="contact3">Contact Style 3</a>
+                           </div>
+                        </li>
+                        <!-- menu item -->
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="others-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Blog
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="others-dropdown">
+                              <a class="dropdown-item" href="blog">Blog Home 1</a>
+                              <a class="dropdown-item" href="blog2">Blog Home 2</a>
+                              <a class="dropdown-item" href="blog-single">Blog Single</a>
+                              <a class="dropdown-item" href="elements">Elements Page</a>
+                              <a class="dropdown-item" href="404">404 Page</a>
+                           </div>
+                        </li>
+                     </ul>
+                     <!--/ul -->
+                  </div>
+                  <!--collapse -->
+               </div>
+               <!-- /container -->
             </div>
+            <!-- /navbar -->
         </nav>
-        <main role="main">
-            @yield('content')
-        </main>
-
-        @guest
-            @if(!Route::is('register') && !Route::is('login'))
-                <section class="jumbotron fixed-bottom mb-0 text-center animated slideInUp">
-                    <div class="container">
-                        <h1 class="display-3">Welcome to {{ config('app.name', 'Laravel') }}!</h1>
-                        <p>
-                            <a class="btn btn-outline-primary mr-3 btn-lg" href="{{ route('login') }}" role="button">Sign In</a>
-                            @if(Route::has('register'))
-                            <a class="btn btn-outline-primary btn-lg" href="{{ route('register') }}" role="button">Sign Up</a>
-                            @endif
-                        </p>
-                    </div>
-                </section>
-            @endif
-        @endguest
-
-        <footer class="mt-auto bg-light">
-            <section class="container">
-            <div class="pt-4 mb-md-5 pt-md-5">
-                <div class="row">
-                    <div class="col-12 col-md">
-                        <img class="mb-2" src="https://laravel.com/img/logomark.min.svg" alt="" width="24"
-                            height="24">
-                        <small class="d-block mb-3 text-muted">© 2017-2019</small>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>Shop</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Cool stuff</a></li>
-                            <li><a class="text-muted" href="#">Random feature</a></li>
-                            <li><a class="text-muted" href="#">Team feature</a></li>
-                            <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                            <li><a class="text-muted" href="#">Another one</a></li>
-                            <li><a class="text-muted" href="#">Last time</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>FAQs</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Resource</a></li>
-                            <li><a class="text-muted" href="#">Resource name</a></li>
-                            <li><a class="text-muted" href="#">Another resource</a></li>
-                            <li><a class="text-muted" href="#">Final resource</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>About</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Team</a></li>
-                            <li><a class="text-muted" href="#">Locations</a></li>
-                            <li><a class="text-muted" href="#">Privacy</a></li>
-                            <li><a class="text-muted" href="#">Terms</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- /nav -->
+        <!-- ==== Slider ==== -->
+        <div class="container-fluid p-0">
+         <div id="slider" class="overlay-parallax-slider" style="width:1200px;height:650px;margin:0 auto;margin-bottom: 0px;">
+            <!-- Slide 1 -->
+            <div class="ls-slide overlay2" data-ls="duration:4000; transition2d:7;">
+               <!-- bg image  -->
+               <img src="img/slider/slide1-parallax.jpg" class="ls-bg" alt="" />
+               <!-- ls-l  -->
+               <img width="1200" height="376" src="img/slider/slide1-element.png" class="ls-l" alt="" style="top:296px; right:0
+                  %;" data-ls="offsetxin:10; offsetyin:120; durationin:1100; rotatein:5; transformoriginin:59.3% 80.3% 0; offsetxout:-80; durationout:400; parallax:true; parallaxlevel:-4;">
+               <!-- text  -->
+               <div class="ls-l header-wrapper" data-ls="offsetyin:150; durationin:700; delayin:200; easingin:easeOutQuint; rotatexin:20; scalexin:1.4; offsetyout:600; durationout:400; parallax:true; parallaxlevel:2;">
+                  <div class="header-text full-width text-light">
+                     <h1>Welcome to <span>United pets</span></h1>
+                     <!--the div below is hidden on small screens  -->
+                     <div class="hidden-small">
+                        <p class="header-p">We offer the best services for your pets, contact us today and book a service</p>
+                        <a class="btn btn-primary " href="contact">Contact us</a>
+                     </div>
+                     <!--/d-none  -->
+                  </div>
+                  <!-- header-text  -->
+               </div>
+			   <!-- ls-l  -->
             </div>
-            </section>
+            <!-- ls-slide -->
+         </div>
+         <!-- /slider -->
+        </div>
+        <!-- /container-fluid -->
+        <!-- ==== Page Content ==== -->
+        @yield('content')
+        <!-- ==== Newsletter - call to action ==== -->
+        <div class="container-fluid footer-bg block-padding overlay">
+         <div class="container">
+            <div class="col-lg-5 text-light text-center">
+               <h4>Subscribe to our newsletter</h4>
+               <p>We send e-mails once a month, we never send Spam!</p>
+               <!-- Form -->				
+               <div id="mc_embed_signup" >
+                  <!-- your form address in the line bellow -->
+                  <form action="//yourlist.us12.list-manage.com/subscribe/post?u=04e646927a196552aaee78a7b&id=111" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                     <div id="mc_embed_signup_scroll">
+                        <div class="mc-field-group">
+                           <div class="input-group">
+                              <input class="form-control border2 input-lg required email" type="email" value="" name="EMAIL" placeholder="Your email here" id="mce-EMAIL">
+                              <span class="input-group-btn">
+                              <button class="btn btn-primary btn-sm" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+                              </span>
+                           </div>
+                           <!-- Subscription results -->
+                           <div id="mce-responses" class="mailchimp">
+                              <div class="alert alert-danger response" id="mce-error-response"></div>
+                              <div class="alert alert-success response" id="mce-success-response"></div>
+                           </div>
+                        </div>
+                        <!-- /mc-fiel-group -->									
+                     </div>
+                     <!-- /mc_embed_signup_scroll -->
+                  </form>
+                  <!-- /form ends -->								
+               </div>
+               <!-- /mc_embed_signup -->
+            </div>
+            <!--/ col-lg-->
+         </div>
+         <!--/ container-->
+        </div>
+        <!--/container-fluid-->
+        <!-- ==== footer ==== -->
+        <footer class="bg-light pattern1">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 text-center ">
+                  <img src="img/logo.png"  class="logo-footer img-fluid" alt=""/>
+                  <!-- Start Social Links -->
+                  <ul class="social-list text-center list-inline">
+                     <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                     <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                     <li class="list-inline-item"><a  title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
+                  </ul>
+                  <!-- /End Social Links -->
+               </div>
+               <!--/ col-lg -->
+               <div class="col-lg-3">
+                  <h5>About us</h5>
+                  <!--divider -->
+                  <hr class="small-divider left"/>
+                  <p class="mt-3">Elit aenean, amet eros curabitur. Wisi ad eget ipsum metus sociis Cras enim wisi elit aenean.</p>
+               </div>
+               <!--/ col-lg -->
+               <div class="col-lg-3">
+                  <h5>Contact Us</h5>
+                  <!--divider -->
+                  <hr class="small-divider left"/>
+                  <ul class="list-unstyled mt-3">
+                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>(123) 456-789</li>
+                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:email@yoursite.com">email@yoursite.com</a></li>
+                     <li><i class="fas fa-map-marker margin-icon"></i>Pet Street 123 - New York </li>
+                  </ul>
+                  <!--/ul -->
+               </div>
+               <!--/ col-lg -->
+               <div class="col-lg-3">
+                  <h5>Working Hours</h5>
+                  <!--divider -->
+                  <hr class="small-divider left"/>
+                  <ul class="list-unstyled mt-3">
+                     <li class="mb-1">Open from 9am - 6pm</li>
+                     <li class="mb-1">Holidays - Closed</li>
+                     <li>Weekends - Closed</li>
+                  </ul>
+                  <!--/ul -->
+               </div>
+               <!--/ col-lg -->
+            </div>
+            <!--/ row-->
+            <hr/>
+            <div class="row">
+               <div class="credits col-sm-12">
+                  <p>Copyright 2019 / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
+               </div>
+            </div>
+            <!--/col-lg-12-->
+         </div>
+         <!--/ container -->
+         <!-- Go To Top Link -->
+         <div class="page-scroll hidden-sm hidden-xs">
+            <a href="#top" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+         </div>
+         <!--/page-scroll-->
         </footer>
-    </div>
+        <!--/ footer-->
+        <!-- Bootstrap core & Jquery -->
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Custom Js -->
+        <script src="/js/custom.js"></script>
+        <script src="/js/plugins.js"></script>
+        <!-- Prefix free -->
+        <script src="/js/prefixfree.min.js"></script><!-- number counter script -->
+        <script src="/js/counter.js"></script>
+        <!-- maps -->
+        <script src="/js/map.js"></script>
+        <!-- GreenSock -->
+        <script src="/vendor/layerslider/js/greensock.js"></script>
+        <!-- LayerSlider script files -->
+        <script src="/vendor/layerslider/js/layerslider.transitions.js"></script>
+        <script src="/vendor/layerslider/js/layerslider.kreaturamedia.jquery.js"></script>
+        <script src="/vendor/layerslider/js/layerslider.load.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     @stack('scripts')
-</body>
 
+   </body>
 </html>
