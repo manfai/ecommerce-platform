@@ -207,7 +207,7 @@
                <!-- text  -->
                <div class="ls-l header-wrapper" data-ls="offsetyin:150; durationin:700; delayin:200; easingin:easeOutQuint; rotatexin:20; scalexin:1.4; offsetyout:600; durationout:400; parallax:true; parallaxlevel:2;">
                   <div class="header-text full-width text-light">
-                     <h1>Welcome to <span>United pets</span></h1>
+                     <h1>Welcome to <span>Tripod Cats</span></h1>
                      <!--the div below is hidden on small screens  -->
                      <div class="hidden-small">
                         <p class="header-p">We offer the best services for your pets, contact us today and book a service</p>
