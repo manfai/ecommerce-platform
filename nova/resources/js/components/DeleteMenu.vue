@@ -25,9 +25,9 @@
             @click="confirmRestore"
             v-if="
               softDeletes &&
-              !viaManyToMany &&
-              (softDeletedResourcesSelected || allMatchingSelected) &&
-              (authorizedToRestoreSelectedResources || allMatchingSelected)
+                !viaManyToMany &&
+                (softDeletedResourcesSelected || allMatchingSelected) &&
+                (authorizedToRestoreSelectedResources || allMatchingSelected)
             "
           >
             {{ __('Restore Selected') }} ({{ selectedResourcesCount }})
@@ -40,8 +40,9 @@
             @click="confirmForceDeleteSelectedResources"
             v-if="
               softDeletes &&
-              !viaManyToMany &&
-              (authorizedToForceDeleteSelectedResources || allMatchingSelected)
+                !viaManyToMany &&
+                (authorizedToForceDeleteSelectedResources ||
+                  allMatchingSelected)
             "
           >
             {{ __('Force Delete Selected') }} ({{ selectedResourcesCount }})
@@ -54,8 +55,8 @@
       to="modals"
       v-if="
         deleteSelectedModalOpen ||
-        forceDeleteSelectedModalOpen ||
-        restoreModalOpen
+          forceDeleteSelectedModalOpen ||
+          restoreModalOpen
       "
     >
       <delete-resource-modal

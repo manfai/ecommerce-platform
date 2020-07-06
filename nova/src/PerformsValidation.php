@@ -12,7 +12,6 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForCreation(NovaRequest $request)
     {
@@ -42,7 +41,7 @@ trait PerformsValidation
      */
     public static function rulesForCreation(NovaRequest $request)
     {
-        return static::formatRules($request, (self::newResource())
+        return static::formatRules($request, (new static(static::newModel()))
                     ->creationFields($request)
                     ->reject(function ($field) use ($request) {
                         return $field->isReadonly($request);
@@ -61,12 +60,12 @@ trait PerformsValidation
      */
     public static function creationRulesFor(NovaRequest $request, $field)
     {
-        return static::formatRules($request, self::newResource()
-            ->availableFields($request)
-            ->where('attribute', $field)
-            ->mapWithKeys(function ($field) use ($request) {
-                return $field->getCreationRules($request);
-            })->all());
+        return static::formatRules($request, (new static(static::newModel()))
+                    ->availableFields($request)
+                    ->where('attribute', $field)
+                    ->mapWithKeys(function ($field) use ($request) {
+                        return $field->getCreationRules($request);
+                    })->all());
     }
 
     /**
@@ -75,7 +74,6 @@ trait PerformsValidation
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Resource|null  $resource
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForUpdate(NovaRequest $request, $resource = null)
     {
@@ -107,7 +105,7 @@ trait PerformsValidation
      */
     public static function rulesForUpdate(NovaRequest $request, $resource = null)
     {
-        $resource = $resource ?? self::newResource();
+        $resource = $resource ?? new static(static::newModel());
 
         return static::formatRules($request, $resource->updateFields($request)
                     ->reject(function ($field) use ($request) {
@@ -127,7 +125,7 @@ trait PerformsValidation
      */
     public static function updateRulesFor(NovaRequest $request, $field)
     {
-        return static::formatRules($request, self::newResource()
+        return static::formatRules($request, (new static(static::newModel()))
                     ->availableFields($request)
                     ->where('attribute', $field)
                     ->mapWithKeys(function ($field) use ($request) {
@@ -140,7 +138,6 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForAttachment(NovaRequest $request)
     {
@@ -166,7 +163,7 @@ trait PerformsValidation
      */
     public static function rulesForAttachment(NovaRequest $request)
     {
-        return static::formatRules($request, self::newResource()
+        return static::formatRules($request, (new static(static::newModel()))
                     ->creationPivotFields($request, $request->relatedResource)
                     ->mapWithKeys(function ($field) use ($request) {
                         return $field->getCreationRules($request);
@@ -178,7 +175,6 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForAttachmentUpdate(NovaRequest $request)
     {
@@ -204,7 +200,7 @@ trait PerformsValidation
      */
     public static function rulesForAttachmentUpdate(NovaRequest $request)
     {
-        return static::formatRules($request, self::newResource()
+        return static::formatRules($request, (new static(static::newModel()))
                     ->updatePivotFields($request, $request->relatedResource)
                     ->mapWithKeys(function ($field) use ($request) {
                         return $field->getUpdateRules($request);
@@ -246,7 +242,7 @@ trait PerformsValidation
      */
     public static function validationAttributeFor(NovaRequest $request, $field)
     {
-        return self::newResource()
+        return (new static(static::newModel()))
                     ->availableFields($request)
                     ->firstWhere('resourceName', $field)
                     ->getValidationAttribute($request);

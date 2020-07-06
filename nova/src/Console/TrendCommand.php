@@ -7,8 +7,6 @@ use Illuminate\Support\Str;
 
 class TrendCommand extends GeneratorCommand
 {
-    use ResolvesStubPath;
-
     /**
      * The console command name.
      *
@@ -52,7 +50,7 @@ class TrendCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/stubs/nova/trend.stub');
+        return __DIR__.'/stubs/trend.stub';
     }
 
     /**

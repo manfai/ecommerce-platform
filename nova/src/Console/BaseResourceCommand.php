@@ -6,8 +6,6 @@ use Illuminate\Console\GeneratorCommand;
 
 class BaseResourceCommand extends GeneratorCommand
 {
-    use ResolvesStubPath;
-
     /**
      * The console command name.
      *
@@ -53,7 +51,7 @@ class BaseResourceCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/stubs/nova/base-resource.stub');
+        return __DIR__.'/stubs/base-resource.stub';
     }
 
     /**

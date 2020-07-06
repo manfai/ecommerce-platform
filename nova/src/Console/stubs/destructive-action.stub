@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }};
+namespace DummyNamespace;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
 
-class {{ class }} extends DestructiveAction
+class DummyClass extends DestructiveAction
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 

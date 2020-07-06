@@ -7,8 +7,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ActionCommand extends GeneratorCommand
 {
-    use ResolvesStubPath;
-
     /**
      * The console command name.
      *
@@ -38,10 +36,10 @@ class ActionCommand extends GeneratorCommand
     protected function getStub()
     {
         if ($this->option('destructive')) {
-            return $this->resolveStubPath('/stubs/nova/destructive-action.stub');
+            return __DIR__.'/stubs/destructive-action.stub';
         }
 
-        return $this->resolveStubPath('/stubs/nova/action.stub');
+        return __DIR__.'/stubs/action.stub';
     }
 
     /**

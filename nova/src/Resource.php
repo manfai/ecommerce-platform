@@ -174,7 +174,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
      */
     public static function availableForNavigation(Request $request)
     {
-        return static::$displayInNavigation;
+        return true;
     }
 
     /**
@@ -332,6 +332,20 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     }
 
     /**
+     * Filter and authorize the given values.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  array  $values
+     * @return \Illuminate\Support\Collection
+     */
+    protected function filterAndAuthorize(NovaRequest $request, $values)
+    {
+        return collect(
+            array_values($this->filter($values))
+        )->filter->authorize($request, $request->newResource())->values();
+    }
+
+    /**
      * Prepare the resource for JSON serialization.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
@@ -476,15 +490,5 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     public static function redirectAfterDelete(NovaRequest $request)
     {
         return '/resources/'.static::uriKey();
-    }
-
-    /**
-     * Return a fresh resource instance.
-     *
-     * @return \Laravel\Nova\Resource
-     */
-    protected static function newResource()
-    {
-        return new static(static::newModel());
     }
 }

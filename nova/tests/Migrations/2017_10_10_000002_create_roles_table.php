@@ -25,7 +25,6 @@ class CreateRolesTable extends Migration
             $table->integer('user_id');
             $table->integer('role_id');
             $table->string('admin')->nullable();
-            $table->string('pivot-update')->nullable();
             $table->text('photo')->nullable();
             $table->string('restricted')->default('Yes');
         });

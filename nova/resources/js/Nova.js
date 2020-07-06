@@ -68,7 +68,7 @@ export default class Nova {
       router,
       store,
       components: { Loading },
-      mounted: function () {
+      mounted: function() {
         this.$loading = this.$refs.loading
 
         _this.$on('error', message => {
@@ -152,15 +152,6 @@ export default class Nova {
    */
   success(message) {
     Vue.toasted.show(message, { type: 'success' })
-  }
-
-  /**
-   * Show a warning message to the user.
-   *
-   * @param {string} message
-   */
-  warning(message) {
-    Vue.toasted.show(message, { type: 'warning' })
   }
 
   /**

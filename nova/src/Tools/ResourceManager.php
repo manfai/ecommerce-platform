@@ -31,7 +31,11 @@ class ResourceManager extends Tool
     {
         $request = request();
         $groups = Nova::groups($request);
-        $navigation = Nova::groupedResourcesForNavigation($request);
+        $navigation = collect(Nova::groupedResources($request))
+            ->map->filter(function ($resource) {
+                return $resource::$displayInNavigation;
+            })
+            ->filter->count();
 
         return view('nova::resources.navigation', [
             'navigation' => $navigation,

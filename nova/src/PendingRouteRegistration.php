@@ -26,18 +26,20 @@ class PendingRouteRegistration
         Route::namespace('Laravel\Nova\Http\Controllers')
             ->domain(config('nova.domain', null))
             ->middleware($middleware)
+            ->as('nova.')
             ->prefix(Nova::path())
             ->group(function () {
                 Route::get('/login', 'LoginController@showLoginForm');
-                Route::post('/login', 'LoginController@login')->name('nova.login');
+                Route::post('/login', 'LoginController@login')->name('login');
             });
 
         Route::namespace('Laravel\Nova\Http\Controllers')
             ->domain(config('nova.domain', null))
             ->middleware(config('nova.middleware', []))
+            ->as('nova.')
             ->prefix(Nova::path())
             ->group(function () {
-                Route::get('/logout', 'LoginController@logout')->name('nova.logout');
+                Route::get('/logout', 'LoginController@logout')->name('logout');
             });
 
         return $this;
@@ -56,11 +58,12 @@ class PendingRouteRegistration
         Route::namespace('Laravel\Nova\Http\Controllers')
             ->domain(config('nova.domain', null))
             ->middleware($middleware)
+            ->as('nova.')
             ->prefix(Nova::path())
             ->group(function () {
-                Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('nova.password.request');
-                Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('nova.password.email');
-                Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('nova.password.reset');
+                Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+                Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+                Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
                 Route::post('/password/reset', 'ResetPasswordController@reset');
             });
 
@@ -76,7 +79,7 @@ class PendingRouteRegistration
     {
         $this->registered = true;
 
-        $defineRouterControllerRoutes = function () {
+        Event::listen(NovaServiceProviderRegistered::class, function () {
             Route::middleware(config('nova.middleware', []))
                 ->domain(config('nova.domain', null))
                 ->group(function () {
@@ -85,16 +88,11 @@ class PendingRouteRegistration
 
             Route::middleware(config('nova.middleware', []))
                 ->domain(config('nova.domain', null))
+                ->as('nova.')
                 ->prefix(Nova::path())
                 ->get('/{view}', 'Laravel\Nova\Http\Controllers\RouterController@show')
-                 ->where('view', '.*');
-        };
-
-        if (app()->runningInConsole() && ! app()->runningUnitTests()) {
-            app()->booted($defineRouterControllerRoutes);
-        } else {
-            Event::listen(NovaServiceProviderRegistered::class, $defineRouterControllerRoutes);
-        }
+                ->where('view', '.*');
+        });
     }
 
     /**

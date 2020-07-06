@@ -72,8 +72,7 @@ export default {
 
   created() {
     if (this.hasRanges) {
-      this.selectedRangeKey =
-        this.card.selectedRangeKey || this.card.ranges[0].value
+      this.selectedRangeKey = this.card.ranges[0].value
     }
   },
 

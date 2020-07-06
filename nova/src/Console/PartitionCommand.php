@@ -7,8 +7,6 @@ use Illuminate\Support\Str;
 
 class PartitionCommand extends GeneratorCommand
 {
-    use ResolvesStubPath;
-
     /**
      * The console command name.
      *
@@ -52,7 +50,7 @@ class PartitionCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/stubs/nova/partition.stub');
+        return __DIR__.'/stubs/partition.stub';
     }
 
     /**

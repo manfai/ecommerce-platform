@@ -1,19 +1,19 @@
 <?php
 
-namespace {{ namespace }};
+namespace DummyNamespace;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class {{ class }} extends Resource
+class DummyClass extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \{{ namespacedModel }}::class;
+    public static $model = 'DummyFullModel';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

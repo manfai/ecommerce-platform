@@ -138,7 +138,6 @@ class ResourceUpdateTest extends IntegrationTest
                         ->putJson('/nova-api/posts/'.$post->id, [
                             'user' => $user3->id,
                             'title' => 'Fake Title',
-                            'slug' => 'fake-title',
                         ]);
 
         $response->assertStatus(422);
@@ -153,7 +152,6 @@ class ResourceUpdateTest extends IntegrationTest
                         ->putJson('/nova-api/posts/'.$post->id, [
                             'user' => $user->id,
                             'title' => 'Fake Title',
-                            'slug' => 'fake-title',
                         ]);
 
         $response->assertStatus(200);
@@ -167,7 +165,6 @@ class ResourceUpdateTest extends IntegrationTest
                         ->putJson('/nova-api/posts/'.$post->id, [
                             'user' => $user->id,
                             'title' => 'Fake Title',
-                            'slug' => 'fake-title',
                         ]);
 
         unset($_SERVER['nova.user.authorizable']);
@@ -244,7 +241,6 @@ class ResourceUpdateTest extends IntegrationTest
                         ->putJson('/nova-api/posts/'.$post->id, [
                             'user' => $post->user->id,
                             'title' => 'Fake Title',
-                            'slug' => 'fake-title',
                         ]);
 
         $response->assertStatus(200);
@@ -274,7 +270,6 @@ class ResourceUpdateTest extends IntegrationTest
                         ->putJson('/nova-api/posts/'.$post->id, [
                             'user' => $post->user_id,
                             'title' => 'Fake Title',
-                            'slug' => 'fake-title',
                         ]);
 
         $actionEvent = ActionEvent::first();

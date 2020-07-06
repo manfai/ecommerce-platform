@@ -4,7 +4,6 @@ namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Laravel\Nova\DeleteField;
-use Laravel\Nova\Fields\Downloadable;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Nova;
@@ -24,7 +23,7 @@ class FieldDestroyController extends Controller
         $resource->authorizeToUpdate($request);
 
         $field = $resource->updateFields($request)
-                    ->whereInstanceOf(Downloadable::class)
+                    ->whereInstanceOf(File::class)
                     ->findFieldByAttribute($request->field, function () {
                         abort(404);
                     });

@@ -5,7 +5,6 @@
       :checked="checked"
       class="mr-2"
       :name="name"
-      :disabled="disabled"
     />
     <slot />
   </label>

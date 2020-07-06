@@ -4,11 +4,10 @@ namespace Laravel\Nova;
 
 use Illuminate\Http\Resources\MergeValue;
 use JsonSerializable;
-use Laravel\Nova\Metrics\HasHelpText;
 
 class Panel extends MergeValue implements JsonSerializable
 {
-    use Metable, Makeable, HasHelpText;
+    use Metable;
 
     /**
      * The name of the panel.
@@ -44,13 +43,6 @@ class Panel extends MergeValue implements JsonSerializable
      * @var int|null
      */
     public $limit = null;
-
-    /**
-     * The help text for the element.
-     *
-     * @var  string
-     */
-    public $helpText;
 
     /**
      * Create a new panel instance.
@@ -167,29 +159,6 @@ class Panel extends MergeValue implements JsonSerializable
     }
 
     /**
-     * Set the width for the help text tooltip.
-     *
-     * @param  string
-     * @return $this
-     * @throws \Exception
-     */
-    public function helpWidth($helpWidth)
-    {
-        throw new \Exception('Help width is not supported on panels.');
-    }
-
-    /**
-     * Return the width of the help text tooltip.
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function getHelpWidth()
-    {
-        throw new \Exception('Help width is not supported on panels.');
-    }
-
-    /**
      * Prepare the panel for JSON serialization.
      *
      * @return array
@@ -201,7 +170,6 @@ class Panel extends MergeValue implements JsonSerializable
             'name' => $this->name,
             'showToolbar' => $this->showToolbar,
             'limit' => $this->limit,
-            'helpText' => $this->getHelpText(),
         ], $this->meta());
     }
 }

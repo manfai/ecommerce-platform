@@ -182,6 +182,10 @@
 </template>
 
 <script>
+function link(path) {
+  return `https://nova.laravel.com/docs/2.0/${path}`
+}
+
 export default {
   name: 'Help',
 
@@ -189,37 +193,13 @@ export default {
     card: Object,
   },
 
-  methods: {
-    link(path) {
-      return `https://nova.laravel.com/docs/${this.version}/${path}`
-    },
-  },
-
   computed: {
-    resources() {
-      return this.link('resources')
-    },
-    actions() {
-      return this.link('actions/defining-actions.html')
-    },
-    filters() {
-      return this.link('filters/defining-filters.html')
-    },
-    lenses() {
-      return this.link('lenses/defining-lenses.html')
-    },
-    metrics() {
-      return this.link('metrics/defining-metrics.html')
-    },
-    cards() {
-      return this.link('customization/cards.html')
-    },
-    version() {
-      const parts = window.Nova.config.version.split('.')
-      parts.splice(-2)
-
-      return `${parts}.0`
-    },
+    resources: () => link('resources'),
+    actions: () => link('actions/defining-actions.html'),
+    filters: () => link('filters/defining-filters.html'),
+    lenses: () => link('lenses/defining-lenses.html'),
+    metrics: () => link('metrics/defining-metrics.html'),
+    cards: () => link('customization/cards.html'),
   },
 }
 </script>

@@ -1,15 +1,7 @@
 <template>
   <div>
     <slot>
-      <heading :level="1" :class="panel.helpText ? 'mb-2' : 'mb-3'">{{
-        panel.name
-      }}</heading>
-
-      <p
-        v-if="panel.helpText"
-        class="text-80 text-sm font-semibold italic mb-3"
-        v-html="panel.helpText"
-      ></p>
+      <heading :level="1" class="mb-3">{{ panel.name }}</heading>
     </slot>
 
     <card class="mb-6 py-3 px-6">

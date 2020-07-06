@@ -1,11 +1,11 @@
 <?php
 
-namespace {{ namespace }};
+namespace DummyNamespace;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Trend;
 
-class {{ class }} extends Trend
+class DummyClass extends Trend
 {
     /**
      * Calculate the value of the metric.

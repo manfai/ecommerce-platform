@@ -51,6 +51,7 @@
             :data="availableResources"
             :clearable="field.nullable"
             trackBy="value"
+            searchBy="display"
           >
             <div
               slot="default"
@@ -76,23 +77,7 @@
                 <img :src="option.avatar" class="w-8 h-8 rounded-full block" />
               </div>
 
-              <div>
-                <div
-                  class="text-sm font-semibold leading-5 text-90"
-                  :class="{ 'text-white': selected }"
-                >
-                  {{ option.display }}
-                </div>
-
-                <div
-                  v-if="field.withSubtitles"
-                  class="mt-1 text-xs font-semibold leading-5 text-80"
-                  :class="{ 'text-white': selected }"
-                >
-                  <span v-if="option.subtitle">{{ option.subtitle }}</span>
-                  <span v-else>{{ __('No additional information...') }}</span>
-                </div>
-              </div>
+              {{ option.display }}
             </div>
           </search-input>
 
@@ -137,7 +122,7 @@
         </portal>
 
         <!-- Trashed State -->
-        <div v-if="shouldShowTrashed">
+        <div v-if="softDeletes && !isLocked && !isReadonly">
           <checkbox-with-label
             :dusk="field.attribute + '-with-trashed-checkbox'"
             :checked="withTrashed"
@@ -177,15 +162,12 @@ export default {
     selectedResource: null,
     search: '',
     relationModalOpen: false,
-    withTrashed: false,
   }),
 
   /**
    * Mount the component.
    */
   mounted() {
-    this.selectedResourceId = this.field.value
-
     if (this.editingExistingResource) {
       this.initializingWithExistingResource = true
       this.resourceType = this.field.morphToType
@@ -431,21 +413,12 @@ export default {
 
     canShowNewRelationModal() {
       return (
-        this.field.showCreateRelationButton &&
+        this.field.shouldShowCreateRelationButton &&
         this.resourceType &&
         !this.shownViaNewRelationModal &&
         !this.isLocked &&
         !this.isReadonly &&
         this.authorizedToCreate
-      )
-    },
-
-    shouldShowTrashed() {
-      return (
-        this.softDeletes &&
-        !this.isLocked &&
-        !this.isReadonly &&
-        this.field.displaysWithTrashed
       )
     },
   },

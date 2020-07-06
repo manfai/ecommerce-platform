@@ -113,10 +113,6 @@
             :trashed="trashed"
             :per-page="perPage"
             :per-page-options="perPageOptions"
-            :show-trashed-option="
-              authorizedToForceDeleteAnyResources ||
-              authorizedToRestoreAnyResources
-            "
             :lens="lens"
             @clear-selected-filters="clearSelectedFilters(lens)"
             @filter-changed="filterChanged"

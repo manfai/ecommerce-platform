@@ -1,7 +1,12 @@
 <template>
   <tr :dusk="resource['id'].value + '-row'">
     <!-- Resource Selection Checkbox -->
-    <td class="w-16" v-if="shouldShowCheckboxes">
+    <td
+      :class="{
+        'w-16': shouldShowCheckboxes,
+        'w-8': !shouldShowCheckboxes,
+      }"
+    >
       <checkbox
         :data-testid="`${testId}-checkbox`"
         :dusk="`${resource['id'].value}-checkbox`"
@@ -59,7 +64,7 @@
           <router-link
             v-if="
               relationshipType == 'belongsToMany' ||
-              relationshipType == 'morphToMany'
+                relationshipType == 'morphToMany'
             "
             class="inline-flex cursor-pointer text-70 hover:text-primary mr-3"
             :dusk="`${resource['id'].value}-edit-attached-button`"
@@ -111,7 +116,7 @@
           v-tooltip.click="__(viaManyToMany ? 'Detach' : 'Delete')"
           v-if="
             resource.authorizedToDelete &&
-            (!resource.softDeleted || viaManyToMany)
+              (!resource.softDeleted || viaManyToMany)
           "
           @click.prevent="openDeleteModal"
         >
@@ -124,8 +129,8 @@
           class="appearance-none cursor-pointer text-70 hover:text-primary mr-3"
           v-if="
             resource.authorizedToRestore &&
-            resource.softDeleted &&
-            !viaManyToMany
+              resource.softDeleted &&
+              !viaManyToMany
           "
           v-tooltip.click="__('Restore')"
           @click.prevent="openRestoreModal"

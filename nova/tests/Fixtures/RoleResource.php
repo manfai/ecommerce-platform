@@ -53,35 +53,28 @@ class RoleResource extends Resource
 
             BelongsTo::make('Created By', 'createdBy', UserResource::class),
 
-            BelongsToMany::make('Users', 'users', UserResource::class)
-                ->actions(function ($request) {
-                    return [
-                        new FailingPivotAction,
-                        new NoopAction,
-                        new NoopActionWithPivotHandle,
-                        new QueuedAction,
-                        new QueuedUpdateStatusAction,
-                        new UpdateStatusAction,
-                    ];
-                })
-                ->prunable($_SERVER['__nova.role.prunable'] ?? false)
-                ->fields(function () {
-                    return [
-                        $this->when($_SERVER['__nova.role.pivotFile'] ?? false, function () {
-                            return File::make('Photo', 'photo');
-                        }),
+            BelongsToMany::make('Users', 'users', UserResource::class)->fields(function () {
+                return [
+                    Text::make('Admin', 'admin')->rules('required'),
 
-                        tap(Text::make('Admin', 'admin')->rules('required'), function ($field) {
-                            if ($_SERVER['nova.roles.hidingAdminPivotField'] ?? false) {
-                                $field->onlyOnForms();
-                            }
-                        }),
+                    $this->when($_SERVER['__nova.role.pivotFile'] ?? false, function () {
+                        return File::make('Photo', 'photo');
+                    }),
 
-                        Text::make('Restricted', 'restricted')->canSee(function () {
-                            return false;
-                        }),
-                    ];
-                }),
+                    Text::make('Restricted', 'restricted')->canSee(function () {
+                        return false;
+                    }),
+                ];
+            })->actions(function ($request) {
+                return [
+                    new FailingPivotAction,
+                    new NoopAction,
+                    new NoopActionWithPivotHandle,
+                    new QueuedAction,
+                    new QueuedUpdateStatusAction,
+                    new UpdateStatusAction,
+                ];
+            })->prunable($_SERVER['__nova.role.prunable'] ?? false),
 
             Text::make('Name', 'name')->rules('required', 'string', 'max:255'),
         ];

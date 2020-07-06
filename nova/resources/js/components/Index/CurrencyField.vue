@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <template v-if="hasValue">
-      <div v-if="field.asHtml" v-html="field.value"></div>
-      <span v-else>{{ field.value }}</span>
-    </template>
+  <div :class="`text-${field.textAlign}`">
+    <span v-if="hasValue">{{ field.value }}</span>
     <p v-else>&mdash;</p>
   </div>
 </template>

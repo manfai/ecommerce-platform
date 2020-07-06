@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 use JsonSerializable;
 use Laravel\Nova\AuthorizedToSee;
 use Laravel\Nova\Contracts\Filter as FilterContract;
-use Laravel\Nova\Makeable;
 use Laravel\Nova\Metable;
 use Laravel\Nova\Nova;
 use Laravel\Nova\ProxiesCanSeeToGate;
 
 abstract class Filter implements FilterContract, JsonSerializable
 {
-    use Metable, AuthorizedToSee, ProxiesCanSeeToGate, Makeable;
+    use Metable;
+    use AuthorizedToSee;
+    use ProxiesCanSeeToGate;
 
     /**
      * The displayable name of the filter.

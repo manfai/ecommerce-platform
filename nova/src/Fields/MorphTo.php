@@ -16,7 +16,7 @@ use Laravel\Nova\TrashedStatus;
 
 class MorphTo extends Field implements RelatableField
 {
-    use ResolvesReverseRelation, DeterminesIfCreateRelationCanBeShown, Searchable;
+    use ResolvesReverseRelation, DeterminesIfCreateRelationCanBeShown;
 
     /**
      * The field's component.
@@ -75,18 +75,18 @@ class MorphTo extends Field implements RelatableField
     public $display;
 
     /**
+     * Indicates if this relationship is searchable.
+     *
+     * @var bool
+     */
+    public $searchable = false;
+
+    /**
      * The attribute that is the inverse of this relationship.
      *
      * @var string
      */
     public $inverse;
-
-    /**
-     * Indicates whether the field should display the "With Trashed" option.
-     *
-     * @var bool
-     */
-    public $displaysWithTrashed = true;
 
     /**
      * Create a new field.
@@ -180,7 +180,7 @@ class MorphTo extends Field implements RelatableField
      */
     public function resolveForDisplay($resource, $attribute = null)
     {
-        $this->resolve($resource, $attribute);
+        //
     }
 
     /**
@@ -357,7 +357,6 @@ class MorphTo extends Field implements RelatableField
         return array_filter([
             'avatar' => $resource->resolveAvatarUrl($request),
             'display' => $this->formatDisplayValue($resource, $relatedResource),
-            'subtitle' => $resource->subtitle(),
             'value' => $resource->getKey(),
         ]);
     }
@@ -452,6 +451,19 @@ class MorphTo extends Field implements RelatableField
     }
 
     /**
+     * Specify if the relationship should be searchable.
+     *
+     * @param  bool  $value
+     * @return $this
+     */
+    public function searchable($value = true)
+    {
+        $this->searchable = $value;
+
+        return $this;
+    }
+
+    /**
      * Set the attribute name of the inverse of the relationship.
      *
      * @param  string  $inverse
@@ -460,18 +472,6 @@ class MorphTo extends Field implements RelatableField
     public function inverse($inverse)
     {
         $this->inverse = $inverse;
-
-        return $this;
-    }
-
-    /**
-     * hides the "With Trashed" option.
-     *
-     * @return $this
-     */
-    public function withoutTrashed()
-    {
-        $this->displaysWithTrashed = false;
 
         return $this;
     }
@@ -494,9 +494,7 @@ class MorphTo extends Field implements RelatableField
             'resourceName' => $this->resourceName,
             'reverse' => $this->isReverseRelation(app(NovaRequest::class)),
             'searchable' => $this->searchable,
-            'withSubtitles' => $this->withSubtitles,
             'showCreateRelationButton' => $this->createRelationShouldBeShown(app(NovaRequest::class)),
-            'displaysWithTrashed' => $this->displaysWithTrashed,
         ], parent::jsonSerialize());
     }
 }

@@ -7,8 +7,6 @@ use Illuminate\Support\Str;
 
 class LensCommand extends GeneratorCommand
 {
-    use ResolvesStubPath;
-
     /**
      * The console command name.
      *
@@ -52,7 +50,7 @@ class LensCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/stubs/nova/lens.stub');
+        return __DIR__.'/stubs/lens.stub';
     }
 
     /**

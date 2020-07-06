@@ -10,7 +10,6 @@ abstract class Element implements JsonSerializable
     use Metable;
     use AuthorizedToSee;
     use ProxiesCanSeeToGate;
-    use Makeable;
 
     /**
      * The element's component.
@@ -35,6 +34,16 @@ abstract class Element implements JsonSerializable
     public function __construct($component = null)
     {
         $this->component = $component ?? $this->component;
+    }
+
+    /**
+     * Create a new element.
+     *
+     * @return static
+     */
+    public static function make(...$arguments)
+    {
+        return new static(...$arguments);
     }
 
     /**

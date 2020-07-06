@@ -49,8 +49,6 @@ class CreateDiscussionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discussions');
-        Schema::dropIfExists('nova_pending_trix_attachments');
-        Schema::dropIfExists('nova_trix_attachments');
+        Schema::drop('discussions');
     }
 }
