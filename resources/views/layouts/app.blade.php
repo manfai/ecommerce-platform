@@ -114,6 +114,47 @@
                            </a>
                         </li>
                         <!-- menu item -->
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Adopt
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="adopt-dropdown">
+                              <a class="dropdown-item" href="adoption">Gallery</a>
+                              <!-- <a class="dropdown-item" href="adoption-single">Adoption Single Page</a> -->
+                              <a class="dropdown-item" href="adoption-stories">Stories</a>
+                              <!-- <a class="dropdown-item" href="events">Events</a> -->
+                              <!-- <a class="dropdown-item" href="event-single">Events Single Page</a> -->
+                           </div>
+                        </li>
+                        <!-- menu item -->
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Shop
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="gallery-dropdown">
+                              <a class="dropdown-item" href="{{route('product',['type'=>'food'])}}">Food</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'toys'])}}">Toys</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'supplies'])}}">Supplies</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'health'])}}">Health</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'others'])}}">Others</a>
+                           </div>
+                        </li>
+                        <!-- menu item -->
+                        <li class="nav-item">
+                           <a class="nav-link" href="contact">Contact
+                           </a>
+                        </li>
+                        <li class="d-none nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="contact-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Contact
+                           </a>
+                           <div class="dropdown-menu pattern2" aria-labelledby="contact-dropdown">
+                              <a class="dropdown-item" href="contact">Contact Style 1</a>
+                              <a class="dropdown-item" href="contact2">Contact Style 2</a>
+                              <a class="dropdown-item" href="contact3">Contact Style 3</a>
+                           </div>
+                        </li>
+                        <!-- menu item -->
                         <li class="d-none nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="about-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            About
@@ -139,40 +180,6 @@
                         </li>
                         <!-- menu item -->
                         <li class="d-none nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Adopt
-                           </a>
-                           <div class="dropdown-menu pattern2" aria-labelledby="adopt-dropdown">
-                              <a class="dropdown-item" href="adoption">Adoption Gallery</a>
-                              <a class="dropdown-item" href="adoption-single">Adoption Single Page</a>
-                              <a class="dropdown-item" href="adoption-stories">Adoption Stories</a>
-                              <a class="dropdown-item" href="events">Events</a>
-                              <a class="dropdown-item" href="event-single">Events Single Page</a>
-                           </div>
-                        </li>
-                        <!-- menu item -->
-                        <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Shop
-                           </a>
-                           <div class="dropdown-menu pattern2" aria-labelledby="gallery-dropdown">
-                              <a class="dropdown-item" href="gallery">Gallery Style 1</a>
-                              <a class="dropdown-item" href="gallery2">Gallery Style 2</a>
-                           </div>
-                        </li>
-                        <!-- menu item -->
-                        <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="contact-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Contact
-                           </a>
-                           <div class="dropdown-menu pattern2" aria-labelledby="contact-dropdown">
-                              <a class="dropdown-item" href="contact">Contact Style 1</a>
-                              <a class="dropdown-item" href="contact2">Contact Style 2</a>
-                              <a class="dropdown-item" href="contact3">Contact Style 3</a>
-                           </div>
-                        </li>
-                        <!-- menu item -->
-                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="others-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            Blog
                            </a>
@@ -194,36 +201,6 @@
             <!-- /navbar -->
         </nav>
         <!-- /nav -->
-        <!-- ==== Slider ==== -->
-        <div class="container-fluid p-0">
-         <div id="slider" class="overlay-parallax-slider" style="width:1200px;height:650px;margin:0 auto;margin-bottom: 0px;">
-            <!-- Slide 1 -->
-            <div class="ls-slide overlay2" data-ls="duration:4000; transition2d:7;">
-               <!-- bg image  -->
-               <img src="img/slider/slide1-parallax.jpg" class="ls-bg" alt="" />
-               <!-- ls-l  -->
-               <img width="1200" height="376" src="img/slider/slide1-element.png" class="ls-l" alt="" style="top:296px; right:0
-                  %;" data-ls="offsetxin:10; offsetyin:120; durationin:1100; rotatein:5; transformoriginin:59.3% 80.3% 0; offsetxout:-80; durationout:400; parallax:true; parallaxlevel:-4;">
-               <!-- text  -->
-               <div class="ls-l header-wrapper" data-ls="offsetyin:150; durationin:700; delayin:200; easingin:easeOutQuint; rotatexin:20; scalexin:1.4; offsetyout:600; durationout:400; parallax:true; parallaxlevel:2;">
-                  <div class="header-text full-width text-light">
-                     <h1>Welcome to <span>Tripod Cats</span></h1>
-                     <!--the div below is hidden on small screens  -->
-                     <div class="hidden-small">
-                        <p class="header-p">We offer the best services for your pets, contact us today and book a service</p>
-                        <a class="btn btn-primary " href="contact">Contact us</a>
-                     </div>
-                     <!--/d-none  -->
-                  </div>
-                  <!-- header-text  -->
-               </div>
-			   <!-- ls-l  -->
-            </div>
-            <!-- ls-slide -->
-         </div>
-         <!-- /slider -->
-        </div>
-        <!-- /container-fluid -->
         <!-- ==== Page Content ==== -->
         @yield('content')
         <!-- ==== Newsletter - call to action ==== -->
@@ -321,7 +298,7 @@
          </div>
          <!--/ container -->
          <!-- Go To Top Link -->
-         <div class="page-scroll hidden-sm hidden-xs">
+         <div class="page-scroll hidden-sm hidden-xs hidden-md hidden-lg hidden-xl d-none">
             <a href="#top" class="back-to-top"><i class="fa fa-angle-up"></i></a>
          </div>
          <!--/page-scroll-->
@@ -344,8 +321,51 @@
         <script src="/vendor/layerslider/js/layerslider.transitions.js"></script>
         <script src="/vendor/layerslider/js/layerslider.kreaturamedia.jquery.js"></script>
         <script src="/vendor/layerslider/js/layerslider.load.js"></script>
+        <!-- Channel Plugin Scripts -->
+        <script>
+        (function() {
+            var w = window;
+            if (w.ChannelIO) {
+            return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+            }
+            var d = window.document;
+            var ch = function() {
+            ch.c(arguments);
+            };
+            ch.q = [];
+            ch.c = function(args) {
+            ch.q.push(args);
+            };
+            w.ChannelIO = ch;
+            function l() {
+            if (w.ChannelIOInitialized) {
+                return;
+            }
+            w.ChannelIOInitialized = true;
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+            s.charset = 'UTF-8';
+            var x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+            }
+            if (document.readyState === 'complete') {
+            l();
+            } else if (window.attachEvent) {
+            window.attachEvent('onload', l);
+            } else {
+            window.addEventListener('DOMContentLoaded', l, false);
+            window.addEventListener('load', l, false);
+            }
+        })();
+        ChannelIO('boot', {
+            "pluginKey": "eec378b1-5f62-4b48-a987-b8257abd50a7"
+        });
+        </script>
+        <!-- End Channel Plugin -->
 
-    @stack('scripts')
+        @stack('scripts')
 
    </body>
 </html>
