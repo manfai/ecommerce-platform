@@ -1320,7 +1320,7 @@
                 <!-- contact icons-->
                 <ul class="list-inline mt-3 list-contact colored-icons font-weight-bold">
                     <li class="list-inline-item"><i class="fa fa-envelope margin-icon"></i><a
-                            href="mailto:email@yoursite.com">email@yoursite.com</a></li>
+                            href="mailto:email@tripod-cat.com">email@tripod-cat.com</a></li>
                     <li class="list-inline-item"><i class="fa fa-phone margin-icon"></i>(123) 456-789</li>
                     <li class="list-inline-item"><i class="fa fa-map-marker margin-icon"></i>Pet Street 123 - New York
                     </li>
@@ -1337,4 +1337,42 @@
     <!-- /container-->
 </section>
 <!-- /section -->
+
+
+<!-- ==== Newsletter - call to action ==== -->
+<div class="container-fluid footer-bg block-padding overlay">
+    <div class="container">
+    <div class="col-lg-5 text-light text-center">
+        <h4>Subscribe to our newsletter</h4>
+        <p>We send e-mails once a month, we never send Spam!</p>
+        <!-- Form -->				
+        <div id="mc_embed_signup" >
+            <!-- your form address in the line bellow -->
+            <form action="//yourlist.us12.list-manage.com/subscribe/post?u=04e646927a196552aaee78a7b&id=111" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                    <div class="input-group">
+                        <input class="form-control border2 input-lg required email" type="email" value="" name="EMAIL" placeholder="Your email here" id="mce-EMAIL">
+                        <span class="input-group-btn">
+                        <button class="btn btn-primary btn-sm" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+                        </span>
+                    </div>
+                    <!-- Subscription results -->
+                    <div id="mce-responses" class="mailchimp">
+                        <div class="alert alert-danger response" id="mce-error-response"></div>
+                        <div class="alert alert-success response" id="mce-success-response"></div>
+                    </div>
+                </div>
+                <!-- /mc-fiel-group -->									
+                </div>
+                <!-- /mc_embed_signup_scroll -->
+            </form>
+            <!-- /form ends -->								
+        </div>
+        <!-- /mc_embed_signup -->
+    </div>
+    <!--/ col-lg-->
+    </div>
+    <!--/ container-->
+</div>
 @endsection

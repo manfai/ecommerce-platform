@@ -1,10 +1,20 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('content')
-<div style="height: 8px; top: 71px;" class="progress rounded-0 sticky-top">
-    <div role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
-        class="progress-bar"></div>
+<div class="jumbotron jumbotron-fluid" data-center="background-size: 100%;background:url('/img/banner.jpg') center;" data-top-bottom="background-size: 110%;">
+    <div class="container">
+        <div class="jumbo-heading" data-aos="fade-up">
+            <h1>Cart</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 </div>
+
 <section class="py-5">
     <div class="container">
         <div class="row">
@@ -14,9 +24,9 @@
                 <div class="text-block">
                     <div class="alert alert-warning text-sm mb-3">
                         <div class="media align-items-center">
-                            <svg class="svg-icon svg-icon svg-icon-light w-2rem h-2rem mr-3 text-reset">
+                            <!-- <svg class="svg-icon svg-icon svg-icon-light w-2rem h-2rem mr-3 text-reset">
                                 <use xlink:href="#secure-payment-1"> </use>
-                            </svg>
+                            </svg> -->
                             <div class="media-body">選購貨品淨總額多於<strong> $ 250.00 </strong>即可免<strong> $ 40.00 </strong>基本運費 。</div>
                         </div>
                     </div>
@@ -72,7 +82,8 @@
                       </div>
                       <div class="col text-center text-sm-right"><button type="submit"
                               class="btn btn-primary px-3">
-                              下一步 確認訂單<i class="fa-chevron-right fa ml-2"></i></button></div>
+                              Next Step for Confirm
+                      <i class="fa-chevron-right fa ml-2"></i></button></div>
                   </div>
 
                 </form>

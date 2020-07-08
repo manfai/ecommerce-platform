@@ -77,6 +77,7 @@
 </style>
 @endpush
 @section('content')
+
 <div class="container d-none">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -166,16 +167,16 @@
                     <input id="qty" type="number" step="1" min="1" class="form-control" value="1">
                 </div>
 
-                <form class=" d-inline" action="{{route('cart.add')}}" method="post">@csrf
+                <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
                     <input type="hidden" name="sku_id">
                     <input type="hidden" name="qty" value="1">
-                    <button type="submit" class="btn btn-outline-dark mr-2">Add To Cart</button>
+                    <button type="submit" class="btn btn-primary mr-2">Add To Cart</button>
                 </form>
 
-                <form class=" d-inline" action="{{route('product.favor',['productId'=>$product->id])}}" method="post">@csrf
+                <form class="d-inline" action="{{route('product.favor',['productId'=>$product->id])}}" method="post">@csrf
                     <input type="hidden" name="sku_id">
                     <input type="hidden" name="qty" value="1">
-                    <button type="submit" class="btn btn-outline-dark">Add To Favorites</button>
+                    <button type="submit" class="btn btn-warning">Add To Favorites</button>
                 </form>
 
                 </p>

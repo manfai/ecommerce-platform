@@ -27,22 +27,23 @@ class PaymentController extends Controller
             'currency'      => 'HKD',
             'transactionId' => $order->no,
             'description'   => '支付 Laravel Shop 的訂單：'.$order->no,
-            'returnUrl'     => 'http://localhost:8064/payment/'.$order->id.'/paypal/return',
-            'cancelUrl'     => 'http://localhost:8064/payment/'.$order->id.'/paypal/cancel'
+            'returnUrl'     => 'http://localhost:86/payment/'.$order->id.'/paypal/return',
+            'cancelUrl'     => 'http://localhost:86/payment/'.$order->id.'/paypal/cancel'
         ];
 
         $user  = $request->user();
         try {
             //add data to payment_history type of order and id of order;
-            $transaction = app('paypal')->purchase($purchase)->send();
-            // dd($response);
-            if ($transaction->isSuccessful()) {
-                $transaction->redirect();
-                $transaction->getTransactionReference();
-                \Log::info($transaction->getTransactionReference());
-            } else {
-                return redirect()->back()->withErrors($transaction->getMessage());
-            }
+            // $transaction = app('paypal')->purchase($purchase)->send();
+            // // dd($response);
+            // if ($transaction->isSuccessful()) {
+            //     $transaction->redirect();
+            //     $transaction->getTransactionReference();
+            //     \Log::info($transaction->getTransactionReference());
+            // } else {
+            //     return redirect()->back()->withErrors($transaction->getMessage());
+            // }
+            return redirect()->back();
         } catch (\Exception $e) {
             exit('Sorry, there was an error processing your payment. Please try again later.');
         }

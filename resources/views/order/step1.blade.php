@@ -1,10 +1,20 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('content')
-<div style="height: 8px; top: 71px;" class="progress rounded-0 sticky-top">
-    <div role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-        class="progress-bar"></div>
+<div class="jumbotron jumbotron-fluid" data-center="background-size: 100%;background:url('/img/banner.jpg') center;" data-top-bottom="background-size: 110%;">
+    <div class="container">
+        <div class="jumbo-heading" data-aos="fade-up">
+            <h1>Cart</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
 </div>
+
 <section class="py-5">
     <div class="container">
         <div class="row">
@@ -56,7 +66,9 @@
                         </div>
                         <div class="col text-center text-sm-right"><button type="submit"
                                 class="btn btn-primary px-3">
-                            下一步 支付方式<i class="fa-chevron-right fa ml-2"></i></button></div>
+                            Next Step for Payment
+                            <i class="fa-chevron-right fa ml-2"></i>
+                        </button></div>
                     </div>
                 </form>
             </div>

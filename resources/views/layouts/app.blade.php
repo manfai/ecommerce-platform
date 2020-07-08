@@ -49,7 +49,7 @@
             <div class="row h-100 justify-content-center align-items-center">
                <div class="preloader-logo">
                   <!--logo -->
-                  <img src="img/logo.png" alt="" class="img-fluid">
+                  <img src="/img/logo.png" alt="" class="img-fluid">
                   <!--preloader circle -->
                   <div class="lds-ring">
                      <div></div>
@@ -74,7 +74,7 @@
                         <!-- Start Contact Info -->
                         <ul class="contact-details float-left">
                            <li><i class="fa fa-map-marker"></i>Wong Chuk Hang - Hong Kong</li>
-                           <li><i class="fa fa-envelope"></i><a href="mailto:info@unitedpet.com">info@unitedpet.com</a></li>
+                           <li><i class="fa fa-envelope"></i><a href="mailto:info@tripod-cat.com">info@tripod-cat.com</a></li>
                            <li><i class="fa fa-phone"></i>(852) 9351-7031</li>
                         </ul>
                         <!-- End Contact Info -->
@@ -98,7 +98,7 @@
                <div class="container ">
                   <!-- logo -->
                   <a class="nav-brand" href="index">
-                  <img src="img/logo.png" alt="" class="img-fluid">
+                  <img src="/img/logo.png" alt="" class="img-fluid">
                   </a>
                   <!-- Navbartoggler -->
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +134,7 @@
                            <div class="dropdown-menu pattern2" aria-labelledby="gallery-dropdown">
                               <a class="dropdown-item" href="{{route('product',['type'=>'food'])}}">Food</a>
                               <a class="dropdown-item" href="{{route('product',['type'=>'toys'])}}">Toys</a>
-                              <a class="dropdown-item" href="{{route('product',['type'=>'supplies'])}}">Supplies</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'accessories'])}}">Accessories</a>
                               <a class="dropdown-item" href="{{route('product',['type'=>'health'])}}">Health</a>
                               <a class="dropdown-item" href="{{route('product',['type'=>'others'])}}">Others</a>
                            </div>
@@ -203,42 +203,7 @@
         <!-- /nav -->
         <!-- ==== Page Content ==== -->
         @yield('content')
-        <!-- ==== Newsletter - call to action ==== -->
-        <div class="container-fluid footer-bg block-padding overlay">
-         <div class="container">
-            <div class="col-lg-5 text-light text-center">
-               <h4>Subscribe to our newsletter</h4>
-               <p>We send e-mails once a month, we never send Spam!</p>
-               <!-- Form -->				
-               <div id="mc_embed_signup" >
-                  <!-- your form address in the line bellow -->
-                  <form action="//yourlist.us12.list-manage.com/subscribe/post?u=04e646927a196552aaee78a7b&id=111" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                     <div id="mc_embed_signup_scroll">
-                        <div class="mc-field-group">
-                           <div class="input-group">
-                              <input class="form-control border2 input-lg required email" type="email" value="" name="EMAIL" placeholder="Your email here" id="mce-EMAIL">
-                              <span class="input-group-btn">
-                              <button class="btn btn-primary btn-sm" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
-                              </span>
-                           </div>
-                           <!-- Subscription results -->
-                           <div id="mce-responses" class="mailchimp">
-                              <div class="alert alert-danger response" id="mce-error-response"></div>
-                              <div class="alert alert-success response" id="mce-success-response"></div>
-                           </div>
-                        </div>
-                        <!-- /mc-fiel-group -->									
-                     </div>
-                     <!-- /mc_embed_signup_scroll -->
-                  </form>
-                  <!-- /form ends -->								
-               </div>
-               <!-- /mc_embed_signup -->
-            </div>
-            <!--/ col-lg-->
-         </div>
-         <!--/ container-->
-        </div>
+        
         <!--/container-fluid-->
         <!-- ==== footer ==== -->
         <footer class="bg-light pattern1">
@@ -291,7 +256,7 @@
             <hr/>
             <div class="row">
                <div class="credits col-sm-12">
-                  <p>Copyright 2019 / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
+                  <p>Copyright {{date('Y')}} / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
                </div>
             </div>
             <!--/col-lg-12-->
