@@ -62,7 +62,7 @@
          <!-- /container -->
     <!-- owl carousel gallery  -->
     <div class="owl-stage owl-carousel owl-theme top-centered-nav magnific-popup mt-5">
-    @foreach($products as $product)
+            @foreach($products as $product)
 
             <div class="col-md-12 gallery-img hover-opacity">
                <!-- image -->

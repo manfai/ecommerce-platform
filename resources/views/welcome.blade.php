@@ -118,43 +118,15 @@
     </div>
     <!-- owl carousel gallery  -->
     <div class="owl-stage owl-carousel owl-theme top-centered-nav magnific-popup mt-5">
+        @foreach(\App\Models\Product::all()->random(10) as $product)
         <div class="col-md-12 gallery-img hover-opacity">
-            <!-- image -->
-            <a href="img/gallery/gallery1.jpg" title="your caption here">
-                <img src="img/gallery/gallery1.jpg" class="img-fluid rounded" alt="">
-            </a>
+        <!-- image -->
+        <a href="{{ $product->image_url }}" title="{{ $product->name }}">
+            <img src="{{ $product->image_url }}" class="img-fluid rounded" alt="">
+            <h5>{{$product->name}}</h5>
+        </a>
         </div>
-        <!-- /col-md-12 -->
-        <div class="col-md-12 gallery-img hover-opacity">
-            <a href="img/gallery/gallery2.jpg" title="your caption here">
-                <img src="img/gallery/gallery2.jpg" class="img-fluid rounded" alt="">
-            </a>
-        </div>
-        <!-- /col-md-12 -->
-        <div class="col-md-12 gallery-img hover-opacity">
-            <a href="img/gallery/gallery3.jpg" title="your caption here">
-                <img src="img/gallery/gallery3.jpg" class="img-fluid rounded" alt="">
-            </a>
-        </div>
-        <!-- /col-md-12 -->
-        <div class="col-md-12 gallery-img hover-opacity">
-            <a href="img/gallery/gallery4.jpg" title="your caption here">
-                <img src="img/gallery/gallery4.jpg" class="img-fluid rounded" alt="">
-            </a>
-        </div>
-        <!-- /col-md-12 -->
-        <div class="col-md-12 gallery-img hover-opacity">
-            <a href="img/gallery/gallery5.jpg" title="your caption here">
-                <img src="img/gallery/gallery5.jpg" class="img-fluid rounded" alt="">
-            </a>
-        </div>
-        <!-- /col-md-12 -->
-        <div class="col-md-12 gallery-img hover-opacity">
-            <a href="img/gallery/gallery6.jpg" title="your caption here">
-                <img src="img/gallery/gallery6.jpg" class="img-fluid rounded" alt="">
-            </a>
-        </div>
-        <!-- /col-md-12 -->
+        @endforeach
     </div>
     <!-- /owl-carousel -->
 </section>

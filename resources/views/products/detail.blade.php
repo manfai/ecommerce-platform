@@ -183,7 +183,7 @@
                     </div>
                 </div>
 
-                <section class="pb-5">
+                <div class="pb-5">
                     <div class="container-fluid marketing">
                         <div class="row featurette">
                             <div class="col-md-6 p-0">
@@ -286,7 +286,7 @@
                         <!-- /accordion -->
 
                     </div>
-                </section>
+                </div>
             </div>
 
             <!-- /page-with-sdiebar -->
