@@ -43,7 +43,7 @@
                 <li id="coupon" class="list-group-item d-flex justify-content-between">
                     <div class="text-success">
                         <h6 class="my-0">Coupon code</h6>
-                        <small>EXAMPLECODE</small><small class="ml-3">Cancel</small>
+                        <small>EXAMPLECODE</small><small class="ml-3"><u>X Cancel</u></small>
                     </div>
                     <span class="text-success">-$5.00</span>
                 </li>

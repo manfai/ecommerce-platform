@@ -19,15 +19,15 @@
     <section class="py-5">
             <div class="row">
                 <div class="col-lg-7">
-                    <p class="text-primary">還差一步</p>
-                    <h1 class="h2 mb-5"> 現在跳至支付系統 <span class="text-muted">跳轉中</span>      </h1>
+                    <p class="text-primary">One step away from success.</p>
+                    <h1 class="h2 mb-5"> Now redirect to the payment system <span class="text-muted">Jumping</span>      </h1>
                     <div class="text-block">
-                    <p class="text-muted">已經收到你的訂單</p>
-                    <p class="text-muted mb-5">成功下單後會收到訂單確認信，信中會有您的訂單明細及訂單編號。</p>
-                    <p class="text-center mb-5">
-                        <a href="#" class="btn btn-outline-muted mb-2">沒有自動跳轉？</a>
-                    </p>
-                    <p class="mb-5 text-center"><img src="img/illustration/undraw_celebration_0jvk.svg" alt="" style="width: 400px;" class="img-fluid"></p>
+                        <p class="text-muted">Your order has been received</p>
+                        <p class="text-muted mb-5">After the order is successfully placed, you will receive an order confirmation letter, which will contain your order details and order number.</p>
+                        <p class="text-center mb-5">
+                            <a href="#" class="btn btn-outline-muted mb-2">No automatic jump?</a>
+                        </p>
+                        <p class="mb-5 text-center"><img src="img/illustration/undraw_celebration_0jvk.svg" alt="" style="width: 400px;" class="img-fluid"></p>
                     </div>
                 </div>
                 <div class="col-lg-5 pl-xl-5">

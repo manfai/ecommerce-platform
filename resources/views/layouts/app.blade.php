@@ -21,8 +21,8 @@
       <![endif]-->
       <!-- Font files -->
       <link href="https://fonts.googleapis.com/css?family=Roboto:400,600,700%7CMontserrat:400,500,600,700" rel="stylesheet">
-      <link href="fonts/flaticon/flaticon.css" rel="stylesheet" type="text/css">
-      <link href="fonts/fontawesome/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+      <link href="/fonts/flaticon/flaticon.css" rel="stylesheet" type="text/css">
+      <link href="/fonts/fontawesome/fontawesome-all.min.css" rel="stylesheet" type="text/css">
       <!-- Fav icons -->
       <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
       <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
@@ -141,18 +141,32 @@
                         </li>
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="contact">Contact
-                           </a>
+                           <a class="nav-link" href="contact">Contact</a>
                         </li>
-                        <li class="d-none nav-item dropdown">
+                        @guest
+                        <!-- menu item -->
+                        <li class="nav-item">
+                           <a class="nav-link" href="contact">SignIn</a>
+                        </li>
+                        @else 
+                        <!-- menu item -->
+                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="contact-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Contact
+                           {{Auth::user()->name}}
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="contact-dropdown">
-                              <a class="dropdown-item" href="contact">Contact Style 1</a>
-                              <a class="dropdown-item" href="contact2">Contact Style 2</a>
-                              <a class="dropdown-item" href="contact3">Contact Style 3</a>
+                              <a class="dropdown-item" href="">Profile</a>
+                              <a class="dropdown-item" href="">YourPet</a>
+                              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                 {{ csrf_field() }}
+                              </form>
                            </div>
+                        </li>
+                        @endguest
+                        <!-- menu item -->
+                        <li class="nav-item">
+                           <a class="nav-link" href="contact">Cart ({{Auth::user()->cartItems->count()}})</a>
                         </li>
                         <!-- menu item -->
                         <li class="d-none nav-item dropdown">
@@ -210,7 +224,7 @@
          <div class="container">
             <div class="row">
                <div class="col-lg-3 text-center ">
-                  <img src="img/logo.png"  class="logo-footer img-fluid" alt=""/>
+                  <img src="/img/logo.png"  class="logo-footer img-fluid" alt=""/>
                   <!-- Start Social Links -->
                   <ul class="social-list text-center list-inline">
                      <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>

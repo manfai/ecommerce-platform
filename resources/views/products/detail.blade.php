@@ -187,7 +187,7 @@
                     <div class="container-fluid marketing">
                         <div class="row featurette">
                             <div class="col-md-6 p-0">
-                                <img src="{{$product->image_url}}" class="featurette-image img-fluid mx-auto"
+                                <img src="{{$product->image_url}}" class="rounded featurette-image img-fluid mx-auto"
                                     style="object-fit:cover;object-position:top;max-height:70vh;width:100%">
                             </div>
                             <div class="col-md-5 pl-md-5 pl-3">
@@ -214,7 +214,7 @@
                                     <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
                                         <input type="hidden" name="sku_id">
                                         <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn btn-primary mr-2">Add To Cart</button>
+                                        <button type="submit" class="btn btn-sm btn-primary mr-2">Add To Cart</button>
                                     </form>
 
                                     <form class="d-inline"
@@ -222,23 +222,68 @@
                                         @csrf
                                         <input type="hidden" name="sku_id">
                                         <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn btn-warning">Add To Favorites</button>
+                                        <button type="submit" class="btn btn-sm btn-warning">Add To Favorites</button>
                                     </form>
 
                                 </p>
                             </div>
                         </div>
 
-                        <div class="position-relative overflow-hidden pt-5 mt-5 text-center bg-white">
-                            <div class="col-md-12 mx-auto">
-                                <h1 class="display-4 font-weight-normal">Punny headline</h1>
-                                <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart
-                                    your marketing
-                                    efforts with this example based on Apple’s marketing pages.</p>
-                                <a class="btn btn-outline-secondary" href="#">Coming soon</a>
+
+                        <!-- accordions -->
+                        <h3 class="elements-subheader mt-5">Product Detail</h3>
+                        <div class="accordion">
+                            <!-- collapsible accordion 1 -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                        Our Philosophy
+                                    </a>
+                                </div>
+                                <!-- /card-header -->
+                                <div id="collapseOne" class="collapse show" data-parent=".accordion">
+                                    <div class="card-body">
+                                        <p>Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
+                                            magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec
+                                            elementum ipsum convall.</p>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- /card -->
+                            <!-- collapsible accordion 2 -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                        Our Organization
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-parent=".accordion">
+                                    <div class="card-body">
+                                        <p>Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
+                                            magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec
+                                            elementum ipsum convall.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /card -->
+                            <!-- collapsible accordion 3 -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                                        Partnerships with our team
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent=".accordion">
+                                    <div class="card-body">
+                                        <p>Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
+                                            magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec
+                                            elementum ipsum convall.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /card -->
                         </div>
-                        
+                        <!-- /accordion -->
 
                     </div>
                 </section>

@@ -19,8 +19,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
-                <p class="subtitle text-primary">結帳中</p>
-                <h1 class="h2 mb-5">購物車 <strong>{{count($cartItems)}}</strong>件商品  <span class="text-muted float-right">支付方式</span> </h1>
+                <p class="subtitle text-primary">Checkout</p>
+                <h1 class="h2 mb-5">Shopping Cart <strong>{{count($cartItems)}}</strong>Items  <span class="text-muted float-right">Payment</span> </h1>
                 <div class="text-block">
                     <div class="alert alert-warning text-sm mb-3">
                         <div class="media align-items-center">
@@ -34,7 +34,7 @@
                 <form action="{{route('orders.store')}}" method="POST">@csrf
                   <div class="text-block">
                       <div class="d-flex justify-content-between align-items-end mb-4">
-                          <h5 class="mb-0">你的支付方式</h5>
+                          <h5 class="mb-0">Payment method</h5>
                           <div class="text-muted">
                             <i class="fab fa-cc-paypal fa-2x mr-2"> </i>
                             <i class="fab fa-cc-visa fa-2x mr-2"> </i>
@@ -50,15 +50,15 @@
                       <!-- <button type="button" data-toggle="collapse" data-target="#addNewCard" aria-expanded="false" aria-controls="addNewCard" data-expanded-text="Close" data-collapsed-text="信用卡資料" class="btn btn-link btn-collapse pl-0 text-muted">信用卡資料</button> -->
                       <div id="credit-card" class="row">
                         <div class="form-group col-md-6">
-                          <label for="card-name" class="form-label">持卡人名稱</label>
+                          <label for="card-name" class="form-label">Card Holder Name</label>
                           <input type="text" name="card-name" placeholder="Name on card" id="card-name" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="card-number" class="form-label">卡號</label>
+                          <label for="card-number" class="form-label">Card Number</label>
                           <input type="text" name="card-number" placeholder="Card number" id="card-number" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
-                          <label for="expiry-date" class="form-label">到期日</label>
+                          <label for="expiry-date" class="form-label">Exp Date</label>
                           <input type="text" name="expiry-date" placeholder="MM/YY" id="expiry-date" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
@@ -66,13 +66,13 @@
                           <input type="text" name="cvv" placeholder="123" id="cvv" class="form-control">
                         </div>
                         <div class="form-group col-md-4">
-                          <label for="zip" class="form-label">郵遞編號（選填）</label>
+                          <label for="zip" class="form-label">Zip Code（Optional）</label>
                           <input type="text" name="zip" placeholder="123" id="zip" class="form-control">
                         </div>
                       </div>
                   </div>
                   <div class="text-block">
-                    <h6>退貨政策</h6>
+                    <h6>Refund Policy</h6>
                     <p class="text-sm text-muted">派送之貨品不能與商戶派送之貨品合拼計算運費。 </p>
                     <p class="text-sm text-muted">商戶派送之貨品須於該商店內消費指定金額才可免商戶運費。</p>
                   </div>
