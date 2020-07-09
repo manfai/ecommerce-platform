@@ -110,7 +110,7 @@
                      <ul class="navbar-nav ml-auto">
                         <!-- menu item -->
                         <li class="nav-item active">
-                           <a class="nav-link" href="index">Home
+                           <a class="nav-link" href="{{route('welcome')}}">Home
                            </a>
                         </li>
                         <!-- menu item -->

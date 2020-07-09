@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ProductController@welcome');
+Route::get('/', 'ProductController@welcome')->name('welcome');
 
 Auth::routes(['verify' => true]);
 
