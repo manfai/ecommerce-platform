@@ -116,14 +116,11 @@
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Adopt
+                           Breed
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="adopt-dropdown">
-                              <a class="dropdown-item" href="adoption">Gallery</a>
-                              <!-- <a class="dropdown-item" href="adoption-single">Adoption Single Page</a> -->
+                              <a class="dropdown-item" href="adoption">List</a>
                               <a class="dropdown-item" href="adoption-stories">Stories</a>
-                              <!-- <a class="dropdown-item" href="events">Events</a> -->
-                              <!-- <a class="dropdown-item" href="event-single">Events Single Page</a> -->
                            </div>
                         </li>
                         <!-- menu item -->
@@ -166,7 +163,9 @@
                         @endguest
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="contact">Cart ({{Auth::user()->cartItems->count()}})</a>
+                           <a class="nav-link" href="contact">Cart (
+                              @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth 
+                              )</a>
                         </li>
                         <!-- menu item -->
                         <li class="d-none nav-item dropdown">
