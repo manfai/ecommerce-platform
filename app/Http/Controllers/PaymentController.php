@@ -34,15 +34,15 @@ class PaymentController extends Controller
         $user  = $request->user();
         try {
             //add data to payment_history type of order and id of order;
-            // $transaction = app('paypal')->purchase($purchase)->send();
-            // // dd($response);
-            // if ($transaction->isSuccessful()) {
-            //     $transaction->redirect();
-            //     $transaction->getTransactionReference();
-            //     \Log::info($transaction->getTransactionReference());
-            // } else {
-            //     return redirect()->back()->withErrors($transaction->getMessage());
-            // }
+            $transaction = app('paypal')->purchase($purchase)->send();
+            dd($response);
+            if ($transaction->isSuccessful()) {
+                $transaction->redirect();
+                $transaction->getTransactionReference();
+                \Log::info($transaction->getTransactionReference());
+            } else {
+                return redirect()->back()->withErrors($transaction->getMessage());
+            }
             return redirect()->back();
         } catch (\Exception $e) {
             exit('Sorry, there was an error processing your payment. Please try again later.');

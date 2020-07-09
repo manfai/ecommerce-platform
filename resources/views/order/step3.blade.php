@@ -31,7 +31,6 @@
                     </div>
                 </div>
                 <div class="col-lg-5 pl-xl-5">
-                    @include('components.cart')
                 </div>
             </div>
     </section>
