@@ -160,13 +160,14 @@
                               </form>
                            </div>
                         </li>
-                        @endguest
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="contact">Cart (
+                           <a class="nav-link" href="/cart">Cart (
                               @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth 
                               )</a>
                         </li>
+                        @endguest
+                        
                         <!-- menu item -->
                         <li class="d-none nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="about-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

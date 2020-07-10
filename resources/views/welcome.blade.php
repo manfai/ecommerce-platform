@@ -39,13 +39,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <h3>Quality & Experience </h3>
-                <p>Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id. In aliquet
-                    magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall.</p>
+                <p>Whether you’re raising kittens or have a healthy grown cat, nutritious food is essential for their well being. This is what we aims to offer by delivering quality nutrition in standardized packaging that helps you keep your furry felines healthy and happy!</p>
             </div>
             <!-- /col-lg-->
             <div class="col-lg-3 justify-content-center align-self-center">
                 <!-- button -->
-                <a href="contact.html" class="btn btn-secondary" data-aos="zoom-out">Contact us</a>
+                <a href="contact.html" class="btn btn-secondary" data-aos="zoom-out">Shop Now</a>
             </div>
             <!-- /col-lg-->
         </div>
@@ -66,7 +65,7 @@
                     <!-- call-info -->
                     <div class="call-info text-center">
                         <p class="subtitle text-light">more info</p>
-                        <h3 class="text-light">Our Services</h3>
+                        <h3 class="text-light">About us</h3>
                     </div>
                 </div>
             </a>
@@ -81,7 +80,7 @@
                     <!-- call-info -->
                     <div class="call-info text-center">
                         <p class="subtitle text-light">more info</p>
-                        <h3 class="text-light">About us</h3>
+                        <h3 class="text-light">Latest News</h3>
                     </div>
                 </div>
             </a>
@@ -96,7 +95,7 @@
                     <!-- call-info -->
                     <div class="call-info text-center">
                         <p class="subtitle text-light">more info</p>
-                        <h3 class="text-light">Our Team</h3>
+                        <h3 class="text-light">Delivery</h3>
                     </div>
                 </div>
             </a>
