@@ -116,11 +116,11 @@
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Breed
+                           Adopt
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="adopt-dropdown">
-                              <a class="dropdown-item" href="adoption">List</a>
-                              <a class="dropdown-item" href="adoption-stories">Stories</a>
+                              <a class="dropdown-item" href="/adoption">List</a>
+                              <a class="dropdown-item" href="/adoption/stories">Stories</a>
                            </div>
                         </li>
                         <!-- menu item -->
