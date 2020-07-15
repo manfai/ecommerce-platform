@@ -15,6 +15,16 @@ class CreateAdoptionUploadsTable extends Migration
     {
         Schema::create('adoption_uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('uuid')->unique();
+            $table->unsignedBigInteger('adoption_id'); //出post者
+            $table->foreign('adoption_id')->references('id')->on('adoptions')->onDelete('cascade');
+            $table->string('size');
+            $table->string('type');
+            $table->string('filetype');
+            $table->string('filename');
+            $table->string('status')->default('public');
+            $table->text('remark')->nullable();
+            $table->boolean('verified')->default(false);
             $table->timestamps();
         });
     }

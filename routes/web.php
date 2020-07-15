@@ -19,6 +19,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/faqs', 'HomeController@faqs')->name('faqs');
 Route::get('/blog', 'HomeController@blog')->name('blog');
 
+Route::get('/adoption', 'AdoptionController@index')->name('adoption');
+Route::get('/adoption/{adoptionNo}', 'AdoptionController@show')->name('adoption.show');
+
 Route::get('/category', 'ProductController@category')->name('category');
 Route::get('/product', 'ProductController@index')->name('product');
 Route::get('/product/favorites', 'ProductController@favorites')->name('product.favorites');

@@ -406,25 +406,26 @@
        <!-- /col-lg -->
        <!-- Carousel  -->
        <div class="col-md-12 carousel-2items owl-carousel owl-theme">
+          @foreach(\App\Models\Adoption::all()->random(5) as $adoption)
           <!-- Adopt 1 -->
           <div class="adopt-card res-margin row bg-light pattern2">
              <div class="col-md-5">
                 <!-- Image -->
                 <div class="adopt-image d-flex flex-wrap align-items-center ">
                    <a href="adoption-single.html">
-                   <img src="img/adoption/adoption1.jpg" class="img-fluid" alt="">
+                   <img src="{{$adoption->image}}" class="img-fluid" alt="">
                    </a>
                 </div>
              </div>
              <div class="col-md-7 res-margin">
                 <!-- Name -->
                 <div class="caption-adoption">
-                   <h5 class="adoption-header"><a href="adoption-single.html">Magdalene</a></h5>
+                   <h5 class="adoption-header"><a href="adoption-single.html">{{$adoption->name}}</a></h5>
                    <!-- List -->
                    <ul class="list-unstyled">
-                      <li><strong>Gender:</strong> Female</li>
-                      <li><strong>Age:</strong> 2 years</li>
-                      <li><strong>Breed:</strong> Poodle Mix</li>
+                      <li><strong>Gender:</strong> {{$adoption->gender}}</li>
+                      <li><strong>Age:</strong> {{$adoption->age}}</li>
+                      <li><strong>Breed:</strong> {{$adoption->breed}}</li>
                    </ul>
                 </div>
              </div>
@@ -444,120 +445,7 @@
              <!-- /col-md -->
           </div>
           <!-- /adopt-card -->
-          <!-- Adopt 2 -->
-          <div class="adopt-card res-margin row bg-light pattern2">
-             <div class="col-md-5">
-                <!-- Image -->
-                <div class="adopt-image d-flex flex-wrap align-items-center ">
-                   <a href="adoption-single.html">
-                   <img src="img/adoption/adoption2.jpg" class="img-fluid" alt="">
-                   </a>
-                </div>
-             </div>
-             <div class="col-md-7 res-margin">
-                <!-- Name -->
-                <div class="caption-adoption">
-                   <h5 class="adoption-header"><a href="adoption-single.html">Leelo</a></h5>
-                   <!-- List -->
-                   <ul class="list-unstyled">
-                      <li><strong>Gender:</strong> Male</li>
-                      <li><strong>Age:</strong> 7 years</li>
-                      <li><strong>Breed:</strong> Mixed</li>
-                   </ul>
-                </div>
-             </div>
-             <div class="col-md-12 mt-3">
-                <!-- Button -->	
-                <div class="text-center">
-                   <!-- Adopt info -->
-                   <ul class="adopt-card-info list-unstyled">
-                      <li ><i class="flaticon-syringe"></i>Vaccinated</li>
-                      <li ><i class="flaticon-dog-4"></i>Friendly to other pets</li>
-                   </ul>
-                   <!-- button-->
-                   <a href="adoption-single.html" class="btn btn-primary">More Info</a>
-                </div>
-                <!-- /text-center -->
-             </div>
-             <!-- /col-md -->
-          </div>
-          <!-- /adopt-card -->
-          <!-- Adopt 3 -->
-          <div class="adopt-card res-margin row bg-light pattern2">
-             <div class="col-md-5">
-                <!-- Image -->
-                <div class="adopt-image d-flex flex-wrap align-items-center ">
-                   <a href="adoption-single.html">
-                   <img src="img/adoption/adoption3.jpg" class="img-fluid" alt="">
-                   </a>
-                </div>
-             </div>
-             <div class="col-md-7 res-margin">
-                <!-- Name -->
-                <div class="caption-adoption">
-                   <h5 class="adoption-header"><a href="adoption-single.html">Mimi</a></h5>
-                   <!-- List -->
-                   <ul class="list-unstyled">
-                      <li><strong>Gender:</strong> Female</li>
-                      <li><strong>Age:</strong> 3 years</li>
-                      <li><strong>Breed:</strong> Mixed</li>
-                   </ul>
-                </div>
-             </div>
-             <div class="col-md-12 mt-3">
-                <!-- Button -->	
-                <div class="text-center">
-                   <!-- Adopt info -->
-                   <ul class="adopt-card-info list-unstyled">
-                      <li ><i class="flaticon-syringe"></i>Vaccinated</li>
-                      <li ><i class="flaticon-dog-20"></i>Children Friendly</li>
-                   </ul>
-                   <!-- button-->
-                   <a href="adoption-single.html" class="btn btn-primary">More Info</a>
-                </div>
-                <!-- /text-center -->
-             </div>
-             <!-- /col-md -->
-          </div>
-          <!-- /adopt-card -->
-          <!-- Adopt 4 -->
-          <div class="adopt-card res-margin row bg-light pattern2">
-             <div class="col-md-5">
-                <!-- Image -->
-                <div class="adopt-image d-flex flex-wrap align-items-center ">
-                   <a href="adoption-single.html">
-                   <img src="img/adoption/adoption4.jpg" class="img-fluid" alt="">
-                   </a>
-                </div>
-             </div>
-             <div class="col-md-7 res-margin">
-                <!-- Name -->
-                <div class="caption-adoption">
-                   <h5 class="adoption-header"><a href="adoption-single.html">Jonas</a></h5>
-                   <!-- List -->
-                   <ul class="list-unstyled">
-                      <li><strong>Gender:</strong> Male</li>
-                      <li><strong>Age:</strong> 4 years</li>
-                      <li><strong>Breed:</strong> Siberian Husky</li>
-                   </ul>
-                </div>
-             </div>
-             <div class="col-md-12 mt-3">
-                <!-- Button -->	
-                <div class="text-center">
-                   <!-- Adopt info -->
-                   <ul class="adopt-card-info list-unstyled">
-                      <li ><i class="flaticon-syringe"></i>Vaccinated</li>
-                      <li ><i class="flaticon-dog-20"></i>Children Friendly</li>
-                   </ul>
-                   <!-- button-->
-                   <a href="adoption-single.html" class="btn btn-primary">More Info</a>
-                </div>
-                <!-- /text-center -->
-             </div>
-             <!-- /col-md -->
-          </div>
-          <!-- /adopt-card -->
+          @endforeach
        </div>
        <!-- /carousel --> 
        <div class="col-lg-12 text-center">
