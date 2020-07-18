@@ -1,83 +1,13 @@
 @extends('layouts.app')
 
-@push('styles2')
+@push('styles')
 <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
-
-
-    /* Featurettes
-------------------------- */
-
-    .featurette-divider {
-        margin: 5rem 0;
-        /* Space out the Bootstrap <hr> more */
-    }
-
-    /* Thin out the marketing headings */
-    .featurette-heading {
-        font-weight: 300;
-        line-height: 1;
-        letter-spacing: -.05rem;
-    }
-
-    .featurette-price {
-        font-weight: 900;
-    }
-
-    @media (min-width: 40em) {
-        .featurette-heading {
-            font-size: 30px;
-        }
-
-        .featurette-price {
-            font-size: 30px;
-        }
-    }
-
-    @media (min-width: 62em) {
-        .featurette-heading {
-            margin-top: 5rem;
-        }
-
-    }
-
-
-
-    /*
- * Extra utilities
- */
-
-    .flex-equal>* {
-        -ms-flex: 1;
-        flex: 1;
-    }
-
-    @media (min-width: 768px) {
-        .flex-md-equal>* {
-            -ms-flex: 1;
-            flex: 1;
-        }
-    }
-
-    .overflow-hidden {
-        overflow: hidden;
-    }
-
+   .page-with-sidebar {
+    padding-left: 30px;
+}
 </style>
 @endpush
+
 @section('content')
 
 <!-- Jumbotron -->
@@ -109,6 +39,63 @@
 <div id="product-home" class="page">
     <div class="container">
         <div class="row">
+            <!-- /page-with-sdiebar -->
+            <!-- Sidebar -->
+            <div id="sidebar" class="bg-light h-100 col-lg-3 card pattern3">
+                <!--widget-area -->
+                <div class="widget-area">
+                    <h5 class="sidebar-header">Search</h5>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary btn-sm" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+                <!--/widget-area -->
+                <div class="widget-area">
+                    <h5 class="sidebar-header">Categories</h5>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            Food
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">Toys</a>
+                        <a href="#" class="list-group-item list-group-item-action">Accessories</a>
+                        <a href="#" class="list-group-item list-group-item-action">Health</a>
+                        <a href="#" class="list-group-item list-group-item-action">Others</a>
+                    </div>
+                </div>
+
+                <!--/widget-area -->
+                <div class="widget-area">
+                    <h5 class="sidebar-header">Tags</h5>
+                    <div class="tags-widget">
+                        <a href="#" class="badge badge-pill badge-default">Dogs</a>
+                        <a href="#" class="badge badge-pill badge-default">Cats</a>
+                        <a href="#" class="badge badge-pill badge-default">Nutrition</a>
+                        <a href="#" class="badge badge-pill badge-default">Events</a>
+                        <a href="#" class="badge badge-pill badge-default">Exotic pets</a>
+                        <a href="#" class="badge badge-pill badge-default">Adoption</a>
+                        <a href="#" class="badge badge-pill badge-default">Pet Insurance</a>
+                    </div>
+                </div>
+                <!--/widget-area -->
+                <div class="widget-area">
+                    <h5 class="sidebar-header">Follow us</h5>
+                    <div class="contact-icon-info">
+                        <ul class="social-media text-center">
+                            <!--social icons -->
+                            <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                    <!--/contact-icon-info -->
+                </div>
+                <!--/widget-area -->
+            </div>
+            <!--/sidebar -->
             <!-- Blog Entries Column -->
             <div class="col-lg-9 page-with-sidebar mb-5">
 
@@ -186,11 +173,11 @@
                 <div class="pb-5">
                     <div class="container-fluid marketing">
                         <div class="row featurette">
-                            <div class="col-md-6 p-0">
+                            <div class="col-md-5">
                                 <img src="{{$product->image_url}}" class="rounded featurette-image img-fluid mx-auto"
                                     style="object-fit:cover;object-position:top;max-height:70vh;width:100%">
                             </div>
-                            <div class="col-md-5 pl-md-5 pl-3">
+                            <div class="col-md-7">
                                 <h4 class="featurette-heading text-uppercase">{{ $product->title }}</h4>
                                 <p class="featurette-price lead display-5 text-primary">
                                     <strong>${{ $product->price }}</strong></p>
@@ -211,21 +198,24 @@
                                         <input id="qty" type="number" step="1" min="1" class="form-control" value="1">
                                     </div>
 
-                                    <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
-                                        <input type="hidden" name="sku_id">
-                                        <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn btn-sm btn-primary mr-2">Add To Cart</button>
-                                    </form>
-
-                                    <form class="d-inline"
-                                        action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="sku_id">
-                                        <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn btn-sm btn-warning">Add To Favorites</button>
-                                    </form>
+                                 
 
                                 </p>
+                            </div>
+                            <div class="col-12 mt-4 text-center">
+                                <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
+                                    <input type="hidden" name="sku_id">
+                                    <input type="hidden" name="qty" value="1">
+                                    <button type="submit" class="btn btn-primary mr-2">Add To Cart</button>
+                                </form>
+
+                                <form class="d-inline"
+                                    action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="sku_id">
+                                    <input type="hidden" name="qty" value="1">
+                                    <button type="submit" class="btn btn-warning">Add To Fave</button>
+                                </form>
                             </div>
                         </div>
 
@@ -289,63 +279,6 @@
                 </div>
             </div>
 
-            <!-- /page-with-sdiebar -->
-            <!-- Sidebar -->
-            <div id="sidebar" class="bg-light h-100 col-lg-3 card pattern3">
-                <!--widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Search</h5>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary btn-sm" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Categories</h5>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            Food
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">Toys</a>
-                        <a href="#" class="list-group-item list-group-item-action">Accessories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Health</a>
-                        <a href="#" class="list-group-item list-group-item-action">Others</a>
-                    </div>
-                </div>
-
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Tags</h5>
-                    <div class="tags-widget">
-                        <a href="#" class="badge badge-pill badge-default">Dogs</a>
-                        <a href="#" class="badge badge-pill badge-default">Cats</a>
-                        <a href="#" class="badge badge-pill badge-default">Nutrition</a>
-                        <a href="#" class="badge badge-pill badge-default">Events</a>
-                        <a href="#" class="badge badge-pill badge-default">Exotic pets</a>
-                        <a href="#" class="badge badge-pill badge-default">Adoption</a>
-                        <a href="#" class="badge badge-pill badge-default">Pet Insurance</a>
-                    </div>
-                </div>
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Follow us</h5>
-                    <div class="contact-icon-info">
-                        <ul class="social-media text-center">
-                            <!--social icons -->
-                            <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                        </ul>
-                    </div>
-                    <!--/contact-icon-info -->
-                </div>
-                <!--/widget-area -->
-            </div>
-            <!--/sidebar -->
         </div>
     </div>
 </div>

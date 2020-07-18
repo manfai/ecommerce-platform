@@ -80,9 +80,11 @@
                         <!-- End Contact Info -->
                         <!-- Start Social Links -->
                         <ul class="social-list float-right list-inline">
-                            <li class="list-inline-item"><a  title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
+                           <li class="list-inline-item"><a  title="Instagram" href="#"><i style="font-size:16px;font-style: normal;">繁</i></a></li>
+                           <li class="list-inline-item"><a  title="Instagram" href="#"><i style="font-size:16px;font-style: normal;">EN</i></a></li>
+                            {{-- <li class="list-inline-item"><a  title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
                            <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                           <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                           <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li> --}}
                         </ul>
                         <!-- /End Social Links -->
                      </div>
@@ -138,22 +140,25 @@
                         </li>
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="contact">Contact</a>
+                           <a class="nav-link" href="/contact">Contact</a>
                         </li>
                         @guest
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="contact">SignIn</a>
+                           <a class="nav-link" href="/login">SignIn</a>
                         </li>
                         @else 
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="contact-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           {{Auth::user()->name}}
+                           {{Auth::user()->name}} ( @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth )
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="contact-dropdown">
-                              <a class="dropdown-item" href="">Profile</a>
-                              <a class="dropdown-item" href="">YourPet</a>
+                              <a class="dropdown-item" href="/home">Profile</a>
+                              <a class="dropdown-item" href="/your-pet">YourPet</a>
+                              <a class="dropdown-item" href="/cart">Cart (
+                                 @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth 
+                                 )</a>
                               <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                  {{ csrf_field() }}
@@ -161,11 +166,9 @@
                            </div>
                         </li>
                         <!-- menu item -->
-                        <li class="nav-item">
-                           <a class="nav-link" href="/cart">Cart (
-                              @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth 
-                              )</a>
-                        </li>
+                        {{-- <li class="nav-item">
+                           <a class="nav-link" href="/cart">Cart </a>
+                        </li> --}}
                         @endguest
                         
                         <!-- menu item -->
@@ -227,9 +230,9 @@
                   <img src="/img/logo.png"  class="logo-footer img-fluid" alt=""/>
                   <!-- Start Social Links -->
                   <ul class="social-list text-center list-inline">
-                     <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                     <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                     <li class="list-inline-item"><a  title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
+                     <li class="list-inline-item"><a title="Facebook" href="https://www.facebook.com/tripodcats"><i class="fab fa-facebook-f"></i></a></li>
+                     <li class="list-inline-item"><a title="Twitter" href="https://www.facebook.com/tripodcats"><i class="fab fa-twitter"></i></a></li>
+                     <li class="list-inline-item"><a  title="Instagram" href="https://www.facebook.com/tripodcats"><i class="fab fa-instagram"></i></a></li>
                   </ul>
                   <!-- /End Social Links -->
                </div>
@@ -238,7 +241,7 @@
                   <h5>About us</h5>
                   <!--divider -->
                   <hr class="small-divider left"/>
-                  <p class="mt-3">Elit aenean, amet eros curabitur. Wisi ad eget ipsum metus sociis Cras enim wisi elit aenean.</p>
+                  <p class="mt-3">Efforts to collect all kinds of pet food and supplies throughout the city to ensure original licensed.</p>
                </div>
                <!--/ col-lg -->
                <div class="col-lg-3">
@@ -246,9 +249,9 @@
                   <!--divider -->
                   <hr class="small-divider left"/>
                   <ul class="list-unstyled mt-3">
-                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>(123) 456-789</li>
-                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:email@yoursite.com">email@yoursite.com</a></li>
-                     <li><i class="fas fa-map-marker margin-icon"></i>Pet Street 123 - New York </li>
+                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>(852) 9351-7034</li>
+                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:email@yoursite.com">info@tripod-cat.com</a></li>
+                     <li><i class="fas fa-map-marker margin-icon"></i>Wong Chuk Hang - Hong Kong </li>
                   </ul>
                   <!--/ul -->
                </div>
@@ -270,7 +273,7 @@
             <hr/>
             <div class="row">
                <div class="credits col-sm-12">
-                  <p>Copyright {{date('Y')}} / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
+                  <p>Copyright {{date('Y')}} / Powered by <a href="https://manfai.me">ManFai</a> / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
                </div>
             </div>
             <!--/col-lg-12-->

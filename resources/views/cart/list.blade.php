@@ -31,9 +31,9 @@
 </div>
 
 <section class="pt-0 container pb-5">
-    <div class="py-5 text-center">
+    <div class="py-5 text-left">
         <p class="lead">
-        Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
+            We actively search for and develop high-quality products to enjoy original authentic and high-quality pet food products for all breeders in Hong Kong!
         </p>
     </div>
 
@@ -67,7 +67,7 @@
                     <strong>${{ number_format((float)$amount - 5,2,'.','')}}</strong>
                 </div>
             </div> -->
-            <h5 class="elements-subheader mb-2">SUMMARY</h5>
+            <h5 class="elements-subheader mb-2 mt-0">SUMMARY</h5>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
@@ -166,10 +166,8 @@
                         </div>
                     </div>
                 @else
-                    <p class="text-center mb-5">
-                        <a href="{{ route('product') }}" class="btn btn-outline-muted mb-2">Shop Now</a>
-                    </p>
-                    <p class="mb-5 text-center"><img src="img/illustration/undraw_celebration_0jvk.svg" alt="" style="width: 400px;" class="img-fluid"></p>
+                    <p class="mb-5 text-center"><img src="/img/carts.png" alt="" style="width: 400px;" class="mt-5 img-fluid"></p>
+         
                 @endif
 
                 
@@ -181,6 +179,24 @@
    
 
 </section>
+  <!-- contact call to action -->
+  <div id="contact-calltoaction" class="h-100 row no-gutters" >
+    <div class="bg-collumn col-lg-6" style="background: url('https://reviewed-com-res.cloudinary.com/image/fetch/s--GHdy-BCV--/b_white,c_limit,cs_srgb,f_auto,fl_progressive.strip_profile,g_center,q_auto,w_792/https://reviewed-production.s3.amazonaws.com/attachment/14a5441cf65b4801/aspen-self-warming-bed.jpg') center center">
+       <!-- Background image : img/call-to-action/contact.jpg -->	
+    </div>
+    <!-- /col-lg -->
+    <div class="col-lg-6 bg-primary  text-center text-light block-padding pb-block">
+       <div class="col-lg-10 offset-lg-1">
+          <h4>Get in touch with us</h4>
+          <p>Scelerisque laoreet nibh hendrerit id. lorem ipsuet In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall lorem ipsuet In aliquet ma.</p>
+          <!-- Button -->	
+          <a href="contact.html" class="btn btn-secondary mt-2">Contact us</a>
+       </div>
+       <!-- /col-lg -->
+    </div>
+    <!-- /col-lg -->
+ </div>
+ <!-- /contact-calltoaction -->
 
 @endsection
 
