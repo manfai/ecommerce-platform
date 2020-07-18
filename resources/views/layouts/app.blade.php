@@ -99,7 +99,7 @@
             <div class="navbar container-fluid">
                <div class="container ">
                   <!-- logo -->
-                  <a class="nav-brand" href="index">
+                  <a class="nav-brand" href="/">
                   <img src="/img/logo.png" alt="" class="img-fluid">
                   </a>
                   <!-- Navbartoggler -->
