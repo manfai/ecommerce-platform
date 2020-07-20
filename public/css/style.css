@@ -1786,7 +1786,7 @@ Last change:2th April 2019
 }
 /* section-heading */
  .section-heading {
-     margin-bottom: 100px;
+     margin-bottom: 50px;
 }
  .section-heading h2{
     font-size:45px;
@@ -1815,14 +1815,14 @@ Last change:2th April 2019
      background: #cecece;
 }
  .section-heading h2:after{
-     content: "\f126";
+     /* content: "\f126";
      z-index: 0;
      font-family: "flaticon";
      font-size: 20px;
      z-index: 0;
      transform: rotate(20deg);
      opacity: 0.5;
-     display: block;
+     display: block; */
 }
 /* custom ul */
  ul.custom {
@@ -2389,7 +2389,7 @@ Last change:2th April 2019
 	}
 	/* page with sidebar */
 	 .page-with-sidebar{
-		 padding-right:30px;
+		 padding-left:30px;
 	}
 
  }

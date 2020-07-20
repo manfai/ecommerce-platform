@@ -19,7 +19,7 @@
                 <!--the div below is hidden on small screens  -->
                 <div class="hidden-small">
                 <p class="header-p">We offer the best services for your pets, contact us today and book a service</p>
-                <a class="btn btn-primary " href="contact">Contact us</a>
+                <a class="btn btn-primary" href="{{route('category')}}">Shop Now</a>
                 </div>
                 <!--/d-none  -->
             </div>
@@ -107,41 +107,46 @@
 <!-- /section-->
 <!-- section -->
 <section id="gallery-home" class="container-fluid pl-0 pr-0">
+    
     <div class="container">
         <!-- section heading -->
         <div class="section-heading text-center">
-            <p class="subtitle">Hot Product</p>
-            <h2>Top 10</h2>
+            <p class="subtitle">Pet supplies at their very best for you!</p>
+            <h2>New Products</h2>
         </div>
         <!-- /section-heading -->
     </div>
+
+     <!-- /gallery-isotope -->
     <!-- owl carousel gallery  -->
-    <div class="owl-stage owl-carousel owl-theme top-centered-nav magnific-popup mt-5">
-        @foreach(\App\Models\Product::all()->random(10) as $product)
-        <div class="col-md-12 gallery-img hover-opacity">
-        <!-- image -->
-        <a href="{{ $product->image_url }}" title="{{ $product->name }}">
-            <img src="{{ $product->image_url }}" class="img-fluid rounded" alt="">
-            <h5>{{$product->name}}</h5>
-        </a>
+   <div class="container">
+        <div class="owl-stage owl-carousel owl-theme top-centered-nav magnific-popup mt-5">
+            @foreach(\App\Models\Product::all()->random(10) as $product)
+            <div class="col-md-12 gallery-img hover-opacity">
+            <!-- image -->
+            <a href="{{ $product->image_url }}" title="{{ $product->name }}">
+                <img src="{{ $product->image_url }}" class="img-fluid rounded" alt="">
+                <h5>{{$product->name}}</h5>
+            </a>
+            </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
+   </div>
     <!-- /owl-carousel -->
 </section>
 <!-- /section ends -->
 <!-- section -->
 <section id="adoption-home" class="container-fluid pl-0 pr-0 overlay-dark bg-fixed" style="background:url('https://img.made.com/image/upload/c_pad,d_made.svg,f_auto,w_1320,dpr_1.0,q_auto:best/v4/catalog/product/catalog/2/c/6/5/2c6514e4983b6e67d1261535558857fb73b7f5cd_PETTER001GRE_UK_Terri_Teepee_Pet_house_Grey_and_Mustard_LB02.jpg')">
     <!-- section heading -->  
-    <div class="section-heading text-center text-light">
-       <p class="subtitle">Find your friend</p>
+    <div class="section-heading text-center text-light mb-5">
+       <p class="subtitle">Why buy when you can adopt</p>
        <h2>Adoption</h2>
     </div>
     <!-- /section-heading -->
-    <div class="container">
+    <div class="container mt-3">
        <div class="col-lg-10 offset-lg-1 text-center text-light">
           <h3>Adopting is an act of <span class="text-tertiary">love</span></h3>
-          <p class="h7">Etiam rhoncus leo a dolor placerat, nec elem entum ipsum convall.</p>
+          <p class="h7">Don't let "adoption instead of buying" just a slogan</p>
           <p>Maecenas at arcu risus. Donec commodo sodales ex, scelerisque laoreet nibh hendrerit id Maecenas at arcu ro In aliquet magna nec lobortis maximus. Etiam rhoncus leo a dolor placerat, nec elementum ipsum convall.</p>
        </div>
        <!-- /col-lg -->
@@ -217,32 +222,32 @@
                         <!-- envelope icon-->
                         <i class="fas fa-envelope bg-secondary"></i>
                     </div>
-                    <h4 class="text-center mt-3 text-light">Send us a message</h4>
+                    <h4 class="text-center mt-3 text-light">{{__('contact.send_message')}}</h4>
                     <!-- Form Starts -->
                     <div id="contact_form">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label>Name<span class="required">*</span></label>
+                                    <label>{{__('contact.name')}}<span class="required">*</span></label>
                                     <input type="text" name="name" class="form-control input-field" required="">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Email address <span class="required">*</span></label>
+                                    <label>{{__('contact.email_address')}} <span class="required">*</span></label>
                                     <input type="email" name="email" class="form-control input-field" required="">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Subject</label>
+                                    <label>{{__('contact.subject')}}</label>
                                     <input type="text" name="subject" class="form-control input-field">
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Message<span class="required">*</span></label>
+                                    <label>{{__('contact.message')}}<span class="required">*</span></label>
                                     <textarea name="message" id="message" class="textarea-field form-control" rows="3"
                                         required=""></textarea>
                                 </div>
                             </div>
                             <!-- button -->
                             <button type="submit" id="submit_btn" value="Submit"
-                                class="btn btn-quaternary btn-block mt-3">Send message</button>
+                                class="btn btn-quaternary btn-block mt-3">{{__('contact.send_button')}}</button>
                         </div>
                         <!-- /form-group-->
                         <!-- Contact results -->
@@ -258,9 +263,9 @@
                 <!-- contact icons-->
                 <ul class="list-inline mt-3 list-contact colored-icons font-weight-bold">
                     <li class="list-inline-item"><i class="fa fa-envelope margin-icon"></i><a
-                            href="mailto:email@tripod-cat.com">info@tripod-cat.com</a></li>
-                    <li class="list-inline-item"><i class="fa fa-phone margin-icon"></i>(852) 9351-7034</li>
-                    <li class="list-inline-item"><i class="fa fa-map-marker margin-icon"></i>Wong Chuk Hang - Hong Kong
+                            href="mailto:{{ config('global.contact_email') }}">{{ config('global.contact_email') }}</a></li>
+                    <li class="list-inline-item"><i class="fa fa-phone margin-icon"></i>{{ config('global.contact_number') }}</li>
+                    <li class="list-inline-item"><i class="fa fa-map-marker margin-icon"></i>{{ config('global.contact_location').' - '.config('global.country') }}
                     </li>
                 </ul>
                 <!-- /list-->
@@ -280,8 +285,8 @@
 <!-- ==== Newsletter - call to action ==== -->
 <div class="container-fluid footer-bg block-padding overlay" style="background:url('https://www.spacesworks.com/wp-content/uploads/2017/08/Spaces-design-coloring-pencils-detail-nw-946x553.jpg') center; background-size:100%">
     <div class="container">
-    <div class="col-lg-5 text-light text-center">
-        <h4>Subscribe to our newsletter</h4>
+    <div class="col-lg-7 text-light text-left">
+        <h4>Subscribe and receive the latest news</h4>
         <p>We send e-mails once a month, we never send Spam!</p>
         <!-- Form -->				
         <div id="mc_embed_signup" >

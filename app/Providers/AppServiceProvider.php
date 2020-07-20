@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Setting;
 use Illuminate\Support\ServiceProvider;
 use Omnipay\Omnipay;
 
@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        
         // 往服务容器中注入一个名为 paypal 的单例对象
         $this->app->singleton('paypal', function (){
             $gateway = \Omnipay\Omnipay::create('PayPal_Rest');
@@ -43,6 +45,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        config([
+            'global' => Setting::all([
+                'name','value'
+            ])
+            ->keyBy('name') // key every setting by its name
+            ->transform(function ($setting) {
+                 return $setting->value; // return only the value
+            })
+            ->toArray()
+        ]);
     }
 }

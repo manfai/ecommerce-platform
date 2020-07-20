@@ -24,7 +24,7 @@ class CartController extends Controller
     public function added(Request $request, CartItem $cartItem){
         return view('cart.added', [
             'cartItem' => $cartItem,
-            'products'=>Product::all()->random(4)
+            'products'=>Product::all()->random(6)
         ]);
     }
 

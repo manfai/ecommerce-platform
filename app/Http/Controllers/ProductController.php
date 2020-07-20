@@ -8,11 +8,16 @@ use App\Exceptions\InvalidRequestException;
 
 class ProductController extends Controller
 {
+    public function category(Request $request)
+    {
+        return view('product.category');
+    }
+
     public function welcome(Request $request)
     {
         return view('welcome');
     }
-
+    
     public function index(Request $request)
     {
         // $products = Product::query()->where('on_sale', true)->paginate();

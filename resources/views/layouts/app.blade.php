@@ -73,18 +73,22 @@
                      <div class="col-md-12">
                         <!-- Start Contact Info -->
                         <ul class="contact-details float-left">
-                           <li><i class="fa fa-map-marker"></i>Wong Chuk Hang - Hong Kong</li>
-                           <li><i class="fa fa-envelope"></i><a href="mailto:info@tripod-cat.com">info@tripod-cat.com</a></li>
-                           <li><i class="fa fa-phone"></i>(852) 9351-7031</li>
+                           <li><i class="fa fa-map-marker"></i>{{ config('global.contact_location').' - '.config('global.country') }}</li>
+                           <li><i class="fa fa-envelope"></i><a href="mailto:{{ config('global.contact_email') }}">{{ config('global.contact_email') }}</a></li>
+                           <li><i class="fa fa-phone"></i>{{ config('global.contact_number') }}</li>
                         </ul>
                         <!-- End Contact Info -->
                         <!-- Start Social Links -->
                         <ul class="social-list float-right list-inline">
-                           <li class="list-inline-item"><a  title="Instagram" href="#"><i style="font-size:16px;font-style: normal;">繁</i></a></li>
-                           <li class="list-inline-item"><a  title="Instagram" href="#"><i style="font-size:16px;font-style: normal;">EN</i></a></li>
-                            {{-- <li class="list-inline-item"><a  title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
-                           <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                           <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li> --}}
+                           @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                           @if($localeCode!==LaravelLocalization::getCurrentLocale())
+                           <li class="list-inline-item">
+                                 <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    <i style="font-size:16px;font-style: normal;">{{ $properties['native'] }}</i>
+                                 </a>
+                           </li>
+                           @endif
+                        @endforeach
                         </ul>
                         <!-- /End Social Links -->
                      </div>
@@ -112,40 +116,40 @@
                      <ul class="navbar-nav ml-auto">
                         <!-- menu item -->
                         <li class="nav-item active">
-                           <a class="nav-link" href="{{route('welcome')}}">Home
+                           <a class="nav-link" href="{{route('welcome')}}">{{__('menu.home')}}
                            </a>
                         </li>
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Adopt
+                           {{__('menu.adopt')}}
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="adopt-dropdown">
-                              <a class="dropdown-item" href="/adoption">List</a>
-                              <a class="dropdown-item" href="/adoption/stories">Stories</a>
+                              <a class="dropdown-item" href="/adoption">{{__('menu.list')}}</a>
+                              <a class="dropdown-item" href="/adoption/stories">{{__('menu.stories')}}</a>
                            </div>
                         </li>
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Shop
+                              {{__('menu.shop')}}
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="gallery-dropdown">
-                              <a class="dropdown-item" href="{{route('product',['type'=>'food'])}}">Food</a>
-                              <a class="dropdown-item" href="{{route('product',['type'=>'toys'])}}">Toys</a>
-                              <a class="dropdown-item" href="{{route('product',['type'=>'accessories'])}}">Accessories</a>
-                              <a class="dropdown-item" href="{{route('product',['type'=>'health'])}}">Health</a>
-                              <a class="dropdown-item" href="{{route('product',['type'=>'others'])}}">Others</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'food'])}}">{{__('menu.food')}}</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'toys'])}}">{{__('menu.toys')}}</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'accessories'])}}">{{__('menu.accessories')}}</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'health'])}}">{{__('menu.health')}}</a>
+                              <a class="dropdown-item" href="{{route('product',['type'=>'others'])}}">{{__('menu.others')}}</a>
                            </div>
                         </li>
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="/contact">Contact</a>
+                           <a class="nav-link" href="/contact">{{__('menu.contact')}}</a>
                         </li>
                         @guest
                         <!-- menu item -->
                         <li class="nav-item">
-                           <a class="nav-link" href="/login">SignIn</a>
+                           <a class="nav-link" href="/login">{{__('menu.login')}}</a>
                         </li>
                         @else 
                         <!-- menu item -->
@@ -154,12 +158,12 @@
                            {{Auth::user()->name}} ( @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth )
                            </a>
                            <div class="dropdown-menu pattern2" aria-labelledby="contact-dropdown">
-                              <a class="dropdown-item" href="/home">Profile</a>
-                              <a class="dropdown-item" href="/your-pet">YourPet</a>
-                              <a class="dropdown-item" href="/cart">Cart (
+                              <a class="dropdown-item" href="/home">{{__('menu.profile')}}</a>
+                              <a class="dropdown-item" href="/your-pet">{{__('menu.yourpet')}}</a>
+                              <a class="dropdown-item" href="/cart">{{__('menu.cart')}} (
                                  @auth {{Auth::user()->cartItems->count()}} @else 0 @endauth 
                                  )</a>
-                              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('menu.logout')}}</a>
                               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                  {{ csrf_field() }}
                               </form>
@@ -171,43 +175,6 @@
                         </li> --}}
                         @endguest
                         
-                        <!-- menu item -->
-                        <li class="d-none nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="about-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           About
-                           </a>
-                           <div class="dropdown-menu pattern2" aria-labelledby="about-dropdown">
-                              <a class="dropdown-item" href="about">About Style 1</a>
-                              <a class="dropdown-item" href="about2">About Style 2</a>
-                              <a class="dropdown-item" href="team">Our Team</a>
-                              <a class="dropdown-item" href="team-single">Team Single Page</a>
-                              <a class="dropdown-item" href="careers">Careers</a>
-                           </div>
-                        </li>
-                        <!-- menu item -->
-                        <li class="d-none nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="services-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Services
-                           </a>
-                           <div class="dropdown-menu pattern2" aria-labelledby="services-dropdown">
-                              <a class="dropdown-item" href="services">Services Style 1</a>
-                              <a class="dropdown-item" href="services2">Services Style 2</a>
-                              <a class="dropdown-item" href="services-single">Services Single</a>
-                           </div>
-                        </li>
-                        <!-- menu item -->
-                        <li class="d-none nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="others-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Blog
-                           </a>
-                           <div class="dropdown-menu pattern2" aria-labelledby="others-dropdown">
-                              <a class="dropdown-item" href="blog">Blog Home 1</a>
-                              <a class="dropdown-item" href="blog2">Blog Home 2</a>
-                              <a class="dropdown-item" href="blog-single">Blog Single</a>
-                              <a class="dropdown-item" href="elements">Elements Page</a>
-                              <a class="dropdown-item" href="404">404 Page</a>
-                           </div>
-                        </li>
                      </ul>
                      <!--/ul -->
                   </div>
@@ -241,7 +208,7 @@
                   <h5>About us</h5>
                   <!--divider -->
                   <hr class="small-divider left"/>
-                  <p class="mt-3">Efforts to collect all kinds of pet food and supplies throughout the city to ensure original licensed.</p>
+                  <p class="mt-3">{{ config('global.description') }}</p>
                </div>
                <!--/ col-lg -->
                <div class="col-lg-3">
@@ -249,9 +216,9 @@
                   <!--divider -->
                   <hr class="small-divider left"/>
                   <ul class="list-unstyled mt-3">
-                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>(852) 9351-7034</li>
-                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:email@yoursite.com">info@tripod-cat.com</a></li>
-                     <li><i class="fas fa-map-marker margin-icon"></i>Wong Chuk Hang - Hong Kong </li>
+                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>{{ config('global.contact_number') }}</li>
+                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:{{ config('global.contact_email') }}">{{ config('global.contact_email') }}</a></li>
+                     <li><i class="fas fa-map-marker margin-icon"></i>{{ config('global.contact_location').' - '.config('global.country') }}</li>
                   </ul>
                   <!--/ul -->
                </div>
@@ -261,9 +228,9 @@
                   <!--divider -->
                   <hr class="small-divider left"/>
                   <ul class="list-unstyled mt-3">
-                     <li class="mb-1">Open from 9am - 6pm</li>
-                     <li class="mb-1">Holidays - Closed</li>
-                     <li>Weekends - Closed</li>
+                     <li class="mb-1">Open from {{ config('global.open_hour') }}</li>
+                     <li class="mb-1">Holidays - {{ config('global.open_holiday') }}</li>
+                     <li>Weekends - {{ config('global.open_weekend') }}</li>
                   </ul>
                   <!--/ul -->
                </div>

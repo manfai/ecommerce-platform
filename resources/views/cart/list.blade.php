@@ -180,7 +180,7 @@
 
 </section>
   <!-- contact call to action -->
-  <div id="contact-calltoaction" class="h-100 row no-gutters" >
+  <div id="contact-calltoaction" class="d-none h-100 row no-gutters" >
     <div class="bg-collumn col-lg-6" style="background: url('https://reviewed-com-res.cloudinary.com/image/fetch/s--GHdy-BCV--/b_white,c_limit,cs_srgb,f_auto,fl_progressive.strip_profile,g_center,q_auto,w_792/https://reviewed-production.s3.amazonaws.com/attachment/14a5441cf65b4801/aspen-self-warming-bed.jpg') center center">
        <!-- Background image : img/call-to-action/contact.jpg -->	
     </div>

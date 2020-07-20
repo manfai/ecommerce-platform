@@ -3,26 +3,26 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Payment extends Resource
+class Setting extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Payment';
+    public static $model = 'App\\Models\\Setting';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -30,7 +30,7 @@ class Payment extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**
@@ -42,15 +42,12 @@ class Payment extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-            Text::make('Title')
-            ->sortable()
-            ->rules('required', 'max:255')->translatable(),
-            Text::make('Provider')
-            ->sortable()
+            ID::make()->sortable()->hideFromIndex()->hideFromDetail(),
+            Text::make('Name')
             ->rules('required', 'max:255'),
-            Boolean::make('Enable'),
-            Boolean::make('Need Card'),
+            Text::make('Value')
+            ->rules('required', 'max:255'),
+            DateTime::make('Update At')->onlyOnIndex()
         ];
     }
 

@@ -188,7 +188,7 @@
                                         <label>Type</label>
                                         <select id="sku_id" class="form-control custom-select">
                                             @foreach($product->skus as $sku)
-                                            <option value="{{ $sku->id }}" title="{{ $sku->description }}">
+                                                <option value="{{ $sku->id }}" data-stock="{{$sku->stock}}" title="{{ $sku->description }}">
                                                 {{ $sku->title }}</option>
                                             @endforeach
                                         </select>
@@ -203,22 +203,34 @@
                                 </p>
                             </div>
                             <div class="col-12 mt-4 text-center">
-                                <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
-                                    <input type="hidden" name="sku_id">
-                                    <input type="hidden" name="qty" value="1">
-                                    <button type="submit" class="btn btn-primary mr-2">Add To Cart</button>
-                                </form>
+                                <span id="inStock">
+                                    <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
+                                        <input type="hidden" name="sku_id">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit" class="btn btn-primary mr-2">Add To Cart</button>
+                                    </form>
+    
+                                    <form class="d-inline" action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="sku_id">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit" class="btn btn-warning">Add To Fave</button>
+                                    </form>
+                                </span>
 
-                                <form class="d-inline"
-                                    action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
+                                <form id="notifyMe" class="d-inline" action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
                                     @csrf
                                     <input type="hidden" name="sku_id">
                                     <input type="hidden" name="qty" value="1">
-                                    <button type="submit" class="btn btn-warning">Add To Fave</button>
+                                    <button type="submit" class="d-none ml-3 btn btn-secondary">Notify Me</button>
                                 </form>
+                                
                             </div>
                         </div>
 
+                        <section>
+                            {{$product->content}}
+                        </section>
 
                         <!-- accordions -->
                         <h3 class="elements-subheader mt-5">Product Detail</h3>
@@ -227,7 +239,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                                        Our Philosophy
+                                        Information
                                     </a>
                                 </div>
                                 <!-- /card-header -->
@@ -244,7 +256,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                        Our Organization
+                                        Organization
                                     </a>
                                 </div>
                                 <div id="collapseTwo" class="collapse" data-parent=".accordion">
@@ -260,7 +272,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                                        Partnerships with our team
+                                        Comments
                                     </a>
                                 </div>
                                 <div id="collapseThree" class="collapse" data-parent=".accordion">
@@ -299,6 +311,17 @@
     function changeVal(name, value) {
         $('[name="' + name + '"]').val(value);
         console.log(value);
+        if($('#sku_id option:selected').data('stock')==0){
+            $('#inStock').addClass('d-none');
+            $('#notifyMe button').removeClass('d-none');
+            $('#qty').val(0);
+            changeVal('qty', 0);
+        } else {
+            $('#inStock').removeClass('d-none');
+            $('#notifyMe button').addClass('d-none');
+            $('#qty').val(1);
+            changeVal('qty', 1);
+        }
     }
 
 </script>

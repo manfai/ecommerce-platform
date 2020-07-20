@@ -8,14 +8,14 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Payment extends Resource
+class Delivery extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Payment';
+    public static $model = 'App\\Models\\Delivery';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -50,7 +50,6 @@ class Payment extends Resource
             ->sortable()
             ->rules('required', 'max:255'),
             Boolean::make('Enable'),
-            Boolean::make('Need Card'),
         ];
     }
 

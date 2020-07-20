@@ -10,10 +10,12 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "graham-campbell/markdown": "^13.0",
         "laravel/framework": "^6.0",
         "laravel/nova": "*",
         "laravel/tinker": "^1.0",
         "league/omnipay": "^3",
+        "mcamara/laravel-localization": "^1.5",
         "nikaia/nova-rating-field": "^1.0",
         "omnipay/paypal": "^3.0",
         "optimistdigital/nova-translatable": "^1.5",
