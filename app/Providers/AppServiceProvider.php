@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(\Schema::hasTable('setting')){
+        // if(\Schema::hasTable('setting')){
             config([
                 'global' => Setting::all([
                     'name','value'
@@ -56,6 +56,6 @@ class AppServiceProvider extends ServiceProvider
                 })
                 ->toArray()
             ]);
-        }
+        // }
     }
 }
