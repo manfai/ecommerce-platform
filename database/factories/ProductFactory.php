@@ -16,9 +16,11 @@ $factory->define(Product::class, function (Faker $faker) {
     ]);
 
     return [
-        'code'        => $faker->ean8,
+        'code'         => $faker->ean8,
         'title'        => $faker->word,
         'description'  => $faker->sentence,
+        'content'      => $faker->sentence,
+        'meta'         => NULL,
         'image'        => $image,
         'on_sale'      => true,
         'rating'       => $faker->numberBetween(0, 5),

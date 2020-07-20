@@ -18,6 +18,7 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/faqs', 'HomeController@faqs')->name('faqs');
 Route::get('/blog', 'HomeController@blog')->name('blog');
+Route::get('/contact', 'HomeController@contact')->name('contact');
 
 Route::get('/adoption', 'AdoptionController@index')->name('adoption');
 Route::get('/adoption/{adoptionNo}', 'AdoptionController@show')->name('adoption.show');

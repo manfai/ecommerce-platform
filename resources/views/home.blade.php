@@ -51,7 +51,55 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 page-with-sidebar mb-5">
-                <h3 class="elements-subheader mt-0">Orders History</h3>
+                    <!-- contact-info-->
+                    <h2>Contact Information </h2>
+                    <p>Mei te apeirian omittantur reformidans, duo in appetere interesset concludaturque. Est eruditi erroribus liberavisse in.
+                    </p>
+                     <!-- contact info boxes start-->
+                    <div class="contact-info res-margin">
+                       <div class="row res-margin mt-5 res-margin">
+                          <div class="col-lg-4 mt-5">
+                             <div class="contact-icon bg-light">
+                                <!---icon-->
+                                <i class="fa fa-envelope top-icon"></i>
+                                <!-- contact-icon info-->
+                                <div class="contact-icon-info">
+                                   <h5>Write us</h5>
+                                   <p><a href="mailto:email@yoursite.com">email@yoursite.com</a></p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- /contact-icon-->
+                          <div class="col-lg-4 mt-5 res-margin">
+                             <div class="contact-icon bg-light">
+                                <!---icon-->
+                                <i class="fa fa-map-marker top-icon"></i>
+                                <!-- contact-icon info-->
+                                <div class="contact-icon-info">
+                                   <h5>Visit us</h5>
+                                   <p>Pet Street 123 - New York</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- /contact-icon-->
+                          <div class="col-lg-4 mt-5 res-margin">
+                             <div class="contact-icon bg-light">
+                                <!---icon-->
+                                <i class="fa fa-phone top-icon"></i>
+                                <!-- contact-icon info-->
+                                <div class="contact-icon-info">
+                                   <h5>Call us</h5>
+                                   <p>(123) 456-789</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- /contact-icon-->
+                       </div>
+                       <!-- /row -->
+                    </div>
+                    <!-- /contact-info-->
+
+                <h3 class="elements-subheader">Orders History</h3>
                 <table class="table table-striped">
                     <thead>
                         <tr>

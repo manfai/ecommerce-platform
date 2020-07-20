@@ -40,9 +40,14 @@ class HomeController extends Controller
         // Auth::user()->deposit(100);
         return view('faqs');
     }
+    
     public function blog()
     {
-        // Auth::user()->deposit(100);
         return view('blog');
+    }
+
+    public function contact()
+    {
+        return view('contact');
     }
 }

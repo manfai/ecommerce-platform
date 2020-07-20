@@ -4,21 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InternalException;
+use Spatie\Translatable\HasTranslations;
 
 class ProductSku extends Model
-{
-    protected $fillable = ['code', 'title', 'description', 'price', 'stock'];
+{    
+    
+    use HasTranslations;
+
+    protected $fillable = ['code', 'title', 'description', 'price', 'stock', 'image', 'meta', 'on_sale'];
+    public $translatable = ['title','description'];
 
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
-    
-    public function language()
-    {
-        return $this->morphMany('App\Models\ProductTrans', 'model');
-    }
 
+    public function getImageUrlAttribute()
+    {
+        if($this->attributes['image'] == NULL){
+            return $this->product->image_url;
+        }
+        // 如果 image 字段本身就已经是完整的 url 就直接返回
+        if (\Str::startsWith($this->attributes['image'], ['http://', 'https://'])) {
+            return $this->attributes['image'];
+        }
+        return \Storage::disk('public')->url($this->attributes['image']);
+    }
 
     // 庫存管理
     public function decreaseStock($qty)
@@ -37,5 +48,6 @@ class ProductSku extends Model
         }
         $this->increment('stock', $qty);
     }
+    
     
 }

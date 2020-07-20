@@ -1,41 +1,10 @@
 @extends('layouts.app')
 
-@push('styles')
-<style>
-.form-signin{
-    padding-top:4vh;
-    /* padding-bottom:5vh; */
-}
-
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-</style>
-@endpush
-
 @section('content')
-<section class="my-5">
+<div style="margin-top:148px;">
     <div class="container">
         <div class="form-signin row justify-content-center form-signin">
             <div class="col-md-5 text-center mb-4">
-                <img class="mb-4" src="https://laravel.com/img/logomark.min.svg" width="72" height="72">
                 <h2 class="card-title mb-4 text-uppercase">{{ __('Welcome Back!!') }}</h2>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -69,5 +38,5 @@
         </div>
     </div>
 
-</section>
+</div>
 @endsection
