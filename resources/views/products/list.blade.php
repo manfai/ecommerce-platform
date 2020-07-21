@@ -41,63 +41,12 @@
             <!-- /page-with-sdiebar -->
             <!-- Sidebar -->
             <div id="sidebar" class="bg-light h-100 col-lg-3 card pattern3">
-                <!--widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Search</h5>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary btn-sm" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Categories</h5>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            Food
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">Toys</a>
-                        <a href="#" class="list-group-item list-group-item-action">Accessories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Health</a>
-                        <a href="#" class="list-group-item list-group-item-action">Others</a>
-                    </div>
-                </div>
-                
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Tags</h5>
-                    <div class="tags-widget">
-                        <a href="#" class="badge badge-pill badge-default">Dogs</a>
-                        <a href="#" class="badge badge-pill badge-default">Cats</a>
-                        <a href="#" class="badge badge-pill badge-default">Nutrition</a>
-                        <a href="#" class="badge badge-pill badge-default">Events</a>
-                        <a href="#" class="badge badge-pill badge-default">Exotic pets</a>
-                        <a href="#" class="badge badge-pill badge-default">Adoption</a>
-                        <a href="#" class="badge badge-pill badge-default">Pet Insurance</a>
-                    </div>
-                </div>
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Follow us</h5>
-                    <div class="contact-icon-info">
-                        <ul class="social-media text-center">
-                            <!--social icons -->
-                            <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                        </ul>
-                    </div>
-                    <!--/contact-icon-info -->
-                </div>
-                <!--/widget-area -->
+                @include('components.sidebar')
             </div>
             <!--/sidebar -->
             <!-- Blog Entries Column -->
             <div class="col-lg-9 page-with-sidebar mb-5">
-                <h2>Pet {{ucfirst($_GET['type'])}}</h2>
+                <h2>Pet  @isset($_GET['type']){{ucfirst($_GET['type'])}}@endisset</h2>
                 <span class="h7 mt-0">Adoption is an act of love, join one of our events and find your new best friend
                 </span>
                 <hr class="small-divider left">
@@ -135,14 +84,7 @@
 
                 <div class="col-md-12 mb-5 ml-0 pl-0">
                     <!-- pagination -->
-                    <nav aria-label="pagination">
-                        <ul class="pagination float-left">
-                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
+                    {{$products->links()}}
                     <!-- /nav -->
                 </div>
                 <!-- /col-md -->

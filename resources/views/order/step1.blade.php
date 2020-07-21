@@ -84,6 +84,8 @@
 <script>
 $(document).ready(function () {
     $('#addr_text').text('---');
+    $('#addr_text').text($("option:selected", this).text());
+
     $('[name=address_id]').change(function () {
         var optionSelected = $("option:selected", this);
         console.log(optionSelected.text());

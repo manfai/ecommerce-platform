@@ -24,7 +24,7 @@ class OrdersController extends Controller
     {
         //REMARK: 由用戶按下一步開始，交易會用seesion暫時儲起。
         $orders = Order::query()
-            // 使用 with 方法预加载，避免N + 1问题
+            // 使用 with 方法預加載，避免N + 1問題
             ->with(['items.product', 'items.productSku']) 
             ->where('user_id', $request->user()->id)
             ->orderBy('created_at', 'desc')
@@ -35,7 +35,7 @@ class OrdersController extends Controller
     {
         $this->authorize('own', $orderId);
         // 校驗權限
-        //这里的 load() 方法与上一章节介绍的 with() 预加载方法有些类似，称为 延迟预加载，不同点在于 load() 是在已经查询出来的模型上调用，而 with() 则是在 ORM 查询构造器上调用。
+        //這裏的 load() 方法與上一章節介紹的 with() 預加載方法有些類似，稱爲 延遲預加載，不同點在於 load() 是在已經查詢出來的模型上調用，而 with() 則是在 ORM 查詢構造器上調用。
         return view('order.detail', ['order' => $orderId->load(['items.productSku', 'items.product'])]);
     }
     
@@ -59,6 +59,7 @@ class OrdersController extends Controller
 
     public function store(OrderRequest $request)
     {
+        // dd($request->all());
         $user  = $request->user();
         orderSessionMerge($request->user()->id, $request->input()); //更新暫存交易資料。
         $order = DB::transaction(function () use ($user, $request) {
@@ -67,10 +68,10 @@ class OrdersController extends Controller
             $walletValue = 0; //有冇用到wallet
 
             $address = UserAddress::find($orderData->address_id);
-            $address->update(['last_used_at' => Carbon::now()]);    // 更新此地址的最后使用时间
-            //创建一个订单
+            $address->update(['last_used_at' => Carbon::now()]);    // 更新此地址的最後使用時間
+            //創建一個訂單
             $order   = new Order([
-                'address'      => [ // 将地址信息放入订单中
+                'address'      => [ // 將地址信息放入訂單中
                     'address'       => $address->full_address,
                     'zip'           => $address->zip,
                     'contact_name'  => $address->contact_name,
@@ -80,16 +81,16 @@ class OrdersController extends Controller
                 'total_amount' => 0,
                 'real_amount'  => 0,
             ]);
-            $order->user()->associate($user);             //订单关联到当前用户
-            $order->save(); // 写入数据库
+            $order->user()->associate($user);             //訂單關聯到當前用戶
+            $order->save(); // 寫入數據庫
 
             //Product
             $totalAmount = 0;
             $items       = $orderData->items;
-            // 遍历用户提交的 SKU
+            // 遍歷用戶提交的 SKU
             foreach ($items as $data) {
                 $sku  = ProductSku::find($data['sku_id']);
-                // 创建一个 OrderItem 并直接与当前订单关联
+                // 創建一個 OrderItem 並直接與當前訂單關聯
                 $item = $order->items()->make([
                     'qty' => $data['qty'],
                     'price'  => $sku->price,
@@ -99,21 +100,21 @@ class OrdersController extends Controller
                 $item->save();
                 $totalAmount += $sku->price * $data['qty'];
                 if ($sku->decreaseStock($data['qty']) <= 0) {
-                    throw new InvalidRequestException('该商品库存不足'); //比錢太慢比人搶左貨就會跳出至錯誤頁
+                    throw new InvalidRequestException('該商品庫存不足'); //比錢太慢比人搶左貨就會跳出至錯誤頁
                 }
             }
 
-            // 更新订单总金额
+            // 更新訂單總金額
             // REMARK: real_amount:實收用戶幾錢。
             $order->update([
                 'total_amount' => $totalAmount,
                 'real_amount'  => $totalAmount - $walletValue 
             ]);
 
-            // 将下单的商品从购物车中移除
+            // 將下單的商品從購物車中移除
             $skuIds = collect($items)->pluck('sku_id');
             $user->cartItems()->whereIn('product_sku_id', $skuIds)->delete();
-            $this->dispatch(new CloseOrder($order, 900)); //REMARK: seconds, 900s = 15mins
+            // $this->dispatch(new CloseOrder($order, 900)); //REMARK: seconds, 900s = 15mins
             return $order;
         });
         return view('order.step3', ['order' => $order, 'payment' => $request->payment]);

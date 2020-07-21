@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Http\Requests\UserAddressRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserAddressController extends Controller
 {
     
     public function index()
     {
-        return view('address.index',['addresses'=>UserAddress::all()]);
+        return view('address.index',['addresses'=>Auth::user()->addresses]);
     }
     
     public function create()

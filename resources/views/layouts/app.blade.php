@@ -119,6 +119,7 @@
                            <a class="nav-link" href="{{route('welcome')}}">{{__('menu.home')}}
                            </a>
                         </li>
+                        @if(config('global.adoption'))
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,6 +130,7 @@
                               <a class="dropdown-item" href="/adoption/stories">{{__('menu.stories')}}</a>
                            </div>
                         </li>
+                        @endif
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="gallery-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -240,7 +242,7 @@
             <hr/>
             <div class="row">
                <div class="credits col-sm-12">
-                  <p>Copyright {{date('Y')}} / Powered by <a href="https://manfai.me">ManFai</a> / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
+                  <p>Copyright <a href="/careers">{{date('Y')}}</a> / Powered by <a href="https://manfai.me">ManFai</a> / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
                </div>
             </div>
             <!--/col-lg-12-->
@@ -255,10 +257,11 @@
         <!--/ footer-->
         <!-- Bootstrap core & Jquery -->
         <script src="/vendor/jquery/jquery.min.js"></script>
-        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!-- Custom Js -->
-        <script src="/js/custom.js"></script>
-        <script src="/js/plugins.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>   
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
         <!-- Prefix free -->
         <script src="/js/prefixfree.min.js"></script><!-- number counter script -->
         <script src="/js/counter.js"></script>
@@ -271,6 +274,11 @@
         <script src="/vendor/layerslider/js/layerslider.kreaturamedia.jquery.js"></script>
         <script src="/vendor/layerslider/js/layerslider.load.js"></script>
         <!-- Channel Plugin Scripts -->
+
+         <!-- Custom Js -->
+         <script src="/js/custom.js"></script>
+         <script src="/js/plugins.js"></script>
+      
         <script>
         (function() {
             var w = window;

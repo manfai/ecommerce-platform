@@ -15,8 +15,8 @@
     </div>
 </div>
 
-<div class="page container">
-    <section class="py-5">
+<div class="page container py-0">
+    <section class="">
             <div class="row">
                 <div class="col-lg-7">
                     <p class="text-primary">One step away from success.</p>
@@ -24,13 +24,13 @@
                     <div class="text-block">
                         <p class="text-muted">Your order has been received</p>
                         <p class="text-muted mb-5">After the order is successfully placed, you will receive an order confirmation letter, which will contain your order details and order number.</p>
-                        <p class="text-center mb-5">
-                            <a href="#" class="btn btn-outline-muted mb-2">No automatic jump?</a>
+                        <p class="text-center">
+                            <a href="#" class="btn btn-danger mb-2">No automatic jump?</a>
                         </p>
-                        <p class="mb-5 text-center"><img src="img/illustration/undraw_celebration_0jvk.svg" alt="" style="width: 400px;" class="img-fluid"></p>
                     </div>
                 </div>
-                <div class="col-lg-5 pl-xl-5">
+                <div class="col-lg-5">
+                    <p class="mb-5 text-center"><img src="/img/carts.png" alt="" style="width: 400px;" class="img-fluid"></p>
                 </div>
             </div>
     </section>

@@ -25,4 +25,9 @@ class AdoptionController extends Controller
             'adoption'=>$adoptionNo
         ]);
     }
+
+    public function stories()
+    {
+        return view('adoption.stories');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section('content')
 <section class="py-5">
@@ -77,6 +77,15 @@
             }).then(function (result) { // 用户点击按钮后会触发这个回调函数
                 // 调用删除接口，用 id 来拼接出请求的 url
                 if (result.value) {
+                    Swal.fire({
+                        title: 'Please Wait..!',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onOpen: () => {
+                            swal.showLoading()
+                        }
+                    })
                     axios.delete("/address/" + id)
                         .then(function (data) {
                             Swal.fire({
@@ -91,25 +100,6 @@
                     // console.log(result.dismiss);
                 }
             });
-            // swal({
-            //     title: "确认要删除该地址？",
-            //     icon: "warning",
-            //     buttons: ['取消', '确定'],
-            //     dangerMode: true,
-            //   })
-            // .then(function(willDelete) { // 用户点击按钮后会触发这个回调函数
-            //   // 用户点击确定 willDelete 值为 true， 否则为 false
-            //   // 用户点了取消，啥也不做
-            //   if (!willDelete) {
-            //     return;
-            //   }
-            //   // 调用删除接口，用 id 来拼接出请求的 url
-            //   axios.delete('/user_addresses/' + id)
-            //     .then(function () {
-            //       // 请求成功之后重新加载页面
-            //       location.reload();
-            //     })
-            // });
         });
     });
 

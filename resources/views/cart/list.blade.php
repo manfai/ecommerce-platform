@@ -40,33 +40,7 @@
     <div class="row">
 
         <div class="col-md-4 order-md-2 mb-4">
-            <!-- <div class="list-group">
-                <div class="list-group-item">
-                    <h6 class="my-0">Order total</h6>
-                    <small class="text-muted">Brief description</small>
-                    @php $amount = 0 @endphp
-                    @foreach($cartItems as $item)
-                    @php $amount += ($item->productSku->price * $item->qty) @endphp
-                    @endforeach
-                    <span class="text-muted">${{$amount = number_format((float)$amount, 2, '.', '')}}</span>
-                </div>
-                <div class="list-group-item">
-                    <h6 class="my-0">Shipping</h6>
-                    <small class="text-muted">Brief description</small>
-                    <span class="text-muted">$5.00</span>
-                </div>
-                <div class="list-group-item">
-                    <div class="text-success">
-                        <h6 class="my-0">Coupon code</h6>
-                        <small>EXAMPLECODE</small><small class="ml-3">Cancel</small>
-                    </div>
-                    <span class="text-success">-$5.00</span>
-                </div>
-                <div class="list-group-item">
-                    <span>Purchase Amount</span>
-                    <strong>${{ number_format((float)$amount - 5,2,'.','')}}</strong>
-                </div>
-            </div> -->
+          
             <h5 class="elements-subheader mb-2 mt-0">SUMMARY</h5>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -91,14 +65,14 @@
                 <li id="coupon" class="list-group-item d-flex justify-content-between">
                     <div class="text-success">
                         <h6 class="my-0">Coupon code</h6>
-                        <small>EXAMPLECODE</small><small class="ml-3">Cancel</small>
+                        {{-- <small>EXAMPLECODE</small><small class="ml-3">Cancel</small> --}}
                     </div>
-                    <span class="text-success">-$5.00</span>
+                    <span class="text-success">-$0.00</span>
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Purchase Amount</span>
-                    <strong>${{ number_format((float)$amount - 5,2,'.','')}}</strong>
+                    <strong>${{ number_format((float)$amount,2,'.','')}}</strong>
                 </li>
             </ul>
             <div class="input-group">

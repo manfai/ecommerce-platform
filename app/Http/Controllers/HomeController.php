@@ -30,9 +30,9 @@ class HomeController extends Controller
     {
         // Auth::user()->deposit(100);
         return view('home',[
-            'orders'=> Auth::user()->orders,
-            'addresses'=>UserAddress::all(),
-            'products'=>Product::all()->random(4),
+            'orders'=> Auth::user()->orders->take(5),
+            'addresses'=>Auth::user()->addresses->take(4),
+            'products'=>Auth::user()->favoriteProducts,
         ]);
 
     }
@@ -51,5 +51,10 @@ class HomeController extends Controller
     public function contact()
     {
         return view('contact');
+    }
+   
+    public function careers()
+    {
+        return view('careers');
     }
 }

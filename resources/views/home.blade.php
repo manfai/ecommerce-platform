@@ -28,6 +28,16 @@
     border-bottom-right-radius: 10px!important;
     box-shadow: none;
 }
+
+section{
+    padding-top: 0px;
+}
+
+#nav-tabContent{
+    padding:25px;
+    min-height:410px;
+    max-height:410px;
+}
 </style>
 @endpush
 @section('content')
@@ -54,8 +64,8 @@
 </div>
 <!-- /jumbotron -->
 <!-- ==== Page Content ==== -->
-<div id="product-home" class="page">
-    <div class="container mb-5">
+<div id="product-home" class="page pb-0">
+    <section class="container mb-0">
         <div class="row">
 
             <!-- /page-with-sidebar -->
@@ -120,51 +130,7 @@
             <div class="col-lg-9 order-1 order-lg-2 page-with-sidebar">
                 
                 <div class="row">
-                    <div class="d-none col-12">
-                        <!-- contact info boxes start-->
-                        <div class="contact-info res-margin">
-                            <div class="row res-margin mt-5 res-margin">
-                                <div class="col-lg-4 mt-5">
-                                    <div class="contact-icon bg-light">
-                                        <!---icon-->
-                                        <i class="fa fa-envelope top-icon"></i>
-                                        <!-- contact-icon info-->
-                                        <div class="contact-icon-info">
-                                            <h5>Coins</h5>
-                                            <p>0</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /contact-icon-->
-                                <div class="col-lg-4 mt-5 res-margin">
-                                    <div class="contact-icon bg-light">
-                                        <!---icon-->
-                                        <i class="fa fa-map-marker top-icon"></i>
-                                        <!-- contact-icon info-->
-                                        <div class="contact-icon-info">
-                                            <h5>Order</h5>
-                                            <p>0</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /contact-icon-->
-                                <div class="col-lg-4 mt-5 res-margin">
-                                    <div class="contact-icon bg-light">
-                                        <!---icon-->
-                                        <i class="fa fa-phone top-icon"></i>
-                                        <!-- contact-icon info-->
-                                        <div class="contact-icon-info">
-                                            <h5>News</h5>
-                                            <p>0</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /contact-icon-->
-                            </div>
-                            <!-- /row -->
-                        </div>
-                        <!-- /contact-info-->
-                    </div>
+                   
                     <div class="col-12">
                         <!-- navigation -->
                         <nav>
@@ -173,12 +139,13 @@
                                     role="tab" aria-selected="true">Orders</a>
                                 <a class="nav-item nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab"
                                     aria-selected="false">News</a>
+                                <a class="nav-item nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab"
+                                    aria-selected="false">Address</a>
                             </div>
                         </nav>
                         <!-- tab-content -->
                         <div class="tab-content block-padding bg-light" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="tab1" role="tabpanel"
-                                aria-labelledby="tab1-tab">
+                            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                                 <!--divider -->
                                 <table class="table table-striped">
                                     <thead>
@@ -198,52 +165,46 @@
                                             <td>{{$order->real_amount}}</td>
                                             <td>{{$order->created_at}}</td>
                                             <td>
-                                                <a href="" class="m-0 text-primary">View</a> / 
-                                                <a href="" class="m-0 text-primary">Pay</a>
+                                                <a href="{{route('orders.show',['orderId'=>$order->id])}}" class="m-0 text-primary">View</a>
                                             </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <a class="btn btn-sm btn-primary my-3 d-inline mr-3" href="{{route('orders')}}">View All</a>
                             </div>
                             <!-- ./Tab-pane -->
-                            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                                <!-- row -->
-                                <div class="row">
-                                    <!--divider -->
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <!-- row -->
+                            <div class="tab-pane fade text-center" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                                <img src="/img/carts.png" alt="" style="width: 200px;" class="mt-3 mb-5 img-fluid">
+                                <p>{{__('profile.no_message')}}</p>
+                            </div>
+                            <!-- ./Tab-pane -->
+                            <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Contact</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($addresses as $address)
+                                        <tr>
+                                            <td>{{ $address->contact_name }}</td>
+                                            <td>{{ $address->full_address }}</td>
+                                            <td>{{ $address->contact_phone }}</td>
+                                            <td>
+                                            <a href="{{ route('address.edit', ['addressId' => $address->id]) }}" class="m-0 text-primary btn-edit">Edit</a>
+                                            <a class="m-0 text-primary btn-destroy" data-id="{{ $address->id }}">Delete</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <a class="btn btn-sm btn-primary mt-4 d-inline mr-3" href="{{route('address.create')}}">View All</a>
+                                <a class="btn btn-sm btn-primary mt-4 d-inline mr-3" href="{{route('address')}}">Add New</a>
                             </div>
                             <!-- ./Tab-pane -->
                         </div>
@@ -254,51 +215,123 @@
             </div>
 
         </div>
-    </div>
+    </section>
 
-    <div class="container">
+    <section class="container mb-0">
        <div class="row">
            <div class="col-12 p-0">
-                <div class="card bg-primary text-light">
-                    <h2>Hello, {{Auth::user()->name}}</h2>
-                        <p>Mei te apeirian omittantur reformidans, duo in appetere interesset concludaturque. Est eruditi erroribus liberavisse in.</p>
-                        <p>
-                            <div class="input-group" style="max-width:500px;width:100%;">
-                                <input type="text" class="form-control" placeholder="Invite Your Friends...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="button">Copy</button>
-                                </span>
-                            </div>
-                        </p>
+                <div class="card bg-primary text-light p-5">
+                    <h4>Share your referral link</h4>
+                    <p>You can get up to 10 coupons every month via inviting friends. After earning 10 coupons, you won't get more of them but you can still invite friends.</p>
+                    <div class="input-group" style="max-width:500px;width:100%;">
+                        <input type="text" class="form-control" placeholder="Invite Your Friends...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button">Copy</button>
+                        </span>
+                    </div>
+                    <div id="show-social-media" class="mt-5">
+                        <h4 class="mb-0">Share on social media</h4>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-primary d-inline mr-3">Facebook</button>
+                            <button type="button" class="btn btn-info d-inline mr-3">Twitter</button>
+                            <button type="button" class="btn btn-danger d-inline mr-3">Google</button>
+                        </div>
+                    </div>
                 </div>
             </h2>
 
            </div>
        </div>
         
-    </div>
-
-    <section id="random-product" class="mt-0 container-fluid">
-        <div class="text-center">
-            <!-- section heading -->
-            <h2>Favourite Product</h2>
-            <!-- /section-heading -->
-        </div>
-        <!-- owl carousel gallery  -->
-        <div class="owl-stage owl-carousel owl-theme top-centered-nav magnific-popup mt-5">
-            @foreach($products as $product)
-            <div class="col-md-12 gallery-img hover-opacity">
-                <!-- image -->
-                <a href="{{ $product->image_url }}" title="{{ $product->name }}">
-                    <img src="{{ $product->image_url }}" class="img-fluid rounded" alt="">
-                    <h5>{{$product->name}}</h5>
-                </a>
-            </div>
-            @endforeach
-        </div>
-        <!-- /owl-carousel -->
     </section>
 
+    @if(count($products)>0)
+    <section id="random-product" class="text-light block-padding overlay-dark bg-fixed" style="background:url('https://img.made.com/image/upload/c_pad,d_made.svg,f_auto,w_1320,dpr_1.0,q_auto:best/v4/catalog/product/catalog/2/c/6/5/2c6514e4983b6e67d1261535558857fb73b7f5cd_PETTER001GRE_UK_Terri_Teepee_Pet_house_Grey_and_Mustard_LB02.jpg')">
+        <!-- owl carousel gallery  -->
+        <div class="text-center">
+            <!-- section heading -->
+            <h3 class="text-uppercase">Favourite Product</h3>
+            <!-- /section-heading -->
+        </div>
+        <div class="container">
+            <div class="carousel-3items owl-carousel owl-theme mt-5 pb-5">
+                @foreach($products as $product)
+                 <!-- Team member 1 -->
+                 <div class="team-style2 col-lg-12">
+                    <!-- image and social icons -->
+                    <div class="img-box">
+                       <div class="text-center">
+                          <img src="{{ $product->image_url }}" class="img-fluid" alt="">
+                          <ul class="social-icons text-center">
+                             <li> <a href="{{route('product.show',['productId'=>$product->id,'productTitle'=>$product->title])}}"><i class="fab fa-eyes"></i></a></li>
+                          </ul>
+                       </div>
+                    </div>
+                    <!-- Team header -->
+                    <a href="{{route('product.show',['productId'=>$product->id,'productTitle'=>$product->title])}}">
+                       <h5 class="team-header">{{$product->name}}</h5>
+                    </a>
+                    <span>Description</span>
+                    <hr class="small-divider left"/>
+                    <p>{{$product->description}}</p>
+                 </div>
+                 <!--/ Team member 1 -->
+    
+                @endforeach
+            </div>
+        </div>
+       
+        <!-- /owl-carousel -->
+
+    </section>
+    @endif
 </div>
 
 @endsection
+
+
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        // 删除按钮点击事件
+        $('#tab3 .btn-destroy').click(function () {
+            // 获取按钮上 data-id 属性的值，也就是地址 ID
+            var id = $(this).data('id');
+            // 调用 sweetalert
+            Swal.fire({
+                title: '确认要删除该地址？',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+            }).then(function (result) { // 用户点击按钮后会触发这个回调函数
+                // 调用删除接口，用 id 来拼接出请求的 url
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Please Wait..!',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onOpen: () => {
+                            swal.showLoading()
+                        }
+                    })
+                    axios.delete("/address/" + id)
+                        .then(function (data) {
+                            Swal.fire({
+                                title: '刪除成功',
+                                type: 'success',
+                                showConfirmButton: false
+                            });
+                            location.reload();
+                        })
+                } else if (result.dismiss) {
+                    return;
+                    // console.log(result.dismiss);
+                }
+            });
+        });
+    });
+
+</script>
+@endpush

@@ -27,8 +27,10 @@ Route::group(
     Route::get('/faqs', 'HomeController@faqs')->name('faqs');
     Route::get('/blog', 'HomeController@blog')->name('blog');
     Route::get('/contact', 'HomeController@contact')->name('contact');
+    Route::get('/careers', 'HomeController@careers')->name('careers');
 
     Route::get('/adoption', 'AdoptionController@index')->name('adoption');
+    Route::get('/adoption/stories', 'AdoptionController@stories')->name('adoption.stories');
     Route::get('/adoption/{adoptionNo}', 'AdoptionController@show')->name('adoption.show');
 
     Route::get('/category', 'ProductController@category')->name('category');
@@ -47,7 +49,7 @@ Route::group(
     Route::get('orders/{orderId}', 'OrdersController@show')->name('orders.show');
     Route::post('orders/step-1', 'OrdersController@step_1')->name('orders.step.1');
     Route::post('orders/step-2', 'OrdersController@step_2')->name('orders.step.2');
-    Route::post('orders', 'OrdersController@store')->name('orders.store');
+    Route::post('orders/step-3', 'OrdersController@store')->name('orders.store');
 
     Route::get('payment/{order}/paypal', 'PaymentController@payByPaypal')->name('pay.paypal');
     Route::get('payment/{order}/paypal/return', 'PaymentController@paypalReturn')->name('paypalReturn');

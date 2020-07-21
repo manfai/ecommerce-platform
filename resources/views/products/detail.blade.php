@@ -2,14 +2,14 @@
 
 @push('styles')
 <style>
-   .page-with-sidebar {
-    padding-left: 30px;
-}
+    .page-with-sidebar {
+        padding-left: 30px;
+    }
+
 </style>
 @endpush
 
 @section('content')
-
 <!-- Jumbotron -->
 <div class="jumbotron jumbotron-fluid" data-center="background-size: 100%;background:url('/img/banner.jpg') center;"
     data-top-bottom="background-size: 110%;">
@@ -42,58 +42,7 @@
             <!-- /page-with-sdiebar -->
             <!-- Sidebar -->
             <div id="sidebar" class="bg-light h-100 col-lg-3 card pattern3">
-                <!--widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Search</h5>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary btn-sm" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Categories</h5>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">
-                            Food
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">Toys</a>
-                        <a href="#" class="list-group-item list-group-item-action">Accessories</a>
-                        <a href="#" class="list-group-item list-group-item-action">Health</a>
-                        <a href="#" class="list-group-item list-group-item-action">Others</a>
-                    </div>
-                </div>
-
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Tags</h5>
-                    <div class="tags-widget">
-                        <a href="#" class="badge badge-pill badge-default">Dogs</a>
-                        <a href="#" class="badge badge-pill badge-default">Cats</a>
-                        <a href="#" class="badge badge-pill badge-default">Nutrition</a>
-                        <a href="#" class="badge badge-pill badge-default">Events</a>
-                        <a href="#" class="badge badge-pill badge-default">Exotic pets</a>
-                        <a href="#" class="badge badge-pill badge-default">Adoption</a>
-                        <a href="#" class="badge badge-pill badge-default">Pet Insurance</a>
-                    </div>
-                </div>
-                <!--/widget-area -->
-                <div class="widget-area">
-                    <h5 class="sidebar-header">Follow us</h5>
-                    <div class="contact-icon-info">
-                        <ul class="social-media text-center">
-                            <!--social icons -->
-                            <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                        </ul>
-                    </div>
-                    <!--/contact-icon-info -->
-                </div>
-                <!--/widget-area -->
+                @include('components.sidebar')
             </div>
             <!--/sidebar -->
             <!-- Blog Entries Column -->
@@ -181,15 +130,13 @@
                                 <h4 class="featurette-heading text-uppercase">{{ $product->title }}</h4>
                                 <p class="featurette-price lead display-5 text-primary">
                                     <strong>${{ $product->price }}</strong></p>
-                                <!-- <p class="lead">And an even wittier subheading to boot. Jumpstart your marketing
-                                    efforts with this example based on Apple’s marketing pages.</p> -->
+                                <p class="text-muted text-sm" id="sku-stock">商品庫存<span>0</span>件</p>
                                 <p>
                                     <div class="skus mb-2">
-                                        <label>Type</label>
-                                        <select id="sku_id" class="form-control custom-select">
+                                        <label>型號/款式</label>
+                                        <select id="skus" name="skus" class="form-control custom-select">
                                             @foreach($product->skus as $sku)
-                                                <option value="{{ $sku->id }}" data-stock="{{$sku->stock}}" title="{{ $sku->description }}">
-                                                {{ $sku->title }}</option>
+                                            <option value="{{ $sku->id }}" data-description="{{ $sku->description }}" data-stock="{{ $sku->stock }}">{{ $sku->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -198,24 +145,27 @@
                                         <input id="qty" type="number" step="1" min="1" class="form-control" value="1">
                                     </div>
 
-                                 
+
 
                                 </p>
                             </div>
+                      
+
                             <div class="col-12 mt-4 text-center">
                                 <span id="inStock">
-                                    <form class="d-inline" action="{{route('cart.add')}}" method="post">@csrf
-                                        <input type="hidden" name="sku_id">
-                                        <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn btn-primary mr-2">Add To Cart</button>
-                                    </form>
-    
-                                    <form class="d-inline" action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
+                                    <form class="d-inline" action="{{route('cart.add')}}" method="post">
                                         @csrf
                                         <input type="hidden" name="sku_id">
                                         <input type="hidden" name="qty" value="1">
-                                        <button type="submit" class="btn btn-warning">Add To Fave</button>
+                                        <button type="submit" class="btn btn-primary btn-add-to-cart mr-2">Add To Cart</button>
                                     </form>
+
+                                    @if(!$favored)
+                                    <button class="d-inline btn btn-warning btn-favor">Add To Fave</button>
+                                    @else
+                                    <button class="d-inline btn btn-warning btn-disfavor">Remove From my Fave</button>
+                                    @endif
+
                                 </span>
 
                                 <form id="notifyMe" class="d-inline" action="{{route('product.favor',['productId'=>$product->id])}}" method="post">
@@ -224,12 +174,13 @@
                                     <input type="hidden" name="qty" value="1">
                                     <button type="submit" class="d-none ml-3 btn btn-secondary">Notify Me</button>
                                 </form>
-                                
+
                             </div>
                         </div>
 
                         <section>
-                            {{$product->content}}
+                            <p>{{$product->content}}</p>
+                            <p id="sku-description"></p>
                         </section>
 
                         <!-- accordions -->
@@ -298,31 +249,105 @@
 
 @push('scripts')
 <script>
-    changeVal('sku_id', $('#sku_id').val());
+    $(document).ready(function () {
 
-    $('#sku_id').change(function () {
-        changeVal('sku_id', $(this).val());
+        checkStock();
+
+        $('#skus').on('change', function () {
+            var title = $(this).find(':selected').text();
+            var description = $(this).find(':selected').data('description');
+            $('#sku-title').text(title);
+            $('#sku-description').text(description);
+            checkStock();
+        });
+
+        $('#qty').on('change', function () {
+            checkStock();
+        });
+
+        // 監聽收藏按鈕的點擊事件
+        $('.btn-favor').click(function () {
+            Swal.fire({
+                title: 'Please Wait..!',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                onOpen: () => {
+                    swal.showLoading()
+                }
+            })
+            // 發起一個 post ajax 請求，請求 url 通過後端的 route() 函數生成。
+            axios.post("{{ route('product.favor', ['productId' => $product->id]) }}")
+                .then(function () { // 請求成功會執行這個回調
+                    Swal.fire({
+                        title: '操作成功',
+                        type: 'success',
+                        showConfirmButton: false,
+                    });
+                }, function (error) { // 請求失敗會執行這個回調
+                    // 如果返回碼是 401 代表沒登錄
+                    if (error.response && error.response.status === 401) {
+                        Swal.fire({
+                            title: '請先登錄',
+                            type: 'error',
+                            showConfirmButton: false,
+                        });
+                    } else if (error.response && (error.response.data.msg || error.response.data
+                            .message)) {
+                        // 其他有 msg 或者 message 字段的情況，將 msg 提示給用户
+                        Swal.fire({
+                            title: error.response.data.msg ? error.response.data.msg : error
+                                .response.data.message,
+                            type: 'error',
+                        });
+                    } else {
+                        // 其他情況應該是系統掛了
+                        Swal.fire({
+                            title: '系統錯誤',
+                            type: 'error',
+                            showConfirmButton: false,
+                        });
+                    }
+                });
+        });
+
+        $('.btn-disfavor').click(function () {
+            Swal.fire({
+                title: 'Please Wait..!',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                onOpen: () => {
+                    swal.showLoading()
+                }
+            })
+            axios.delete("{{ route('product.disfavor', ['productId' => $product->id]) }}")
+                .then(function () {
+                    Swal.fire({
+                        title: '操作成功',
+                        type: 'success',
+                        showConfirmButton: false,
+                    }).then(function () {
+                        location.reload();
+                    });
+                });
+        });
     });
 
-    $('#qty').change(function () {
-        changeVal('qty', $(this).val());
-    });
-
-    function changeVal(name, value) {
-        $('[name="' + name + '"]').val(value);
-        console.log(value);
-        if($('#sku_id option:selected').data('stock')==0){
-            $('#inStock').addClass('d-none');
-            $('#notifyMe button').removeClass('d-none');
-            $('#qty').val(0);
-            changeVal('qty', 0);
+    function checkStock() {
+        var stock = $('#skus').find(':selected').data('stock');
+        var id = $('#skus').find(':selected').val();
+        var qty = $('#qty').val();
+        $('input[name=sku_id]').val(id);
+        $('input[name=qty]').val(qty);
+        $('#sku-stock span').text(stock);
+        if (stock <= 0) {
+            $('.btn-add-to-cart').attr('disabled', 'disabled');
         } else {
-            $('#inStock').removeClass('d-none');
-            $('#notifyMe button').addClass('d-none');
-            $('#qty').val(1);
-            changeVal('qty', 1);
+            $('.btn-add-to-cart').removeAttr('disabled');
         }
     }
 
 </script>
+
 @endpush

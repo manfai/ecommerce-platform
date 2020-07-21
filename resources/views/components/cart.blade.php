@@ -6,9 +6,9 @@
           
           <ul class="list-unstyled mb-0">
                   @if(isset($order))
-                  <li class="mb-3"><i class="fas fa-box fa-fw text-muted mr-2"></i>{{count($order->items)}} 件商品</li>
+                  <li class="mb-3"><i class="fas fa-boxes fa-fw text-muted mr-2"></i>{{count($order->items)}} 件商品</li>
                   @else
-                  <li class="mb-3"><i class="fas fa-box fa-fw text-muted mr-2"></i>{{count($cartItems)}} 件商品</li>
+                  <li class="mb-3"><i class="fas fa-boxes fa-fw text-muted mr-2"></i>{{count($cartItems)}} 件商品</li>
                   @endif
                   @isset($address)
                   <li class="mb-0"><i class="fas fa-map-marker-alt fa-fw text-muted mr-2"></i><span
@@ -42,15 +42,15 @@
 
                 <li id="coupon" class="list-group-item d-flex justify-content-between">
                     <div class="text-success">
-                        <h6 class="my-0">Coupon code</h6>
-                        <small>EXAMPLECODE</small><small class="ml-3"><u>X Cancel</u></small>
+                        <h6 class="my-0">Coupon</h6>
+                        {{-- <small>EXAMPLECODE</small><small class="ml-3"><u>X Cancel</u></small> --}}
                     </div>
-                    <span class="text-success">-$5.00</span>
+                    <span class="text-success">-$0.00</span>
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Purchase Amount</span>
-                    <strong>${{ number_format((float)$amount - 5,2,'.','')}}</strong>
+                    <strong>${{ number_format((float)$amount,2,'.','')}}</strong>
                 </li>
             </ul>
       </div>
@@ -75,9 +75,9 @@
           <div class="text-block pb-3">
               <ul class="list-unstyled mb-0">
                   @if(isset($order))
-                  <li class="mb-3"><i class="fas fa-box fa-fw text-muted mr-2"></i>{{count($order->items)}} 件商品</li>
+                  <li class="mb-3"><i class="fas fa-shopping-cart fa-fw text-muted mr-2"></i>{{count($order->items)}} 件商品</li>
                   @else
-                  <li class="mb-3"><i class="fas fa-box fa-fw text-muted mr-2"></i>{{count($cartItems)}} 件商品</li>
+                  <li class="mb-3"><i class="fas fa-shopping-cart fa-fw text-muted mr-2"></i>{{count($cartItems)}} 件商品</li>
                   @endif
                   @isset($address)
                   <li class="mb-0"><i class="fas fa-map-marker-alt fa-fw text-muted mr-2"></i><span

@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.app')
 @section('title', ($address->id ? '修改': '新增') . '收貨地址')
 @section('content')
 <section class="py-5">
