@@ -12,6 +12,7 @@ use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
+
     public function payByPaypal(Order $order, Request $request)
     {
         // 判断订单是否属于当前用户

@@ -57,9 +57,15 @@ class OrderRequest extends FormRequest
             ];
         }
         if($step == 'addresses'){
-            $rules['address_id'] = [
+            // $rules['address_id'] = [
+            //     'required',
+            //     Rule::exists('user_addresses', 'id')->where('user_id', $this->user()->id),
+            // ];
+        }
+        if($step == 'payment'){
+            $rules['payment'] = [
                 'required',
-                Rule::exists('user_addresses', 'id')->where('user_id', $this->user()->id),
+                Rule::exists('payments', 'id')->where('enable', 1),
             ];
         }
         return $rules;

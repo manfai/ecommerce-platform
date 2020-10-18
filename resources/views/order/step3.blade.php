@@ -4,11 +4,12 @@
 <div class="jumbotron jumbotron-fluid" data-center="background-size: 100%;background:url('/img/banner.jpg') center;" data-top-bottom="background-size: 110%;">
     <div class="container">
         <div class="jumbo-heading" data-aos="fade-up">
-            <h1>Cart</h1>
+            <h1>Checkout</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                    <li class="breadcrumb-item" aria-current="page">Cart</li>
+                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
             </nav>
         </div>
@@ -40,7 +41,7 @@
 @push('scripts')
 <script>
 $(document).ready(function () {
-    @if($payment==2)
+    @if($payment==4)
         window.location.href = "{{route('pay.paypal',['order'=>$order->id])}}";
     @endif
 });

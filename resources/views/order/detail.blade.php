@@ -32,7 +32,7 @@
             <p class="mb-3">{{__('order.no')}}  {{ $order->no }}</p>
         </div>
         <div class="row mt-4 mt-lg-5">
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-5">
 
 
                 <div class="text-block">
@@ -58,7 +58,7 @@
 
               
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-5">
                 <div class="text-block">
                     <div class="row">
                         <div class="col">
@@ -102,8 +102,8 @@
           
                 </div>
                 <div class="text-block d-print-none">
-                    <button onclick="window.print()" class="btn btn-info"><i class="fa fa-print mr-2"></i>列印收據</button>
-                    <button data-toggle="modal" data-target="#exampleModal" class="btn btn-info"><i class="fa fa-history mr-2"></i>支付記錄</button>
+                    <button onclick="window.print()" class="btn btn-info"><i class="fa fa-print mr-2"></i>Invoice</button>
+                    <button data-toggle="modal" data-target="#exampleModal" class="btn btn-info"><i class="fa fa-history mr-2"></i>History</button>
                     <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -144,7 +144,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12 mb-5">
                 <div class="card bg-light text-block">
                     <h6 class="mb-4">{{__('order.items')}}</h6>
                     <div id="cart-items" class="list-group shadow mb-4">
@@ -157,15 +157,15 @@
                                 <div class="col-lg-10">
                                     <div class="row product-detail">
                                         <div class="col-6 col-lg-3 pt-3 mb-3 mb-lg-0">
-                                            <h6 class="label-heading mb-3">{{__('order.product_title')}}</h6>
+                                            <small class="label-heading mb-3">{{__('order.product_title')}}</small>
                                             <p class="text-sm font-weight-bold">{{ $item->product->title }}</p>
                                         </div>
                                         <div class="col-6 col-lg-3 pt-3">
-                                            <h6 class="label-heading mb-3">{{__('order.product_price')}}</h6>
+                                            <small class="label-heading mb-3">{{__('order.product_price')}}</small>
                                             <p class="text-sm font-weight-bold">${{ $item->price }}</p>
                                         </div>
                                         <div class="col-6 col-lg-3 pt-3">
-                                            <h6 class="label-heading mb-3">{{__('order.product_qty')}}</h6>
+                                            <small class="label-heading mb-3">{{__('order.product_qty')}}</small>
                                             <p class="text-sm font-weight-bold">{{ $item->qty }}</p>
                                         </div>
                                         <div class="col-12 col-lg-3 align-self-center text-eight">
@@ -181,8 +181,8 @@
                     </div>
 
                     @if(!$order->closed && !$order->paid_at)
-                        <div class="text-center">
-                            <a href="{{route('pay.paypal',['order'=>$order->id])}}" class="btn btn-primary">立即支付</a>
+                        <div class="text-center mb-3">
+                            <a href="{{route('pay.paypal',['order'=>$order->id])}}" class="btn btn-primary">Pay Now</a>
                         </div>
                     @endif
                

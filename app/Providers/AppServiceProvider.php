@@ -22,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
             // $gateway->setUsername('sb-tlzxm237676_api1.business.example.com');
             // $gateway->setPassword('MXBMBJ8GQKQYRQ2P');
             $gateway->initialize(array(
-                'clientId' => 'AaXZ0VegPbYvrZlygOXiaQ0nSYczaaFTBI48GH0u3F02FlWiJ1mUMoCgwcrutfw2J8nk-UIBllCoA4Ho',
-                'secret'   => 'EBl6tUeqhnW_TIa57KOixE5zyfIiVvO6u3zXF5sltzR-S4i2OGlLhBoEhN_SI-3PHqbf1ArKNOgnz8rO',
+                'clientId' => 'AQGqFUFWcP7slpO8qrSDKz-fVSzjUa1HS60Z3CJvZ6vhdWxheIxhVJnbfB81baNWQL_A1PI8SKjopuyO',
+                'secret'   => 'EFCh4zfO1Ncvzxj0lZMdVkjBQzaDvRPenAKDhMdLQsqLc1iRa0slHTK4s25pRylMnZ8sXkYfnA8L2rjs',
                 'testMode' => true, // Or false when you are ready for live transactions
             ));
             return $gateway;

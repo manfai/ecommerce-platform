@@ -50,23 +50,43 @@ class OrdersController extends Controller
 
     public function step_2(OrderRequest $request)
     {
-        orderSessionMerge($request->user()->id, $request->input()); //更新暫存交易資料。
+        $requestData = $request->input();
+        $address_id = $request->address_id;
+        if($address_id == 'new_address'){
+            $addresData = $request->address;
+            $newAddress = $request->user()->addresses()->create($addresData);
+            $address_id = $newAddress->id;
+            $requestData['address_id'] = $address_id;
+        }
+        orderSessionMerge($request->user()->id, $requestData); //更新暫存交易資料。
         $cartItems = $request->user()->cartItems()->with(['productSku.product'])->get();
-        $address = $request->user()->addresses()->find($request->address_id);
+        $address = $request->user()->addresses()->find($address_id);
         $payment = Payment::where('enable',true)->get();
         return view('order.step2', ['cartItems' => $cartItems, 'address' => $address, 'payment'=>$payment]);
     }
 
+    public function step_3(){
+
+    }
+    
     public function store(OrderRequest $request)
     {
         // dd($request->all());
         $user  = $request->user();
+        $orderData = orderSessionData($user->id);
+        // dd($orderData);
+        if(!isset($orderData->step)){
+            return redirect()->route('home');
+        }
+
         orderSessionMerge($request->user()->id, $request->input()); //更新暫存交易資料。
+
         $order = DB::transaction(function () use ($user, $request) {
+
             // 用session中提取訂單資料
             $orderData = orderSessionData($user->id);
             $walletValue = 0; //有冇用到wallet
-
+            // dd($orderData);
             $address = UserAddress::find($orderData->address_id);
             $address->update(['last_used_at' => Carbon::now()]);    // 更新此地址的最後使用時間
             //創建一個訂單
@@ -80,6 +100,7 @@ class OrdersController extends Controller
                 'remark'       => $orderData->remark,
                 'total_amount' => 0,
                 'real_amount'  => 0,
+                'payment_method' => $request->payment,
             ]);
             $order->user()->associate($user);             //訂單關聯到當前用戶
             $order->save(); // 寫入數據庫
@@ -117,6 +138,9 @@ class OrdersController extends Controller
             // $this->dispatch(new CloseOrder($order, 900)); //REMARK: seconds, 900s = 15mins
             return $order;
         });
+        if($order){
+            orderSessionClear($user->id);
+        }
         return view('order.step3', ['order' => $order, 'payment' => $request->payment]);
     }
 

@@ -50,7 +50,7 @@ class Payment extends Resource
             ->sortable()
             ->rules('required', 'max:255'),
             Boolean::make('Enable'),
-            Boolean::make('Need Card'),
+            Boolean::make('Need Card','card_data'),
         ];
     }
 

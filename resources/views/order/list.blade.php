@@ -29,7 +29,7 @@
         </div>
         <div class="list-group shadow mb-5">
             @foreach($orders as $order)
-            <span href="" class="list-group-item list-group-item-action p-4">
+            <span href="" class="list-group-item p-4">
             <div class="row">
                 <div class="col-lg-4 align-self-center mb-4 mb-lg-0">
                     <div class="d-flex align-items-center mb-3">
@@ -91,15 +91,7 @@
             @endforeach
         </div>
         <!-- Pagination -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination pagination-template d-flex justify-content-start">
-                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
-                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
-            </ul>
-        </nav>
+        {{$orders->links()}}
     </div>
 </section>
 @endsection

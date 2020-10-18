@@ -45,4 +45,9 @@ if (!function_exists('index')) {
         $data = Session::get($orderNo);
         return $data?(object)$data:false;
     }
+    
+    function orderSessionClear($userId){
+        $data = Session::forget('users.'.$userId.'.order');
+        return $data?true:false;
+    }
 }

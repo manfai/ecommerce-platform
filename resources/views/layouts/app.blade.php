@@ -119,7 +119,7 @@
                            <a class="nav-link" href="{{route('welcome')}}">{{__('menu.home')}}
                            </a>
                         </li>
-                        @if(config('global.adoption'))
+                        @if(config('global.adoption')=='true')
                         <!-- menu item -->
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" id="adopt-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

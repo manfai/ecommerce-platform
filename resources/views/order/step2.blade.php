@@ -4,11 +4,12 @@
 <div class="jumbotron jumbotron-fluid" data-center="background-size: 100%;background:url('/img/banner.jpg') center;" data-top-bottom="background-size: 110%;">
     <div class="container">
         <div class="jumbo-heading" data-aos="fade-up">
-            <h1>Cart</h1>
+            <h1>Checkout</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                    <li class="breadcrumb-item" aria-current="page">Cart</li>
+                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
                 </ol>
             </nav>
         </div>
@@ -32,6 +33,7 @@
                     </div>
                 </div>
                 <form action="{{route('orders.store')}}" method="POST">@csrf
+                  <input type="hidden" name="step" value="payment">
                   <div class="text-block">
                       <div class="d-flex justify-content-between align-items-end mb-4">
                           <h5 class="mb-0">Payment method</h5>
@@ -78,7 +80,7 @@
                   </div>
                   <div class="row form-block flex-column flex-sm-row">
                       <div class="col text-center text-sm-left">
-                          <a href="{{route('orders.step.1')}}" class="btn btn-link text-muted"> <i class="fa-chevron-left fa mr-2"></i>上一步</a>
+                          <a href="{{route('orders.step.1')}}" class="btn btn-warning text-muted"> <i class="fa-chevron-left fa mr-2"></i>上一步</a>
                       </div>
                       <div class="col text-center text-sm-right"><button type="submit"
                               class="btn btn-primary px-3">
