@@ -75,6 +75,13 @@ class MorphTo extends Field implements RelatableField
     public $display;
 
     /**
+     * Indicates if the related resource can be viewed.
+     *
+     * @var bool
+     */
+    public $viewable = true;
+
+    /**
      * The attribute that is the inverse of this relationship.
      *
      * @var string
@@ -87,6 +94,13 @@ class MorphTo extends Field implements RelatableField
      * @var bool
      */
     public $displaysWithTrashed = true;
+
+    /**
+     * The default related class value for the field.
+     *
+     * @var Closure|string
+     */
+    public $defaultResourceCallable;
 
     /**
      * Create a new field.
@@ -165,9 +179,14 @@ class MorphTo extends Field implements RelatableField
         }
 
         if ($value) {
+            $resource = new $this->resourceClass($value);
+
             $this->value = $this->formatDisplayValue(
                 $value, Nova::resourceForModel($value)
             );
+
+            $this->viewable = $this->viewable
+                && $resource->authorizedToView(request());
         }
     }
 
@@ -452,6 +471,19 @@ class MorphTo extends Field implements RelatableField
     }
 
     /**
+     * Specify if the related resource can be viewed.
+     *
+     * @param  bool  $value
+     * @return $this
+     */
+    public function viewable($value = true)
+    {
+        $this->viewable = $value;
+
+        return $this;
+    }
+
+    /**
      * Set the attribute name of the inverse of the relationship.
      *
      * @param  string  $inverse
@@ -477,6 +509,40 @@ class MorphTo extends Field implements RelatableField
     }
 
     /**
+     * Set the default relation resource class to be selected.
+     *
+     * @param \Closure|string $resourceClass
+     * @return $this
+     */
+    public function defaultResource($resourceClass)
+    {
+        $this->defaultResourceCallable = $resourceClass;
+
+        return $this;
+    }
+
+    /**
+     * Resolve the default resource class for the field.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return string|void
+     */
+    protected function resolveDefaultResource(NovaRequest $request)
+    {
+        if ($request->isCreateOrAttachRequest() || $request->isResourceIndexRequest() || $request->isActionRequest()) {
+            if (is_null($this->value) && $this->defaultResourceCallable instanceof Closure) {
+                $class = call_user_func($this->defaultResourceCallable, $request);
+            } else {
+                $class = $this->defaultResourceCallable;
+            }
+
+            if (class_exists($class)) {
+                return $class::uriKey();
+            }
+        }
+    }
+
+    /**
      * Prepare the field for JSON serialization.
      *
      * @return array
@@ -485,18 +551,23 @@ class MorphTo extends Field implements RelatableField
     {
         $resourceClass = $this->resourceClass;
 
-        return array_merge([
-            'morphToId' => $this->morphToId,
-            'morphToRelationship' => $this->morphToRelationship,
-            'morphToType' => $this->morphToType,
-            'morphToTypes' => $this->morphToTypes,
-            'resourceLabel' => $resourceClass ? $resourceClass::singularLabel() : null,
-            'resourceName' => $this->resourceName,
-            'reverse' => $this->isReverseRelation(app(NovaRequest::class)),
-            'searchable' => $this->searchable,
-            'withSubtitles' => $this->withSubtitles,
-            'showCreateRelationButton' => $this->createRelationShouldBeShown(app(NovaRequest::class)),
-            'displaysWithTrashed' => $this->displaysWithTrashed,
-        ], parent::jsonSerialize());
+        return with(app(NovaRequest::class), function ($request) use ($resourceClass) {
+            return array_merge([
+                'debounce' => $this->debounce,
+                'morphToId' => $this->morphToId,
+                'morphToRelationship' => $this->morphToRelationship,
+                'morphToType' => $this->morphToType,
+                'morphToTypes' => $this->morphToTypes,
+                'resourceLabel' => $resourceClass ? $resourceClass::singularLabel() : null,
+                'resourceName' => $this->resourceName,
+                'reverse' => $this->isReverseRelation($request),
+                'searchable' => $this->searchable,
+                'withSubtitles' => $this->withSubtitles,
+                'showCreateRelationButton' => $this->createRelationShouldBeShown($request),
+                'displaysWithTrashed' => $this->displaysWithTrashed,
+                'viewable' => $this->viewable,
+                'defaultResource' => $this->resolveDefaultResource($request),
+            ], parent::jsonSerialize());
+        });
     }
 }

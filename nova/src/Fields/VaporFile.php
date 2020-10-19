@@ -146,7 +146,7 @@ class VaporFile extends Field implements StorableContract, DeletableContract, Do
      */
     protected function storeFile($request, $requestAttribute)
     {
-        return with($request->input('vaporFile')['key'], function ($key) use ($requestAttribute, $request) {
+        return with($request->input('vaporFile')[$requestAttribute]['key'], function ($key) use ($request) {
             $fileName = $this->storeAsCallback
                 ? call_user_func($this->storeAsCallback, $request)
                 : str_replace('tmp/', '', $key);

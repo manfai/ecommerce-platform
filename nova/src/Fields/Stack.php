@@ -36,12 +36,18 @@ class Stack extends Field
      * Create a new Stack field.
      *
      * @param  string  $name
+     * @param  string|array|null $attribute
      * @param  array $lines
      * @return void
      */
-    public function __construct($name, $lines = [])
+    public function __construct($name, $attribute = null, $lines = [])
     {
-        parent::__construct($name);
+        if (is_array($attribute)) {
+            $lines = $attribute;
+            $attribute = null;
+        }
+
+        parent::__construct($name, $attribute);
 
         $this->lines = $lines;
     }

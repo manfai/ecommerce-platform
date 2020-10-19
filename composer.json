@@ -15,7 +15,7 @@
         "graham-campbell/markdown": "^13.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
-        "laravel/nova": "*",
+        "laravel/nova": "~3.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "league/omnipay": "^3",
@@ -25,6 +25,7 @@
         "optimistdigital/nova-translatable": "^1.5",
         "predis/predis": "^1.1",
         "shipping-docker/vessel": "^4.1",
+        "spatie/laravel-tags": "^2.7.2",
         "spatie/laravel-translatable": "^4.4"
     },
     "require-dev": {

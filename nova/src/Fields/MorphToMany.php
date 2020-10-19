@@ -230,6 +230,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField, Rel
             'avatar' => $resource->resolveAvatarUrl($request),
             'display' => $this->formatDisplayValue($resource),
             'value' => $resource->getKey(),
+            'subtitle' => $resource->subtitle(),
         ]);
     }
 
@@ -292,6 +293,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField, Rel
     public function jsonSerialize()
     {
         return array_merge([
+            'debounce' => $this->debounce,
             'listable' => true,
             'morphToManyRelationship' => $this->manyToManyRelationship,
             'perPage'=> $this->resourceClass::$perPageViaRelationship,

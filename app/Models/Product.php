@@ -15,7 +15,7 @@ class Product extends Model
     use HasTranslations;
     protected $fillable = [
         'code', 'title', 'description', 'image', 'on_sale', 
-        'rating', 'sold_count', 'review_count', 'price'
+        'rating', 'sold_count', 'review_count', 'price', 'currency'
     ];
     protected $casts = [
         'on_sale' => 'boolean', // on_sale 是一个布尔类型的字段

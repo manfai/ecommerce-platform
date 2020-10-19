@@ -1,5 +1,5 @@
 <template>
-  <default-field :field="field" :errors="errors">
+  <default-field :field="field" :errors="errors" :show-help-text="showHelpText">
     <template slot="field">
       <!-- Search Input -->
       <search-input
@@ -41,9 +41,9 @@
         :options="field.options"
         :disabled="isReadonly"
       >
-        <option value="" selected :disabled="!field.nullable">{{
-          placeholder
-        }}</option>
+        <option value="" selected :disabled="!field.nullable">
+          {{ placeholder }}
+        </option>
       </select-control>
     </template>
   </default-field>

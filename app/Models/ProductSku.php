@@ -61,7 +61,8 @@ class ProductSku extends Model
         } else {
             $userCurrency = Session::get('currency');
         }
-        return number_format($exchangeRates->convert($this->attributes['price'], $this->attributes['currency'], $userCurrency), 0);
+        // dd($this->product->currency);
+        return number_format($exchangeRates->convert($this->attributes['price'], $this->product->currency, $userCurrency), 0);
     }
     
 }

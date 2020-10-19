@@ -24,6 +24,15 @@ class SelectTest extends IntegrationTest
         $this->assertEquals('L', $field->value);
     }
 
+    public function test_passing_callable_function_name_as_default_doesnt_crash()
+    {
+        $this
+            ->withoutExceptionHandling()
+            ->authenticate()
+            ->getJson('/nova-api/callable-defaults/creation-fields?editing=true&editMode=create')
+            ->assertOk();
+    }
+
     public function test_select_fields_can_display_options_using_labels()
     {
         $field = Select::make('Sizes')->options([

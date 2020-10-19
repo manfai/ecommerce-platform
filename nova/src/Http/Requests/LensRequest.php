@@ -96,9 +96,15 @@ class LensRequest extends NovaRequest
         $lens = get_class($this->lens());
 
         return $models->map(function ($model) use ($resource, $lens) {
-            return (new $resource($model))->serializeForIndex(
-                $this, (new $lens($model))->resolveFields($this)
-            );
+            $lenResource = new $lens($model);
+
+            return transform((new $resource($model))->serializeForIndex(
+                $this, $lenResource->resolveFields($this)
+            ), function ($payload) use ($lenResource) {
+                $payload['actions'] = $lenResource->actions($this);
+
+                return $payload;
+            });
         });
     }
 }

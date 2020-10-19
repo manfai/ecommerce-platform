@@ -3,12 +3,13 @@
 namespace Laravel\Nova;
 
 use Illuminate\Http\Resources\MergeValue;
+use Illuminate\Support\Traits\Macroable;
 use JsonSerializable;
 use Laravel\Nova\Metrics\HasHelpText;
 
 class Panel extends MergeValue implements JsonSerializable
 {
-    use Metable, Makeable, HasHelpText;
+    use Macroable, Metable, Makeable, HasHelpText;
 
     /**
      * The name of the panel.
@@ -87,8 +88,9 @@ class Panel extends MergeValue implements JsonSerializable
      */
     public static function defaultNameForDetail(Resource $resource)
     {
-        return __(':resource Details', [
+        return __(':resource Details: :title', [
             'resource' => $resource->singularLabel(),
+            'title' => $resource->title(),
         ]);
     }
 
@@ -113,8 +115,9 @@ class Panel extends MergeValue implements JsonSerializable
      */
     public static function defaultNameForUpdate(Resource $resource)
     {
-        return __('Update :resource', [
+        return __('Update :resource: :title', [
             'resource' => $resource->singularLabel(),
+            'title' => $resource->title(),
         ]);
     }
 

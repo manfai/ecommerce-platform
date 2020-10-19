@@ -124,7 +124,7 @@ class ActionEvent extends Model
             'actionable_type' => $parent->getMorphClass(),
             'actionable_id' => $parent->getKey(),
             'target_type' => Nova::modelInstanceForKey($request->relatedResource)->getMorphClass(),
-            'target_id' => $parent->getKey(),
+            'target_id' => $request->input($request->relatedResource),
             'model_type' => $pivot->getMorphClass(),
             'model_id' => $pivot->getKey(),
             'fields' => '',

@@ -16,7 +16,9 @@ trait PerformsValidation
      */
     public static function validateForCreation(NovaRequest $request)
     {
-        static::validatorForCreation($request)->validate();
+        static::validatorForCreation($request)
+            ->addCustomAttributes(self::attributeNamesForFields($request)->toArray())
+            ->validate();
     }
 
     /**
@@ -79,7 +81,9 @@ trait PerformsValidation
      */
     public static function validateForUpdate(NovaRequest $request, $resource = null)
     {
-        static::validatorForUpdate($request, $resource)->validate();
+        static::validatorForUpdate($request, $resource)
+            ->addCustomAttributes(self::attributeNamesForFields($request)->toArray())
+            ->validate();
     }
 
     /**
@@ -250,6 +254,24 @@ trait PerformsValidation
                     ->availableFields($request)
                     ->firstWhere('resourceName', $field)
                     ->getValidationAttribute($request);
+    }
+
+    /**
+     * Map field attributes to field names.
+     *
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @return Illuminate\Support\Collection
+     */
+    private static function attributeNamesForFields(NovaRequest $request)
+    {
+        return (new static(static::newModel()))
+            ->availableFields($request)
+            ->reject(function ($item) {
+                return empty($item->name);
+            })
+            ->mapWithKeys(function ($item) {
+                return [$item->attribute => $item->name];
+            });
     }
 
     /**

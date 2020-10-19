@@ -276,7 +276,7 @@ class BelongsToMany extends Field implements DeletableContract, ListableField, R
     /**
      * Set the displayable singular label of the resource.
      *
-     * @return string
+     * @return $this
      */
     public function singularLabel($singularLabel)
     {
@@ -306,6 +306,7 @@ class BelongsToMany extends Field implements DeletableContract, ListableField, R
     {
         return array_merge([
             'belongsToManyRelationship' => $this->manyToManyRelationship,
+            'debounce' => $this->debounce,
             'listable' => true,
             'perPage'=> $this->resourceClass::$perPageViaRelationship,
             'validationKey' => $this->validationKey(),

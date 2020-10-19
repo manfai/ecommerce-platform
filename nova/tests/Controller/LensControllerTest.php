@@ -4,6 +4,9 @@ namespace Laravel\Nova\Tests\Controller;
 
 use Laravel\Nova\Lenses\Lens;
 use Laravel\Nova\Tests\Fixtures\IdFilter;
+use Laravel\Nova\Tests\Fixtures\LensFieldValidationAction;
+use Laravel\Nova\Tests\Fixtures\NoopAction;
+use Laravel\Nova\Tests\Fixtures\NoopInlineAction;
 use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\IntegrationTest;
 
@@ -35,6 +38,8 @@ class LensControllerTest extends IntegrationTest
 
     public function test_lens_resources_can_be_retrieved()
     {
+        $user = factory(User::class)->create();
+
         $response = $this->withExceptionHandling()
                         ->get('/nova-api/users/lens/user-lens');
 
@@ -50,6 +55,11 @@ class LensControllerTest extends IntegrationTest
         ]);
 
         $this->assertEquals([25, 50, 100], $response->original['per_page_options']);
+
+        $this->assertCount(3, $response->original['resources'][0]['actions']);
+        $this->assertInstanceOf(NoopAction::class, $response->original['resources'][0]['actions'][0]);
+        $this->assertInstanceOf(LensFieldValidationAction::class, $response->original['resources'][0]['actions'][1]);
+        $this->assertInstanceOf(NoopInlineAction::class, $response->original['resources'][0]['actions'][2]);
     }
 
     public function test_lens_that_returns_paginator_can_be_retrieved()

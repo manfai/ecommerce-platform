@@ -24,7 +24,8 @@ Route::delete('/{resource}/{resourceId}/field/{field}', 'FieldDestroyController@
 Route::delete('/{resource}/{resourceId}/{relatedResource}/{relatedResourceId}/field/{field}', 'PivotFieldDestroyController@handle');
 
 // Dashboards...
-Route::get('/dashboards/{dashboard}', 'DashboardCardController@index');
+Route::get('/dashboards/{dashboard}', 'DashboardController@index');
+Route::get('/dashboards/cards/{dashboard}', 'DashboardCardController@index');
 
 // Actions...
 Route::get('/{resource}/actions', 'ActionController@index');

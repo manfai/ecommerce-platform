@@ -99,6 +99,7 @@ export default {
   mixins: [clickaway],
 
   data: () => ({
+    debouncer: null,
     loading: false,
     currentlySearching: false,
     searchTerm: '',
@@ -110,6 +111,10 @@ export default {
     $route: function () {
       this.closeSearch()
     },
+  },
+
+  created() {
+    this.debouncer = _.debounce(callback => callback(), Nova.config.debounce)
   },
 
   mounted() {
@@ -188,11 +193,6 @@ export default {
         }
       }
     },
-
-    /**
-     * Debounce function for the search handler
-     */
-    debouncer: _.debounce(callback => callback(), 500),
 
     /**
      * Move the highlighted results

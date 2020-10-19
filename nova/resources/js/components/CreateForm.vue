@@ -5,6 +5,7 @@
     <form
       v-if="panels"
       @submit="submitViaCreateResource"
+      @change="onUpdateFormStatus"
       autocomplete="off"
       ref="form"
     >
@@ -47,7 +48,7 @@
           :disabled="isWorking"
           :processing="wasSubmittedViaCreateResource"
         >
-          {{ __('Create :resource', { resource: singularName }) }}
+          {{ createButtonLabel }}
         </progress-button>
       </div>
     </form>
@@ -66,6 +67,16 @@ import HandlesUploads from '@/mixins/HandlesUploads'
 export default {
   mixins: [InteractsWithResourceInformation, HandlesUploads],
 
+  metaInfo() {
+    if (this.shouldOverrideMeta && this.resourceInformation) {
+      return {
+        title: this.__('Create :resource', {
+          resource: this.resourceInformation.singularLabel,
+        }),
+      }
+    }
+  },
+
   props: {
     mode: {
       type: String,
@@ -73,11 +84,17 @@ export default {
       validator: val => ['modal', 'form'].includes(val),
     },
 
+    updateFormStatus: {
+      type: Function,
+      default: () => {},
+    },
+
     ...mapProps([
       'resourceName',
       'viaResource',
       'viaResourceId',
       'viaRelationship',
+      'shouldOverrideMeta',
     ]),
   },
 
@@ -180,6 +197,8 @@ export default {
             data: { redirect, id },
           } = await this.createRequest()
 
+          this.canLeave = true
+
           Nova.success(
             this.__('The :resource was created!', {
               resource: this.resourceInformation.singularLabel.toLowerCase(),
@@ -199,9 +218,15 @@ export default {
             return
           }
         } catch (error) {
+          window.scrollTo(0, 0)
+
           this.submittedViaCreateAndAddAnother = false
           this.submittedViaCreateResource = true
           this.isWorking = false
+
+          if (this.resourceInformation.preventFormAbandonment) {
+            this.canLeave = false
+          }
 
           if (error.response.status == 422) {
             this.validationErrors = new Errors(error.response.data.errors)
@@ -252,6 +277,15 @@ export default {
         formData.append('viaRelationship', this.viaRelationship)
       })
     },
+
+    /**
+     * Prevent accidental abandonment only if form was changed.
+     */
+    onUpdateFormStatus() {
+      if (this.resourceInformation.preventFormAbandonment) {
+        this.updateFormStatus()
+      }
+    },
   },
 
   computed: {
@@ -278,6 +312,10 @@ export default {
       }
 
       return this.resourceInformation.singularLabel
+    },
+
+    createButtonLabel() {
+      return this.resourceInformation.createButtonLabel
     },
 
     isRelation() {

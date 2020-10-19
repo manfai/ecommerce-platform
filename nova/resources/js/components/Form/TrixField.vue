@@ -4,6 +4,7 @@
     :errors="errors"
     :full-width-content="true"
     :key="index"
+    :show-help-text="showHelpText"
   >
     <template slot="field">
       <div class="rounded-lg" :class="{ disabled: isReadonly }">
@@ -46,6 +47,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Update the field's internal value when it's value changes
+     */
+    handleChange(value) {
+      this.value = value
+    },
+
     fill(formData) {
       formData.append(this.field.attribute, this.value || '')
       formData.append(this.field.attribute + 'DraftId', this.draftId)
@@ -115,7 +123,7 @@ export default {
           .delete(
             `/nova-api/${this.resourceName}/trix-attachment/${this.field.attribute}/${this.draftId}`
           )
-          .then(response => console.log(response))
+          .then(response => {})
           .catch(error => {})
       }
     },

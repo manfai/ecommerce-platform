@@ -47,6 +47,7 @@
               :errors="errors"
               :resource-name="resourceName"
               :field="field"
+              :show-help-text="field.helpText != null"
             />
           </div>
         </div>
@@ -69,10 +70,7 @@
             :disabled="working"
             type="submit"
             class="btn btn-default"
-            :class="{
-              'btn-primary': !action.destructive,
-              'btn-danger': action.destructive,
-            }"
+            :class="action.class"
           >
             <loader v-if="working" width="30"></loader>
             <span v-else>{{ action.confirmButtonText }}</span>

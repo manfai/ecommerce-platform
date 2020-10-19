@@ -1,8 +1,10 @@
 import Vue from 'vue'
+import Meta from 'vue-meta'
 import store from '@/store'
 import Toasted from 'vue-toasted'
 import router from '@/router'
 import axios from '@/util/axios'
+import numbro from '@/util/numbro'
 import PortalVue from 'portal-vue'
 import Loading from '@/components/Loading'
 import AsyncComputed from 'vue-async-computed'
@@ -10,6 +12,7 @@ import resources from '@/store/resources'
 import VTooltip from 'v-tooltip'
 import Mousetrap from 'mousetrap'
 
+Vue.use(Meta)
 Vue.use(PortalVue)
 Vue.use(AsyncComputed)
 Vue.use(VTooltip)
@@ -65,9 +68,13 @@ export default class Nova {
 
     this.app = new Vue({
       el: '#nova',
+      name: 'Nova',
       router,
       store,
       components: { Loading },
+      metaInfo: {
+        titleTemplate: `%s | ${window.config.appName}`,
+      },
       mounted: function () {
         this.$loading = this.$refs.loading
 
@@ -99,6 +106,19 @@ export default class Nova {
     }
 
     return axios
+  }
+
+  /**
+   * Format a number using numbro.js for consistent number formatting.
+   */
+  formatNumber(number, format) {
+    const num = numbro(number)
+
+    if (format !== undefined) {
+      return num.format(format)
+    }
+
+    return num.format()
   }
 
   /**

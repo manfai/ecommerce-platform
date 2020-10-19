@@ -28,8 +28,10 @@ class VaporFileFieldControllerTest extends IntegrationTest
             ->postJson('/nova-api/vapor-files', [
                 'avatar' => 'avatar.jpg',
                 'vaporFile' => [
-                    'key' => 'tmp/'.$uuid,
-                    'uuid' => $uuid,
+                    'avatar' => [
+                        'key' => 'tmp/'.$uuid,
+                        'uuid' => $uuid,
+                    ],
                 ],
             ]);
 
@@ -51,8 +53,10 @@ class VaporFileFieldControllerTest extends IntegrationTest
             ->postJson('/nova-api/vapor-files', [
                 'avatar' => 'avatar.jpg',
                 'vaporFile' => [
-                    'key' => 'tmp/'.$uuid,
-                    'uuid' => $uuid,
+                    'avatar' => [
+                        'key' => 'tmp/'.$uuid,
+                        'uuid' => $uuid,
+                    ],
                 ],
             ]);
 
@@ -76,7 +80,9 @@ class VaporFileFieldControllerTest extends IntegrationTest
             ->postJson('/nova-api/vapor-files', [
                 'avatar' => 'avatar.jpg',
                 'vaporFile' => [
-                    'key' => 'tmp/'.$oldUuid,
+                    'avatar' => [
+                        'key' => 'tmp/'.$oldUuid,
+                    ],
                 ],
             ])->assertStatus(201);
 
@@ -92,7 +98,9 @@ class VaporFileFieldControllerTest extends IntegrationTest
             ->putJson('/nova-api/vapor-files/'.$oldFile->id, [
                 'avatar' => 'new_avatar.jpg',
                 'vaporFile' => [
-                    'key' => 'tmp/'.$newUuid,
+                    'avatar' => [
+                        'key' => 'tmp/'.$newUuid,
+                    ],
                 ],
             ]);
 
@@ -243,7 +251,9 @@ class VaporFileFieldControllerTest extends IntegrationTest
             ->postJson('/nova-api/vapor-files', [
                 'avatar' => 'avatar.jpg',
                 'vaporFile' => [
-                    'key' => 'tmp/'.$uuid,
+                    'avatar' => [
+                        'key' => 'tmp/'.$uuid,
+                    ],
                 ],
             ]);
 

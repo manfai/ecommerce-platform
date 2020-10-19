@@ -58,6 +58,7 @@
 
         <!-- Create / Attach Button -->
         <create-resource-button
+          :label="createButtonLabel"
           :singular-name="singularName"
           :resource-name="resourceName"
           :via-resource="viaResource"
@@ -132,9 +133,9 @@
         <div class="flex items-center ml-auto px-3">
           <!-- Action Selector -->
           <action-selector
-            v-if="selectedResources.length > 0"
+            v-if="selectedResources.length > 0 || haveStandaloneActions"
             :resource-name="resourceName"
-            :actions="actions"
+            :actions="availableActions"
             :pivot-actions="pivotActions"
             :pivot-name="pivotName"
             :query-string="{
@@ -177,10 +178,6 @@
             :trashed="trashed"
             :per-page="perPage"
             :per-page-options="perPageOptions"
-            :show-trashed-option="
-              authorizedToForceDeleteAnyResources ||
-              authorizedToRestoreAnyResources
-            "
             @clear-selected-filters="clearSelectedFilters"
             @filter-changed="filterChanged"
             @trashed-changed="trashedChanged"
@@ -252,6 +249,7 @@
 
             <create-resource-button
               classes="btn btn-sm btn-outline inline-flex items-center focus:outline-none focus:shadow-outline active:outline-none active:shadow-outline"
+              :label="createButtonLabel"
               :singular-name="singularName"
               :resource-name="resourceName"
               :via-resource="viaResource"
@@ -321,22 +319,26 @@
 </template>
 
 <script>
-import { Capitalize, Inflector, SingularOrPlural } from 'laravel-nova'
 import {
-  Errors,
+  Capitalize,
   Deletable,
+  Errors,
   Filterable,
   HasCards,
+  Inflector,
+  InteractsWithQueryString,
+  InteractsWithResourceInformation,
   Minimum,
   Paginatable,
   PerPageable,
-  InteractsWithQueryString,
-  InteractsWithResourceInformation,
+  SingularOrPlural,
   mapProps,
 } from 'laravel-nova'
+import HasActions from '@/mixins/HasActions'
 
 export default {
   mixins: [
+    HasActions,
     Deletable,
     Filterable,
     HasCards,
@@ -346,7 +348,20 @@ export default {
     InteractsWithQueryString,
   ],
 
+  metaInfo() {
+    if (this.shouldOverrideMeta) {
+      return {
+        title: this.__(`${this.resourceInformation.label}`),
+      }
+    }
+  },
+
   props: {
+    shouldOverrideMeta: {
+      type: Boolean,
+      default: true,
+    },
+
     field: {
       type: Object,
     },
@@ -370,7 +385,8 @@ export default {
   },
 
   data: () => ({
-    actionEventsRefresher: null,
+    debouncer: null,
+    pollingListener: null,
     initialLoading: true,
     loading: true,
 
@@ -382,9 +398,6 @@ export default {
     allMatchingResourceCount: 0,
 
     deleteModalOpen: false,
-
-    actions: [],
-    pivotActions: null,
 
     search: '',
     lenses: [],
@@ -403,6 +416,11 @@ export default {
    * Mount the component and retrieve its initial data.
    */
   async created() {
+    this.debouncer = _.debounce(
+      callback => callback(),
+      this.resourceInformation.debounce
+    )
+
     if (Nova.missingResource(this.resourceName))
       return this.$router.push({ name: '404' })
 
@@ -446,17 +464,16 @@ export default {
       }
     )
 
-    // Refresh the action events
-    if (this.resourceName === 'action-events') {
-      Nova.$on('refresh-action-events', () => {
-        this.getResources()
-      })
+    Nova.$on('refresh-resources', () => {
+      this.getResources()
+    })
 
-      this.actionEventsRefresher = setInterval(() => {
+    if (this.resourceInformation.polling) {
+      this.pollingListener = setInterval(() => {
         if (document.hasFocus()) {
           this.getResources()
         }
-      }, 15 * 1000)
+      }, this.resourceInformation.pollingInterval)
     }
   },
 
@@ -469,8 +486,8 @@ export default {
    * Unbind the keydown even listener when the component is destroyed
    */
   destroyed() {
-    if (this.actionEventsRefresher) {
-      clearInterval(this.actionEventsRefresher)
+    if (this.pollingListener) {
+      clearInterval(this.pollingListener)
     }
 
     document.removeEventListener('keydown', this.handleKeydown)
@@ -627,6 +644,7 @@ export default {
     getActions() {
       this.actions = []
       this.pivotActions = null
+
       return Nova.request()
         .get(`/nova-api/${this.resourceName}/actions`, {
           params: {
@@ -656,8 +674,6 @@ export default {
         }
       })
     },
-
-    debouncer: _.debounce(callback => callback(), 500),
 
     /**
      * Clear the selected resouces and the "select all" states.
@@ -818,7 +834,9 @@ export default {
      * Get the name of the search query string variable.
      */
     searchParameter() {
-      return this.viaRelationship + '_search'
+      return this.viaRelationship
+        ? this.viaRelationship + '_search'
+        : this.resourceName + '_search'
     },
 
     /**
@@ -911,36 +929,6 @@ export default {
     },
 
     /**
-     * Get all of the actions available to the resource.
-     */
-    allActions() {
-      return this.hasPivotActions
-        ? this.actions.concat(this.pivotActions.actions)
-        : this.actions
-    },
-
-    /**
-     * Determine if the resource has any pivot actions available.
-     */
-    hasPivotActions() {
-      return this.pivotActions && this.pivotActions.actions.length > 0
-    },
-
-    /**
-     * Determine if the resource has any actions available.
-     */
-    actionsAreAvailable() {
-      return this.allActions.length > 0
-    },
-
-    /**
-     * Get the name of the pivot model for the resource.
-     */
-    pivotName() {
-      return this.pivotActions ? this.pivotActions.name : ''
-    },
-
-    /**
      * Get the current search value from the query string.
      */
     currentSearch() {
@@ -1006,10 +994,10 @@ export default {
     },
 
     /**
-     * Get the selected resources for the action selector.
+     * Get the default label for the create button
      */
-    selectedResourcesForActionSelector() {
-      return this.selectAllMatchingChecked ? 'all' : this.selectedResourceIds
+    createButtonLabel() {
+      return this.resourceInformation.createButtonLabel
     },
 
     /**
@@ -1151,9 +1139,9 @@ export default {
 
       return (
         this.resources.length &&
-        `${first + 1}-${first + this.resources.length} ${this.__('of')} ${
-          this.allMatchingResourceCount
-        }`
+        `${Nova.formatNumber(first + 1)}-${Nova.formatNumber(
+          first + this.resources.length
+        )} ${this.__('of')} ${Nova.formatNumber(this.allMatchingResourceCount)}`
       )
     },
 

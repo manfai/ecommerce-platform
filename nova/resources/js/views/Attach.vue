@@ -10,10 +10,19 @@
       __('Attach :resource', { resource: relatedResourceLabel })
     }}</heading>
 
-    <form v-if="field" @submit.prevent="attachResource" autocomplete="off">
+    <form
+      v-if="field"
+      @submit.prevent="attachResource"
+      @change="onUpdateFormStatus"
+      autocomplete="off"
+    >
       <card class="overflow-hidden mb-8">
         <!-- Related Resource -->
-        <default-field :field="field" :errors="validationErrors">
+        <default-field
+          :field="field"
+          :errors="validationErrors"
+          :show-help-text="field.helpText != null"
+        >
           <template slot="field">
             <search-input
               v-if="field.searchable"
@@ -21,10 +30,10 @@
               @input="performSearch"
               @clear="clearSelection"
               @selected="selectResource"
+              :debounce="field.debounce"
               :value="selectedResource"
               :data="availableResources"
               trackBy="value"
-              class="mb-3"
             >
               <div
                 slot="default"
@@ -53,14 +62,30 @@
                   />
                 </div>
 
-                {{ option.display }}
+                <div>
+                  <div
+                    class="text-sm font-semibold leading-5 text-90"
+                    :class="{ 'text-white': selected }"
+                  >
+                    {{ option.display }}
+                  </div>
+
+                  <div
+                    v-if="field.withSubtitles"
+                    class="mt-1 text-xs font-semibold leading-5 text-80"
+                    :class="{ 'text-white': selected }"
+                  >
+                    <span v-if="option.subtitle">{{ option.subtitle }}</span>
+                    <span v-else>{{ __('No additional information...') }}</span>
+                  </div>
+                </div>
               </div>
             </search-input>
 
             <select-control
               v-else
               dusk="attachable-select"
-              class="form-control form-select mb-3 w-full"
+              class="form-control form-select w-full"
               :class="{
                 'border-danger': validationErrors.has(field.attribute),
               }"
@@ -70,11 +95,13 @@
               :label="'display'"
               :selected="selectedResourceId"
             >
-              <option value="" disabled selected>{{
-                __('Choose :resource', {
-                  resource: relatedResourceLabel,
-                })
-              }}</option>
+              <option value="" disabled selected>
+                {{
+                  __('Choose :resource', {
+                    resource: relatedResourceLabel,
+                  })
+                }}
+              </option>
             </select-control>
 
             <!-- Trashed State -->
@@ -136,10 +163,25 @@
 </template>
 
 <script>
-import { PerformsSearches, TogglesTrashed, Errors } from 'laravel-nova'
+import {
+  PerformsSearches,
+  TogglesTrashed,
+  Errors,
+  PreventsFormAbandonment,
+} from 'laravel-nova'
 
 export default {
-  mixins: [PerformsSearches, TogglesTrashed],
+  mixins: [PerformsSearches, TogglesTrashed, PreventsFormAbandonment],
+
+  metaInfo() {
+    if (this.relatedResourceLabel) {
+      return {
+        title: this.__('Attach :resource', {
+          resource: this.relatedResourceLabel,
+        }),
+      }
+    }
+  },
 
   props: {
     resourceName: {
@@ -298,6 +340,7 @@ export default {
         await this.attachRequest()
 
         this.submittedViaAttachResource = false
+        this.canLeave = true
 
         this.$router.push({
           name: 'detail',
@@ -307,7 +350,15 @@ export default {
           },
         })
       } catch (error) {
+        window.scrollTo(0, 0)
+
         this.submittedViaAttachResource = false
+        if (
+          this.resourceInformation &&
+          this.resourceInformation.preventFormAbandonment
+        ) {
+          this.canLeave = false
+        }
 
         if (error.response.status == 422) {
           this.validationErrors = new Errors(error.response.data.errors)
@@ -361,6 +412,10 @@ export default {
     selectResourceFromSelectControl(e) {
       this.selectedResourceId = e.target.value
       this.selectInitialResource()
+
+      if (this.field) {
+        Nova.$emit(this.field.attribute + '-change', this.selectedResourceId)
+      }
     },
 
     /**
@@ -382,6 +437,18 @@ export default {
       // Reload the data if the component doesn't support searching
       if (!this.isSearchable) {
         this.getAvailableResources()
+      }
+    },
+
+    /**
+     * Prevent accidental abandonment only if form was changed.
+     */
+    onUpdateFormStatus() {
+      if (
+        this.resourceInformation &&
+        this.resourceInformation.preventFormAbandonment
+      ) {
+        this.updateFormStatus()
       }
     },
   },

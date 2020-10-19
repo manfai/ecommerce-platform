@@ -4,6 +4,7 @@ namespace Laravel\Nova\Tests\Controller;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tests\Fixtures\ColumnFilter;
 use Laravel\Nova\Tests\Fixtures\Comment;
@@ -385,7 +386,7 @@ class ResourceIndexTest extends IntegrationTest
         DB::flushQueryLog();
 
         // Eager-loading of the comment's author relation is not enabled.
-        $response = $this->withExceptionHandling()
+        $response = $this->withoutExceptionHandling()
             ->getJson('/nova-api/comments');
 
         $response->assertStatus(200);
@@ -487,5 +488,46 @@ class ResourceIndexTest extends IntegrationTest
         tap(collect($response->original['resources'][0]['fields']), function ($fields) {
             $this->assertEquals(1, $fields->where('attribute', 'admin')->first()->value);
         });
+    }
+
+    public function test_resource_index_can_show_column_borders()
+    {
+        $_SERVER['nova.user.showColumnBorders'] = true;
+
+        $resource = collect(Nova::resourceInformation(NovaRequest::create('/')))
+            ->first(function ($resource) {
+                return $resource['uriKey'] == 'users';
+            });
+
+        $this->assertTrue($resource['showColumnBorders']);
+        unset($_SERVER['nova.users.showColumnBorders']);
+    }
+
+    public function test_resource_index_can_be_shown_in_tight_style()
+    {
+        $_SERVER['nova.user.tableStyle'] = 'tight';
+
+        $resource = collect(Nova::resourceInformation(NovaRequest::create('/')))
+            ->first(function ($resource) {
+                return $resource['uriKey'] == 'users';
+            });
+
+        $this->assertEquals('tight', $resource['tableStyle']);
+        unset($_SERVER['nova.users.tableStyle']);
+    }
+
+    public function test_resource_fields_are_not_duplicated_on_index()
+    {
+        $_SERVER['nova.showDuplicateField'] = true;
+
+        factory(User::class)->create();
+
+        $response = $this->withoutExceptionHandling()
+            ->getJson('/nova-api/user-with-custom-fields')
+            ->assertOk();
+
+        $this->assertCount(1, collect($response->original['resources'][0]['fields'])->where('attribute', 'name'));
+
+        unset($_SERVER['nova.showDuplicateField']);
     }
 }

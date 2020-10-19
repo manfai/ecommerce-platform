@@ -152,7 +152,9 @@ class VaporFileFieldTest extends IntegrationTest
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                ],
             ],
         ]);
 
@@ -184,7 +186,9 @@ class VaporFileFieldTest extends IntegrationTest
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                ],
             ],
         ]);
 
@@ -214,7 +218,9 @@ class VaporFileFieldTest extends IntegrationTest
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                ],
             ],
         ]);
 
@@ -239,14 +245,16 @@ class VaporFileFieldTest extends IntegrationTest
         $model = new Model();
         $field = $this->makeField();
         $field->storeAs(function ($request) {
-            return $request->input('vaporFile')['key'].'.'.$request->input('vaporFile')['extension'];
+            return $request->input('vaporFile')['avatar']['key'].'.'.$request->input('vaporFile')['avatar']['extension'];
         });
 
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
-                'extension' => 'jpg',
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                    'extension' => 'jpg',
+                ],
             ],
         ]);
 
@@ -271,15 +279,17 @@ class VaporFileFieldTest extends IntegrationTest
         $model = new Model();
         $field = $this->makeField();
         $field->storeAs(function ($request) {
-            return $request->input('vaporFile')['filename'];
+            return $request->input('vaporFile')['avatar']['filename'];
         });
 
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
-                'filename' => 'wow.png',
-                'extension' => 'jpg',
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                    'filename' => 'wow.png',
+                    'extension' => 'jpg',
+                ],
             ],
         ]);
 
@@ -312,7 +322,9 @@ class VaporFileFieldTest extends IntegrationTest
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                ],
             ],
         ]);
 
@@ -341,7 +353,9 @@ class VaporFileFieldTest extends IntegrationTest
         $request = NovaRequest::create('/', 'GET', [
             'avatar' => 'wew.jpg',
             'vaporFile' => [
-                'key' => 'tmp/'.$uuid,
+                'avatar' => [
+                    'key' => 'tmp/'.$uuid,
+                ],
             ],
         ]);
 

@@ -3,7 +3,7 @@
     <div class="flex mb-4">
       <h3 class="mr-3 text-base text-80 font-bold">{{ title }}</h3>
 
-      <div v-if="helpText" class="absolute pin-r pin-b p-2 z-50">
+      <div v-if="helpText" class="absolute pin-r pin-b p-2 z-25">
         <tooltip trigger="click">
           <icon
             type="help"
@@ -47,15 +47,12 @@
     <div
       ref="chart"
       class="absolute pin rounded-b-lg ct-chart"
-      style="top: 60%;"
+      style="top: 60%"
     />
   </loading-card>
 </template>
 
 <script>
-import numbro from 'numbro'
-import numbroLanguages from 'numbro/dist/languages.min'
-Object.values(numbroLanguages).forEach(l => numbro.registerLanguage(l))
 import _ from 'lodash'
 import Chartist from 'chartist'
 import 'chartist-plugin-tooltips'
@@ -98,10 +95,6 @@ export default {
   },
 
   mounted() {
-    if (Nova.config.locale) {
-      numbro.setLanguage(Nova.config.locale.replace('_', '-'))
-    }
-
     const low = Math.min(...this.chartData)
     const high = Math.max(...this.chartData)
 
@@ -138,14 +131,19 @@ export default {
         Chartist.plugins.tooltip({
           anchorToPoint: true,
           transformTooltipTextFnc: value => {
-            let formattedValue = numbro(new String(value)).format(this.format)
+            let formattedValue = Nova.formatNumber(
+              new String(value),
+              this.format
+            )
 
             if (this.prefix) {
               return `${this.prefix}${formattedValue}`
             }
 
             if (this.suffix) {
-              const suffix = SingularOrPlural(value, this.suffix)
+              const suffix = this.suffixInflection
+                ? SingularOrPlural(value, this.suffix)
+                : this.suffix
 
               return `${formattedValue} ${suffix}`
             }
@@ -174,7 +172,7 @@ export default {
 
     formattedValue() {
       if (!this.isNullValue) {
-        const value = numbro(new String(this.value)).format(this.format)
+        const value = Nova.formatNumber(new String(this.value), this.format)
 
         return `${this.prefix}${value}`
       }

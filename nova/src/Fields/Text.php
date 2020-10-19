@@ -16,7 +16,7 @@ class Text extends Field
     /**
      * The field's suggestions callback.
      *
-     * @var callable
+     * @var array|callable
      */
     public $suggestions;
 
@@ -36,6 +36,7 @@ class Text extends Field
     /**
      * Resolve the display suggestions for the field.
      *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function resolveSuggestions(NovaRequest $request)

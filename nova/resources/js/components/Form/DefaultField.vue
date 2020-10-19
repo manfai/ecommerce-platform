@@ -14,6 +14,7 @@
         </form-label>
       </slot>
     </div>
+
     <div class="py-6 px-8" :class="fieldClasses">
       <slot name="field" />
 
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import { mapProps } from 'laravel-nova'
 import { HandlesValidationErrors, Errors } from 'laravel-nova'
 
 export default {
@@ -40,9 +42,9 @@ export default {
   props: {
     field: { type: Object, required: true },
     fieldName: { type: String },
-    showHelpText: { type: Boolean, default: true },
     showErrors: { type: Boolean, default: true },
     fullWidthContent: { type: Boolean, default: false },
+    ...mapProps(['showHelpText']),
   },
 
   computed: {

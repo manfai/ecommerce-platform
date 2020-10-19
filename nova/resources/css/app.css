@@ -128,6 +128,17 @@ input[type='search']::-webkit-search-cancel-button {
   white-space: nowrap;
 }
 
+/* Table Style Modifiers
+---------------------------------------------------------------------------- */
+.table.table-grid td,
+.table.table-grid th {
+  @apply border-r border-50;
+}
+
+.table.table-tight td {
+  @apply h-9;
+}
+
 /* Forms
 ---------------------------------------------------------------------------- */
 .form-control {

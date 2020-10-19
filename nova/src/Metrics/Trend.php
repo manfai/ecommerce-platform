@@ -536,7 +536,7 @@ abstract class Trend extends RangedMetric
     }
 
     /**
-     * Determine the proper aggregate strating date.
+     * Determine the proper aggregate starting date.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $unit

@@ -15,7 +15,7 @@
   >
     <div
       class="bg-40 rounded-lg shadow-lg overflow-hidden p-8"
-      style="width: 800px;"
+      style="width: 800px"
     >
       <Create
         mode="modal"
@@ -43,14 +43,6 @@ export default {
     viaResource: {},
     viaResourceId: {},
     viaRelationship: {},
-  },
-
-  created() {
-    console.log('created', this.resourceName)
-  },
-
-  mounted() {
-    console.log('mounted', this.resourceName)
   },
 
   methods: {

@@ -9,7 +9,7 @@ class ID extends Field
      *
      * @var string
      */
-    public $component = 'text-field';
+    public $component = 'id-field';
 
     /**
      * Create a new field.

@@ -13,7 +13,7 @@
           type="text"
           class="font-mono text-sm resize-none block min-h-input w-full form-control form-input form-input-row py-4 text-90"
           :disabled="!isEditable || readOnlyKeys"
-          style="background-clip: border-box;"
+          style="background-clip: border-box"
           :class="{
             'bg-white': !isEditable || readOnlyKeys,
             'hover:bg-20 focus:bg-white': isEditable && !readOnlyKeys,
@@ -41,7 +41,7 @@
     <div
       v-if="isEditable && canDeleteRow"
       class="flex justify-center h-11 w-11 absolute"
-      style="right: -50px;"
+      style="right: -50px"
     >
       <button
         @click="$emit('remove-row', item.id)"

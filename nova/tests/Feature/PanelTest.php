@@ -23,4 +23,15 @@ class PanelTest extends IntegrationTest
             'helpText' => 'Custom help text.',
         ], $panel->jsonSerialize());
     }
+
+    public function test_panels_are_macroable()
+    {
+        Panel::macro('wew', function () {
+            return 'wew';
+        });
+
+        $panel = Panel::make('Details', [])->wew();
+
+        $this->assertEquals('wew', $panel);
+    }
 }

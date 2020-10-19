@@ -24,11 +24,12 @@ class UpdatePivotFieldController extends Controller
             $model->{$request->viaRelationship}()->withoutGlobalScopes()->findOrFail($request->relatedResourceId)->{$accessor}
         );
 
-        return response()->json(
-            $request->newResourceWith($model)->updatePivotFields(
+        return response()->json([
+            'title' => $request->newResourceWith($model)->title(),
+            'fields' => $request->newResourceWith($model)->updatePivotFields(
                 $request,
                 $request->relatedResource
-            )->all()
-        );
+            )->all(),
+        ]);
     }
 }

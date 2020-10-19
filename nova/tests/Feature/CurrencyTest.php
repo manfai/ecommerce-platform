@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Tests\Feature;
 
+use Brick\Money\Context\CustomContext;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Tests\IntegrationTest;
 
@@ -67,5 +68,14 @@ class CurrencyTest extends IntegrationTest
 
         $field->resolveForDisplay((object) ['cost' => null]);
         $this->assertEquals(null, $field->value);
+    }
+
+    public function test_the_field_can_set_context()
+    {
+        $field = Currency::make('Cost')->context(new CustomContext(8));
+
+        $field->resolveForDisplay((object) ['cost' => 200.12345678]);
+
+        $this->assertEquals('$200.12345678', $field->value);
     }
 }

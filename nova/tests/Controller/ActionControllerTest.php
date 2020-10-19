@@ -24,6 +24,7 @@ use Laravel\Nova\Tests\Fixtures\QueuedResourceAction;
 use Laravel\Nova\Tests\Fixtures\QueuedUpdateStatusAction;
 use Laravel\Nova\Tests\Fixtures\RedirectAction;
 use Laravel\Nova\Tests\Fixtures\RequiredFieldAction;
+use Laravel\Nova\Tests\Fixtures\StandaloneAction;
 use Laravel\Nova\Tests\Fixtures\UnauthorizedAction;
 use Laravel\Nova\Tests\Fixtures\UnrunnableAction;
 use Laravel\Nova\Tests\Fixtures\UnrunnableDestructiveAction;
@@ -88,6 +89,22 @@ class ActionControllerTest extends IntegrationTest
         $this->assertEquals('Noop Action', $actionEvent->name);
         $this->assertEquals(['test' => 'Taylor Otwell'], unserialize($actionEvent->fields));
         $this->assertEquals('finished', $actionEvent->status);
+    }
+
+    public function test_standalone_actions_can_be_applied()
+    {
+        $response = $this->withoutExceptionHandling()
+                        ->post('/nova-api/users/action?action='.(new StandaloneAction)->uriKey(), [
+                            'resources' => '',
+                            'name' => 'Taylor Otwell',
+                            'email' => 'taylor@laravel.com',
+                        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertEquals(['message' => 'Hello World'], $response->original);
+        $this->assertEquals('Taylor Otwell', StandaloneAction::$appliedFields[0]->name);
+        $this->assertEquals('taylor@laravel.com', StandaloneAction::$appliedFields[0]->email);
     }
 
     public function test_actions_support_redirects()

@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Fields;
 
+use Brick\Money\Context;
 use Brick\Money\Context\CustomContext;
 use Brick\Money\Money;
 use Symfony\Component\Intl\Currencies;
@@ -49,6 +50,13 @@ class Currency extends Number
      * @var bool
      */
     public $minorUnits = false;
+
+    /**
+     * The context to use when creating the Money instance.
+     *
+     * @var Context|null
+     */
+    public $context = null;
 
     /**
      * Create a new field.
@@ -101,7 +109,7 @@ class Currency extends Number
         $currency = $currency ?? $this->currency;
         $method = $this->minorUnits ? 'ofMinor' : 'of';
 
-        $context = new CustomContext(Currencies::getFractionDigits($currency));
+        $context = $this->context ?? new CustomContext(Currencies::getFractionDigits($currency));
 
         return Money::{$method}($value, $currency, $context);
     }
@@ -201,6 +209,19 @@ class Currency extends Number
         }
 
         return Currencies::getSymbol($this->currency);
+    }
+
+    /**
+     * Set the context used to create the Money instance.
+     *
+     * @param Context $context
+     * @return $this
+     */
+    public function context(Context $context)
+    {
+        $this->context = $context;
+
+        return $this;
     }
 
     /**

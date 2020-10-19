@@ -3,6 +3,11 @@ import Vue from 'vue'
 Vue.component('default-field', require('./components/Form/DefaultField.vue'))
 Vue.component('field-wrapper', require('./components/Form/FieldWrapper.vue'))
 
+// ID Field...
+Vue.component('index-id-field', require('./components/Index/IdField.vue'))
+Vue.component('detail-id-field', require('./components/Detail/TextField.vue'))
+Vue.component('form-id-field', require('./components/Form/TextField.vue'))
+
 // Panels...
 Vue.component('panel', require('./components/Detail/Panel.vue'))
 Vue.component(
@@ -33,6 +38,11 @@ Vue.component(
   'detail-stack-field',
   require('./components/Detail/StackField.vue')
 )
+
+// Slug Field...
+Vue.component('index-slug-field', require('./components/Index/TextField.vue'))
+Vue.component('detail-slug-field', require('./components/Detail/TextField.vue'))
+Vue.component('form-slug-field', require('./components/Form/SlugField.vue'))
 
 // Text Field...
 Vue.component('index-text-field', require('./components/Index/TextField.vue'))
