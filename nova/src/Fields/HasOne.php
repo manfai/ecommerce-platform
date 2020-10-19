@@ -142,7 +142,8 @@ class HasOne extends Field implements ListableField, RelatableField
     /**
      * Set the Closure used to determine if the HasOne field has already been filled.
      *
-     * @param $callback
+     * @param  \Closure  $callback
+     * @return $this
      */
     public function alreadyFilledWhen($callback)
     {

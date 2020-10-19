@@ -11,6 +11,8 @@
       <form-panel
         class="mb-8"
         v-for="panel in panelsWithFields"
+        @file-upload-started="handleFileUploadStarted"
+        @file-upload-finished="handleFileUploadFinished"
         :shown-via-new-relation-modal="shownViaNewRelationModal"
         :panel="panel"
         :name="panel.name"
@@ -59,9 +61,10 @@ import {
   Minimum,
   InteractsWithResourceInformation,
 } from 'laravel-nova'
+import HandlesUploads from '@/mixins/HandlesUploads'
 
 export default {
-  mixins: [InteractsWithResourceInformation],
+  mixins: [InteractsWithResourceInformation, HandlesUploads],
 
   props: {
     mode: {
@@ -86,7 +89,6 @@ export default {
     fields: [],
     panels: [],
     validationErrors: new Errors(),
-    isWorking: false,
   }),
 
   async created() {
@@ -204,6 +206,13 @@ export default {
           if (error.response.status == 422) {
             this.validationErrors = new Errors(error.response.data.errors)
             Nova.error(this.__('There was a problem submitting the form.'))
+          } else {
+            Nova.error(
+              this.__('There was a problem submitting the form.') +
+                ' "' +
+                error.response.statusText +
+                '"'
+            )
           }
         }
       }
@@ -257,7 +266,7 @@ export default {
     panelsWithFields() {
       return _.map(this.panels, panel => {
         return {
-          name: panel.name,
+          ...panel,
           fields: _.filter(this.fields, field => field.panel == panel.name),
         }
       })

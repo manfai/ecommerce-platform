@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Fields;
 
+use Brick\Money\Context\CustomContext;
 use Brick\Money\Money;
 use Symfony\Component\Intl\Currencies;
 
@@ -43,6 +44,13 @@ class Currency extends Number
     public $currencySymbol = null;
 
     /**
+     * Whether the currency is using minor units.
+     *
+     * @var bool
+     */
+    public $minorUnits = false;
+
+    /**
      * Create a new field.
      *
      * @param  string  $name
@@ -57,10 +65,45 @@ class Currency extends Number
         $this->locale = config('app.locale', 'en');
         $this->currency = config('nova.currency', 'USD');
 
-        $this->step('0.01')
-             ->displayUsing(function ($value) {
-                 return ! $this->isNullValue($value) ? $this->formatMoney($value) : null;
-             });
+        $this->step($this->getStepValue());
+
+        $this->fillUsing(function ($request, $model, $attribute) {
+            $value = $request->$attribute;
+
+            if ($this->minorUnits) {
+                $model->$attribute = $this->toMoneyInstance($value)->getMinorAmount()->toInt();
+            } else {
+                $model->$attribute = $value;
+            }
+        })
+            ->displayUsing(function ($value) {
+                return ! $this->isNullValue($value) ? $this->formatMoney($value) : null;
+            })
+            ->resolveUsing(function ($value) {
+                if ($this->isNullValue($value) || ! $this->minorUnits) {
+                    return $value;
+                }
+
+                return $this->toMoneyInstance($value)->getMinorAmount()->toInt();
+            });
+    }
+
+    /**
+     * Convert the value to a Money instance.
+     *
+     * @param mixed $value
+     * @param null|string $currency
+     *
+     * @return \Brick\Money\Money
+     */
+    public function toMoneyInstance($value, $currency = null)
+    {
+        $currency = $currency ?? $this->currency;
+        $method = $this->minorUnits ? 'ofMinor' : 'of';
+
+        $context = new CustomContext(Currencies::getFractionDigits($currency));
+
+        return Money::{$method}($value, $currency, $context);
     }
 
     /**
@@ -74,7 +117,7 @@ class Currency extends Number
      */
     public function formatMoney($value, $currency = null, $locale = null)
     {
-        $money = Money::of($value, $currency ?? $this->currency);
+        $money = $this->toMoneyInstance($value, $currency);
 
         return $money->formatTo($locale ?? $this->locale);
     }
@@ -88,6 +131,8 @@ class Currency extends Number
     public function currency($currency)
     {
         $this->currency = strtoupper($currency);
+
+        $this->step($this->getStepValue());
 
         return $this;
     }
@@ -119,6 +164,32 @@ class Currency extends Number
     }
 
     /**
+     * Instruct the field to use minor units.
+     *
+     * @return $this
+     */
+    public function asMinorUnits()
+    {
+        $this->minorUnits = true;
+        $this->step('1.0');
+
+        return $this;
+    }
+
+    /**
+     * Instruct the field to use major units.
+     *
+     * @return $this
+     */
+    public function asMajorUnits()
+    {
+        $this->minorUnits = false;
+        $this->step($this->getStepValue());
+
+        return $this;
+    }
+
+    /**
      * Resolve the symbol used by the currency.
      *
      * @return string
@@ -133,6 +204,20 @@ class Currency extends Number
     }
 
     /**
+     * Determine the step value for the field.
+     *
+     * @return string
+     */
+    protected function getStepValue()
+    {
+        if ($this->minorUnits) {
+            return '1.0';
+        }
+
+        return (string) 0.1 ** Currencies::getFractionDigits($this->currency);
+    }
+
+    /**
      * Prepare the field for JSON serialization.
      *
      * @return array
@@ -141,6 +226,7 @@ class Currency extends Number
     {
         return array_merge(parent::jsonSerialize(), [
             'currency' => $this->resolveCurrencySymbol(),
+            'currency_name' => Currencies::getName($this->currency),
         ]);
     }
 }

@@ -7,6 +7,8 @@ use Illuminate\Queue\WorkerOptions;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Nova\Nova;
+use Laravel\Nova\NovaCoreServiceProvider;
+use Laravel\Nova\NovaServiceProvider;
 use Laravel\Nova\Tests\Fixtures\AddressResource;
 use Laravel\Nova\Tests\Fixtures\BooleanResource;
 use Laravel\Nova\Tests\Fixtures\CommentResource;
@@ -26,6 +28,9 @@ use Laravel\Nova\Tests\Fixtures\SoftDeletingFileResource;
 use Laravel\Nova\Tests\Fixtures\TagResource;
 use Laravel\Nova\Tests\Fixtures\UserResource;
 use Laravel\Nova\Tests\Fixtures\UserWithRedirectResource;
+use Laravel\Nova\Tests\Fixtures\VaporFileResource;
+use Laravel\Nova\Tests\Fixtures\VehicleResource;
+use Laravel\Nova\Tests\Fixtures\WheelResource;
 use Mockery;
 use Orchestra\Testbench\TestCase;
 
@@ -76,6 +81,9 @@ abstract class IntegrationTest extends TestCase
             TagResource::class,
             UserResource::class,
             UserWithRedirectResource::class,
+            VaporFileResource::class,
+            VehicleResource::class,
+            WheelResource::class,
         ]);
 
         Nova::auth(function () {
@@ -92,8 +100,13 @@ abstract class IntegrationTest extends TestCase
     {
         $this->loadMigrationsFrom([
             '--database' => 'sqlite',
-            '--realpath' => realpath(__DIR__.'/Migrations'),
+            '--path' => realpath(__DIR__.'/Migrations'),
         ]);
+    }
+
+    protected function migrate()
+    {
+        $this->artisan('migrate')->run();
     }
 
     /**
@@ -158,9 +171,9 @@ abstract class IntegrationTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            'Laravel\Nova\NovaCoreServiceProvider',
-            'Laravel\Nova\NovaServiceProvider',
-            'Laravel\Nova\Tests\TestServiceProvider',
+            NovaCoreServiceProvider::class,
+            NovaServiceProvider::class,
+            TestServiceProvider::class,
         ];
     }
 
@@ -195,6 +208,11 @@ abstract class IntegrationTest extends TestCase
         $this->assertEquals($subset, $values, 'The expected subset does not match the given array.');
     }
 
+    /**
+     * Configure ActionEvents to be on a separate database connection.
+     *
+     * @return void
+     */
     protected function setupActionEventsOnSeparateConnection()
     {
         config(['nova.actions.resource' => CustomConnectionActionResource::class]);

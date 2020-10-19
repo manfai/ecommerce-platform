@@ -11,6 +11,8 @@ use Laravel\Nova\Nova;
 
 class AttachedResourceUpdateController extends Controller
 {
+    use HandlesCustomRelationKeys;
+
     /**
      * Update an attached resource pivot record.
      *
@@ -34,7 +36,7 @@ class AttachedResourceUpdateController extends Controller
                 return response('', 409);
             }
 
-            [$pivot, $callbacks] = $resource::fillPivot($request, $model, $pivot);
+            [$pivot, $callbacks] = $resource::fillPivotForUpdate($request, $model, $pivot);
 
             Nova::actionEvent()->forAttachedResourceUpdate($request, $model, $pivot)->save();
 
@@ -54,16 +56,25 @@ class AttachedResourceUpdateController extends Controller
      */
     protected function validate(NovaRequest $request, $model, $resource)
     {
-        $attribute = $resource::validationAttributeFor(
-            $request, $request->relatedResource
-        );
+        $attribute = $resource::validationAttributeFor($request, $request->relatedResource);
 
-        Validator::make($request->all(), $resource::updateRulesFor(
-            $request,
-            $request->relatedResource
-        ), [], [$request->relatedResource => $attribute])->validate();
+        tap($this->updateRulesFor($request, $resource), function ($rules) use ($resource, $request, $attribute) {
+            Validator::make($request->all(), $rules, [], $this->customRulesKeys($request, $attribute))->validate();
 
-        $resource::validateForAttachmentUpdate($request);
+            $resource::validateForAttachmentUpdate($request);
+        });
+    }
+
+    protected function updateRulesFor(NovaRequest $request, $resource)
+    {
+        $rules = $resource::updateRulesFor($request, $this->getRuleKey($request));
+
+        if ($this->usingCustomRelationKey($request)) {
+            $rules[$request->relatedResource] = $rules[$request->viaRelationship];
+            unset($rules[$request->viaRelationship]);
+        }
+
+        return $rules;
     }
 
     /**

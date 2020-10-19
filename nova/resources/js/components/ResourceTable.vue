@@ -9,12 +9,7 @@
     <thead>
       <tr>
         <!-- Select Checkbox -->
-        <th
-          :class="{
-            'w-16': shouldShowCheckboxes,
-            'w-8': !shouldShowCheckboxes,
-          }"
-        >
+        <th class="w-16" v-if="shouldShowCheckboxes">
           &nbsp;
         </th>
 

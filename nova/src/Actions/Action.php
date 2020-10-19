@@ -10,6 +10,7 @@ use Laravel\Nova\AuthorizedToSee;
 use Laravel\Nova\Exceptions\MissingActionHandlerException;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\ActionRequest;
+use Laravel\Nova\Makeable;
 use Laravel\Nova\Metable;
 use Laravel\Nova\Nova;
 use Laravel\Nova\ProxiesCanSeeToGate;
@@ -17,9 +18,7 @@ use ReflectionClass;
 
 class Action implements JsonSerializable
 {
-    use Metable;
-    use AuthorizedToSee;
-    use ProxiesCanSeeToGate;
+    use Metable, AuthorizedToSee, ProxiesCanSeeToGate, Makeable;
 
     /**
      * The displayable name of the action.
@@ -581,7 +580,7 @@ class Action implements JsonSerializable
     /**
      * Set the text for the action's confirmation button.
      *
-     * @param $text
+     * @param  string  $text
      * @return $this
      */
     public function confirmButtonText($text)
@@ -594,7 +593,7 @@ class Action implements JsonSerializable
     /**
      * Set the text for the action's cancel button.
      *
-     * @param $text
+     * @param  string  $text
      * @return $this
      */
     public function cancelButtonText($text)
@@ -607,7 +606,7 @@ class Action implements JsonSerializable
     /**
      * Set the text for the action's confirmation message.
      *
-     * @param $text
+     * @param  string  $text
      * @return $this
      */
     public function confirmText($text)
@@ -646,6 +645,7 @@ class Action implements JsonSerializable
      * Prepare the instance for serialization.
      *
      * @return array
+     * @throws \ReflectionException
      */
     public function __sleep()
     {

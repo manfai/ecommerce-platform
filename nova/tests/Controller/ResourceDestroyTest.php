@@ -111,25 +111,36 @@ class ResourceDestroyTest extends IntegrationTest
         $this->assertEquals($role->id, ActionEvent::where('actionable_id', $role->id)->first()->target_id);
     }
 
-    public function test_can_destroy_soft_deleted_resources()
+    public function test_destroying_soft_deleted_resources_keeps_previous_action_events()
     {
         $user = factory(User::class)->create();
         $this->assertNull($user->deleted_at);
 
+        ActionEvent::forResourceUpdate($user, $user)->save();
+
         $response = $this->withExceptionHandling()
                         ->deleteJson('/nova-api/users', [
                             'resources' => [$user->id],
-                        ]);
-
-        $response->assertStatus(200);
+                        ])
+                        ->assertOk();
 
         $user = $user->fresh();
         $this->assertNotNull($user->deleted_at);
 
-        $this->assertCount(1, ActionEvent::all());
-        $this->assertEquals('Delete', ActionEvent::first()->name);
-        $this->assertEquals($user->id, ActionEvent::first()->target->id);
-        $this->assertTrue($user->is(ActionEvent::first()->target));
+        $this->assertCount(2, ActionEvent::all());
+        $this->assertEquals('Delete', ActionEvent::latest()->get()->last()->name);
+        $this->assertEquals($user->id, ActionEvent::latest()->get()->last()->target->id);
+        $this->assertTrue($user->is(ActionEvent::latest()->get()->last()->target));
+
+        $response = $this->withExceptionHandling()
+            ->putJson('/nova-api/users/restore', [
+                'resources' => [$user->id],
+            ])->assertOk();
+
+        $this->assertCount(3, ActionEvent::all());
+        $this->assertEquals('Restore', ActionEvent::latest()->get()->last()->name);
+        $this->assertEquals($user->id, ActionEvent::latest()->get()->last()->target->id);
+        $this->assertTrue($user->is(ActionEvent::latest()->get()->last()->target));
     }
 
     public function test_cant_destroy_resources_not_authorized_to_destroy()

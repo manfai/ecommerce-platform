@@ -70,6 +70,7 @@ class ResourceCreationTest extends IntegrationTest
         $response = $this->withExceptionHandling()
                         ->postJson('/nova-api/posts', [
                             'title' => 'Test Post',
+                            'slug' => 'test-post',
                             'user' => '',
                         ]);
 
@@ -144,6 +145,7 @@ class ResourceCreationTest extends IntegrationTest
                         ->postJson('/nova-api/posts', [
                             'user' => $user->id,
                             'title' => 'Fake Title',
+                            'slug' => 'fake-title',
                         ]);
 
         $response->assertStatus(201);
@@ -198,6 +200,7 @@ class ResourceCreationTest extends IntegrationTest
                         ->postJson('/nova-api/posts', [
                             'user' => $user->id,
                             'title' => 'Fake Title',
+                            'slug' => 'fake-title',
                         ]);
 
         $response->assertStatus(201);
@@ -243,6 +246,7 @@ class ResourceCreationTest extends IntegrationTest
                         ->postJson('/nova-api/posts?viaResource=users&viaResourceId=1&viaRelationship=posts', [
                             'user' => $user->id,
                             'title' => 'Fake Title',
+                            'slug' => 'fake-title',
                         ]);
 
         $response->assertStatus(201);
@@ -344,6 +348,7 @@ class ResourceCreationTest extends IntegrationTest
         $response = $this->withExceptionHandling()
             ->postJson('/nova-api/posts', [
                 'title' => 'Test Post',
+                'slug' => 'test-post',
                 'user' => '',
             ]);
 

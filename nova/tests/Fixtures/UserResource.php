@@ -22,9 +22,7 @@ class UserResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
-
-    /**
+    public static $model = \Laravel\Nova\Tests\Fixtures\User::class; /**
      * The columns that should be searched.
      *
      * @var array
@@ -115,20 +113,7 @@ class UserResource extends Resource
             HasOne::make('Profile', 'profile', ProfileResource::class)->nullable(),
             HasMany::make('Posts', 'posts', PostResource::class),
 
-            BelongsToMany::make('Roles', 'roles', RoleResource::class)->referToPivotAs($_SERVER['nova.user.rolePivotName'] ?? null)->fields(function () {
-                return [
-                    Text::make('Admin', 'admin')->rules('required'),
-                    Text::make('Admin', 'pivot-update')->rules('required')->onlyOnForms()->hideWhenCreating(),
-
-                    $this->when($_SERVER['__nova.user.pivotFile'] ?? false, function () {
-                        return File::make('Photo', 'photo');
-                    }),
-
-                    Text::make('Restricted', 'restricted')->canSee(function () {
-                        return false;
-                    }),
-                ];
-            }),
+            $this->rolesFields(),
 
             BelongsToMany::make('Related Users', 'relatedUsers', self::class),
 
@@ -161,6 +146,37 @@ class UserResource extends Resource
 
             KeyValue::make('Meta'),
         ];
+    }
+
+    public function rolesFields()
+    {
+        if ($_SERVER['nova.useRolesCustomAttribute'] ?? false) {
+            return BelongsToMany::make('Roles', 'userRoles', RoleResource::class)->rules('required');
+        }
+
+        return BelongsToMany::make('Roles', 'roles', RoleResource::class)->referToPivotAs($_SERVER['nova.user.rolePivotName'] ?? null)->fields(function () {
+            return [
+                tap(Text::make('Admin', 'admin')->rules('required'), function ($field) {
+                    if ($_SERVER['nova.roles.hidingAdminPivotField'] ?? false) {
+                        $field->onlyOnForms();
+                    }
+
+                    if ($_SERVER['nova.roles.hideAdminWhenCreating'] ?? false) {
+                        $field->hideWhenCreating();
+                    }
+                }),
+
+                Text::make('Admin', 'pivot-update')->rules('required')->onlyOnForms()->hideWhenCreating(),
+
+                $this->when($_SERVER['__nova.user.pivotFile'] ?? false, function () {
+                    return File::make('Photo', 'photo');
+                }),
+
+                Text::make('Restricted', 'restricted')->canSee(function () {
+                    return false;
+                }),
+            ];
+        });
     }
 
     /**

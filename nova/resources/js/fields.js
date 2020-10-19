@@ -24,10 +24,31 @@ Vue.component(
   require('./components/Form/HeadingField.vue')
 )
 
+// Line Field...
+Vue.component('index-line-field', require('./components/Index/LineField.vue'))
+
+// Stack Field...
+Vue.component('index-stack-field', require('./components/Index/StackField.vue'))
+Vue.component(
+  'detail-stack-field',
+  require('./components/Detail/StackField.vue')
+)
+
 // Text Field...
 Vue.component('index-text-field', require('./components/Index/TextField.vue'))
 Vue.component('detail-text-field', require('./components/Detail/TextField.vue'))
 Vue.component('form-text-field', require('./components/Form/TextField.vue'))
+
+// Hidden Field...
+Vue.component(
+  'index-hidden-field',
+  require('./components/Index/HiddenField.vue')
+)
+Vue.component(
+  'detail-hidden-field',
+  require('./components/Detail/HiddenField.vue')
+)
+Vue.component('form-hidden-field', require('./components/Form/HiddenField.vue'))
 
 // Password Field...
 Vue.component(
@@ -135,10 +156,24 @@ Vue.component('form-select-field', require('@/components/Form/SelectField'))
 Vue.component('detail-select-field', require('@/components/Detail/TextField'))
 Vue.component('index-select-field', require('@/components/Index/TextField'))
 
-// Upload Field
+// File Field
 Vue.component('index-file-field', require('./components/Index/FileField.vue'))
 Vue.component('detail-file-field', require('./components/Detail/FileField.vue'))
 Vue.component('form-file-field', require('./components/Form/FileField.vue'))
+
+// Vapor File Field
+Vue.component(
+  'index-vapor-file-field',
+  require('./components/Index/FileField.vue')
+)
+Vue.component(
+  'detail-vapor-file-field',
+  require('./components/Detail/FileField.vue')
+)
+Vue.component(
+  'form-vapor-file-field',
+  require('./components/Form/FileField.vue')
+)
 
 // Status Field...
 Vue.component(

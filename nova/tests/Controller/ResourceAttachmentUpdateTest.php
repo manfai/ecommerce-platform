@@ -53,6 +53,30 @@ class ResourceAttachmentUpdateTest extends IntegrationTest
         $this->assertSubset(['admin' => 'N'], $actionEvent->changes);
     }
 
+    public function test_pivot_fields_that_are_hidden_from_create_are_saved_on_edit()
+    {
+        $_SERVER['nova.roles.hideAdminWhenCreating'] = true;
+        $user = factory(User::class)->create();
+        $role = factory(Role::class)->create();
+        $user->roles()->attach($role, ['admin' => 'Y']);
+
+        $this->assertEquals('Y', $user->fresh()->roles->first()->pivot->admin);
+
+        $response = $this->withoutExceptionHandling()
+            ->postJson('/nova-api/users/'.$user->id.'/update-attached/roles/'.$role->id, [
+                'roles' => $role->id,
+                'admin' => 'N',
+                'pivot-update' => 'N',
+                'viaRelationship' => 'roles',
+            ]);
+
+        $response->assertStatus(200);
+
+        $this->assertEquals('N', $user->fresh()->roles->first()->pivot->fresh()->admin);
+
+        unset($_SERVER['nova.roles.hideAdminWhenCreating']);
+    }
+
     public function test_cant_update_pivot_fields_that_arent_authorized()
     {
         $user = factory(User::class)->create();
@@ -262,5 +286,45 @@ class ResourceAttachmentUpdateTest extends IntegrationTest
             $this->assertSubset(['admin' => 'Y'], $actionEvent->original);
             $this->assertSubset(['admin' => 'N'], $actionEvent->changes);
         });
+    }
+
+    public function test_attachable_resource_with_custom_relationship_name_are_validated_on_update()
+    {
+        $_SERVER['nova.useRolesCustomAttribute'] = true;
+
+        $user = factory(User::class)->create();
+        $role = factory(Role::class)->create();
+        $user->roles()->attach($role);
+
+        $response = $this->withExceptionHandling()
+            ->postJson('/nova-api/users/'.$user->id.'/update-attached/roles/'.$role->id, [
+                'roles' => null,
+                'viaRelationship' => 'userRoles',
+            ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('roles');
+
+        unset($_SERVER['nova.useRolesCustomAttribute']);
+    }
+
+    public function test_update_attach_resource_with_custom_relationship_name()
+    {
+        $_SERVER['nova.useRolesCustomAttribute'] = true;
+
+        $user = factory(User::class)->create();
+        $role = factory(Role::class)->create();
+        $user->roles()->attach($role);
+
+        $response = $this->withExceptionHandling()
+            ->postJson('/nova-api/users/'.$user->id.'/update-attached/roles/'.$role->id, [
+                'roles' => $role->id,
+                'admin' => 'Y',
+                'viaRelationship' => 'userRoles',
+            ]);
+
+        $response->assertOk();
+
+        unset($_SERVER['nova.useRolesCustomAttribute']);
     }
 }

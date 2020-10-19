@@ -28,6 +28,13 @@ abstract class Trend extends RangedMetric
     public $component = 'trend-metric';
 
     /**
+     * The value's precision when rounding.
+     *
+     * @var int
+     */
+    public $precision = 0;
+
+    /**
      * Create a new trend metric result.
      *
      * @param  string|null  $value
@@ -462,6 +469,19 @@ abstract class Trend extends RangedMetric
     }
 
     /**
+     * Set the precision level used when rounding the value.
+     *
+     * @param  int  $precision
+     * @return $this
+     */
+    public function precision($precision = 0)
+    {
+        $this->precision = $precision;
+
+        return $this;
+    }
+
+    /**
      * Return a value result showing a aggregate over time.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -503,7 +523,7 @@ abstract class Trend extends RangedMetric
         $results = array_merge($possibleDateResults, $results->mapWithKeys(function ($result) use ($request, $unit) {
             return [$this->formatAggregateResultDate(
                 $result->date_result, $unit, $request->twelveHourTime === 'true'
-            ) => round($result->aggregate, 0)];
+            ) => round($result->aggregate, $this->precision)];
         })->all());
 
         if (count($results) > $request->range) {

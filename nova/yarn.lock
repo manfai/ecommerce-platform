@@ -489,7 +489,7 @@ aws4@^1.8.0:
   dependencies:
     follow-redirects "1.5.10"
 
-axios@^0.18:
+axios@^0.18, axios@^0.18.0:
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
   integrity sha512-0BfJq4NSfQXd+SkFdrvFbG7addhYSBA2mQwISr46pD6E5iqkWg02RAs8vyTT/j0RTnoYmeXauBuSv1qKwR179g==
@@ -5793,14 +5793,21 @@ laravel-mix@^1.0:
     webpack-notifier "^1.5.0"
     yargs "^8.0.1"
 
-laravel-nova@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/laravel-nova/-/laravel-nova-1.2.0.tgz#5fa71feacd843b71359beef1ca8508ef17a6507d"
-  integrity sha512-4XuUhV/vP1qu13uB7cN4Fu3xwewlQoeMwP1AZvrMsBCp5mhmUpaDk+4oaUOOmDZz1+/xLbAXMYR8PK9FIWlPGA==
+laravel-nova@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/laravel-nova/-/laravel-nova-1.2.2.tgz#dd1aeb4d63f6e972f87c75ae3f163e747e13be1d"
+  integrity sha512-YKdoK3cBUgExwsOwE7OZCjDJbdJbcrxFiBIHRnzcQbcE1ASjlZYbU+eWksUlmbzaZn5x8cULbrvHDIGz0iilBw==
   dependencies:
     babel-plugin-syntax-jsx "^6.18.0"
     form-backend-validation "^2.3.3"
     inflector-js "^1.0.1"
+
+laravel-vapor@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/laravel-vapor/-/laravel-vapor-0.4.0.tgz#1bd861d7acf029cbdde3d98fe894f12832b33b8c"
+  integrity sha512-0Hq4xt4Bm7FVyVIX+l7wizqWDqhU5fpAgwEKqE71DMrMH7gI/IeTonEYDpRsqy0iTs5d7mAQ1086oL4xxhfp9Q==
+  dependencies:
+    axios "^0.18.0"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
@@ -6213,11 +6220,6 @@ markdown-it@^8.4.1:
     linkify-it "^2.0.0"
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
-
-marked@^0.6.2:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.3.tgz#79babad78af638ba4d522a9e715cdfdd2429e946"
-  integrity sha512-Fqa7eq+UaxfMriqzYLayfqAE40WN03jf+zHjT18/uXNuzjq3TY0XTbrAoPeqSJrAmPz11VuUA+kBPYOhHt9oOQ==
 
 math-expression-evaluator@^1.2.14:
   version "1.2.22"

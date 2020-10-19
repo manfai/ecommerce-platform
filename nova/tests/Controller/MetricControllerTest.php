@@ -179,6 +179,8 @@ class MetricControllerTest extends IntegrationTest
 
     public function test_can_retrieve_today_count_calculations()
     {
+        Carbon::setTestNow('Oct 1 12:00 PM');
+
         factory(User::class, 3)->create();
 
         $user = User::find(1);
@@ -199,6 +201,8 @@ class MetricControllerTest extends IntegrationTest
         $response->assertStatus(200);
         $this->assertEquals(2, $response->original['value']->value);
         $this->assertEquals(1, $response->original['value']->previous);
+
+        Carbon::setTestNow();
     }
 
     public function test_can_retrieve_mtd_count_calculations()

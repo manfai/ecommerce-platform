@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Heading;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Select;
@@ -77,9 +78,28 @@ class FieldTest extends IntegrationTest
 
         $field->resolve((object) []);
         $this->assertEquals('Computed', $field->value);
+    }
+
+    public function test_computed_fields_resolve_for_display()
+    {
+        $field = Text::make('InvokableComputed', function ($resource) {
+            return 'Computed';
+        });
 
         $field->resolveForDisplay((object) []);
         $this->assertEquals('Computed', $field->value);
+    }
+
+    public function test_computed_fields_use_display_callback()
+    {
+        $field = Text::make('InvokableComputed', function ($resource) {
+            return 'Computed';
+        })->displayUsing(function ($value) {
+            return sprintf('Displayed Via %s Field', $value);
+        });
+
+        $field->resolveForDisplay((object) []);
+        $this->assertEquals('Displayed Via Computed Field', $field->value);
     }
 
     public function test_computed_fields_resolve_with_resource()
@@ -90,9 +110,16 @@ class FieldTest extends IntegrationTest
 
         $field->resolve((object) ['value' => 'Computed']);
         $this->assertEquals('Computed', $field->value);
+    }
+
+    public function test_computed_fields_resolve_for_display_with_resource()
+    {
+        $field = Text::make('InvokableComputed', function ($resource) {
+            return $resource->value;
+        });
 
         $field->resolveForDisplay((object) ['value' => 'Other value']);
-        $this->assertEquals('Computed', $field->value);
+        $this->assertEquals('Other value', $field->value);
     }
 
     public function test_can_see_when_proxies_to_gate()
@@ -467,6 +494,61 @@ class FieldTest extends IntegrationTest
 
         $field->showCreateRelationButton();
         $this->assertTrue($field->createRelationShouldBeShown($request));
+    }
+
+    public function test_fields_can_have_help_text()
+    {
+        $field = Text::make('Name')->help('Custom help text.');
+
+        $this->assertSubset([
+            'helpText' => 'Custom help text.',
+        ], $field->jsonSerialize());
+    }
+
+    public function test_fields_can_specify_a_default_value_as_callback()
+    {
+        $field = Text::make('Name')->default(function (NovaRequest $request) {
+            return $request->url();
+        });
+
+        $this->app->instance(
+            NovaRequest::class,
+            NovaRequest::create('/', 'GET', [
+                'editing' => true,
+                'editMode' => 'create',
+            ])
+        );
+
+        $this->assertSubset([
+            'value' => 'http://localhost',
+        ], $field->jsonSerialize());
+    }
+
+    public function test_fields_can_specify_a_default_value()
+    {
+        $field = Text::make('Name')->default('David Hemphill');
+
+        $this->app->instance(
+            NovaRequest::class,
+            NovaRequest::create('/', 'GET', [
+                'editing' => true,
+                'editMode' => 'create',
+            ])
+        );
+
+        $this->assertSubset([
+            'value' => 'David Hemphill',
+        ], $field->jsonSerialize());
+    }
+
+    public function test_heading_fields_can_be_computed()
+    {
+        $field = Heading::make('InvokableComputed', function () {
+            return 'Computed';
+        });
+
+        $field->resolve((object) ['name' => 'David']);
+        $this->assertEquals('David', $field->value);
     }
 }
 

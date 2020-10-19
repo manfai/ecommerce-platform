@@ -47,7 +47,7 @@
     <div
       ref="chart"
       class="absolute pin rounded-b-lg ct-chart"
-      style="top: 60%"
+      style="top: 60%;"
     />
   </loading-card>
 </template>
@@ -88,11 +88,11 @@ export default {
   data: () => ({ chartist: null }),
 
   watch: {
-    selectedRangeKey: function(newRange, oldRange) {
+    selectedRangeKey: function (newRange, oldRange) {
       this.renderChart()
     },
 
-    chartData: function(newData, oldData) {
+    chartData: function (newData, oldData) {
       this.renderChart()
     },
   },

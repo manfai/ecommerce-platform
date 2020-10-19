@@ -48,4 +48,19 @@ class ID extends Field
 
         return $this;
     }
+
+    /**
+     * Hide the ID field from the Nova interface but keep it available for operations.
+     *
+     * @return $this
+     */
+    public function hide()
+    {
+        $this->showOnIndex = false;
+        $this->showOnDetail = false;
+        $this->showOnCreation = false;
+        $this->showOnUpdate = false;
+
+        return $this;
+    }
 }

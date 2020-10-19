@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ResourceCommand extends GeneratorCommand
 {
+    use ResolvesStubPath;
+
     /**
      * The console command name.
      *
@@ -87,8 +89,14 @@ class ResourceCommand extends GeneratorCommand
             $this->warn("You *must* override the uriKey method for your {$resourceName} resource.");
         }
 
+        $replace = [
+            'DummyFullModel' => $model,
+            '{{ namespacedModel }}' => $model,
+            '{{namespacedModel}}' => $model,
+        ];
+
         return str_replace(
-            'DummyFullModel', $model, parent::buildClass($name)
+            array_keys($replace), array_values($replace), parent::buildClass($name)
         );
     }
 
@@ -99,7 +107,7 @@ class ResourceCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/resource.stub';
+        return $this->resolveStubPath('/stubs/nova/resource.stub');
     }
 
     /**

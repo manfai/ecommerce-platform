@@ -24,7 +24,6 @@
               :value="selectedResource"
               :data="availableResources"
               trackBy="value"
-              searchBy="display"
               class="mb-3"
             >
               <div
