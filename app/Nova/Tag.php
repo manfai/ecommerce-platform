@@ -3,28 +3,27 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
+use Spatie\Tags\Tag as TagModel;
 
-class ProductSku extends Resource
+class Tag extends Resource
 {
+    
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\ProductSku';
+    public static $model = TagModel::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -32,7 +31,7 @@ class ProductSku extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**
@@ -44,19 +43,7 @@ class ProductSku extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-            Text::make('Code')
-            ->sortable()
-            ->rules('required', 'max:255')->translatable(),
-            Image::make('Image')->thumbnail(function(){
-                return $this->image;
-            })->disableDownload(),
-            Text::make('Title')
-            ->sortable()
-            ->rules('required', 'max:255'),
-            Boolean::make('On Sale'),
-            Number::make('price')->min(1)->step(0.01),
-            Number::make('stock')->min(1)->step(2),
+            Text::make('Name')->sortable(),
         ];
     }
 

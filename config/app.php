@@ -177,6 +177,7 @@ return [
         App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Manfai\TripodCats\ThemeServiceProvider::class, //Custom Theme
     ],
 
     /*

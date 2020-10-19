@@ -12,6 +12,6 @@ return [
      *  - Callable that returns a keyed array
      */
 
-    'locales' => ['en' => 'English','zh-hk' => '繁體中文','zh-cn' => '简体中文'],
+    'locales' => ['en' => 'English', 'zh-hk' => '繁體中文','zh-cn' => '简体中文'],
 
 ];

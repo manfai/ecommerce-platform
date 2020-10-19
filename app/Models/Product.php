@@ -9,10 +9,11 @@ use Spatie\Translatable\HasTranslations;
 use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use \Spatie\Tags\HasTags;
 
 class Product extends Model
 {
-    use HasTranslations;
+    use HasTags, HasTranslations;
     protected $fillable = [
         'code', 'title', 'description', 'image', 'on_sale', 
         'rating', 'sold_count', 'review_count', 'price', 'currency'
@@ -26,11 +27,6 @@ class Product extends Model
     public function skus()
     {
         return $this->hasMany(ProductSku::class);
-    }
-    
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'product_tags');
     }
 
     public function getImageUrlAttribute()

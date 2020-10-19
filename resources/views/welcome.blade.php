@@ -135,6 +135,7 @@
     <!-- /owl-carousel -->
 </section>
 <!-- /section ends -->
+@if(config('global.adoption')=='true')
 <!-- section -->
 <section id="adoption-home" class="container-fluid pl-0 pr-0 overlay-dark bg-fixed" style="background:url('https://img.made.com/image/upload/c_pad,d_made.svg,f_auto,w_1320,dpr_1.0,q_auto:best/v4/catalog/product/catalog/2/c/6/5/2c6514e4983b6e67d1261535558857fb73b7f5cd_PETTER001GRE_UK_Terri_Teepee_Pet_house_Grey_and_Mustard_LB02.jpg')">
     <!-- section heading -->  
@@ -201,9 +202,11 @@
        <!-- /col-lg -->
     </div>
     <!-- /container-->
- </section>
- <!-- /section ends -->
-<!-- section-->
+</section>
+<!-- /section ends -->
+@endif
+
+ <!-- section-->
 <section id="contact-home" class="container-fluid">
     <!-- section heading -->
     <div class="section-heading text-center">

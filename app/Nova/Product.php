@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Nikaia\Rating\Rating;
+use Spatie\TagsField\Tags;
 
 class Product extends Resource
 {
@@ -46,7 +47,7 @@ class Product extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            // ID::make()->sortable(),
             Text::make('Code')
             ->sortable()
             ->rules('required', 'max:255'),
@@ -54,9 +55,13 @@ class Product extends Resource
                 return $this->image_url;
             })->disableDownload(),
             Text::make('Title')
+            ->rules('required', 'max:255')->translatable(),
+            Text::make('Currency')
             ->sortable()
-            ->rules('required', 'max:255'),
-            Number::make('price')->min(1)->step(0.01),
+            ->rules('required', 'max:3'),
+            Number::make('price', function($value){
+                return '$'.$value->price;
+            })->min(1)->step(0.01),
             Boolean::make('On Sale'),
             Rating::make('Rating')->withStyles([
                 'star-size' => 20,
@@ -70,6 +75,7 @@ class Product extends Resource
                 'glow-color' => '#fff',
                 'text-class' => 'inline-block text-50 h-9',
             ])->min(0)->max(5)->increment(0.5),
+            Tags::make('Tags'),
             HasMany::make('Skus','skus','App\Nova\ProductSku')
         ];
     }
