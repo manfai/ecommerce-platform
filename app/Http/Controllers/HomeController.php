@@ -8,6 +8,7 @@ use App\Models\UserAddress;
 use App\Http\Requests\UserAddressRequest;
 use Auth;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,18 @@ class HomeController extends Controller
         ]);
 
     }
+
+    /**
+     * Change session locale
+     * @param  Request $request
+     * @return Response
+     */
+    public function changeCurrency(Request $request)
+    {
+        Session::put('currency', $request->currency);
+        return redirect()->back();
+    }
+
  
     public function faqs()
     {

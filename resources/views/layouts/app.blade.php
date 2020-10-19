@@ -80,7 +80,7 @@
                         <!-- End Contact Info -->
                         <!-- Start Social Links -->
                         <ul class="social-list float-right list-inline">
-                           @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                            @if($localeCode!==LaravelLocalization::getCurrentLocale())
                            <li class="list-inline-item">
                                  <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -91,6 +91,7 @@
                         @endforeach
                         </ul>
                         <!-- /End Social Links -->
+
                      </div>
                      <!-- col-md-12 -->
                   </div>
@@ -199,9 +200,17 @@
                   <img src="/img/logo.png"  class="logo-footer img-fluid" alt=""/>
                   <!-- Start Social Links -->
                   <ul class="social-list text-center list-inline">
-                     <li class="list-inline-item"><a title="Facebook" href="https://www.facebook.com/tripodcats"><i class="fab fa-facebook-f"></i></a></li>
+                     <li class="list-inline-item mt-3">
+                        <select class="custom-select" id="currencySwitcher">
+                           <option selected>Choose Currency</option>
+                           <option value="HKD" {{\Session::get('currency')=='HKD'?'selected':''}}>HKD</option>
+                           <option value="USD" {{\Session::get('currency')=='USD'?'selected':''}}>USD</option>
+                           <option value="CNY" {{\Session::get('currency')=='CNY'?'selected':''}}>CNY</option>
+                         </select>
+                     </li>
+                     {{-- <li class="list-inline-item"><a title="Facebook" href="https://www.facebook.com/tripodcats"><i class="fab fa-facebook-f"></i></a></li>
                      <li class="list-inline-item"><a title="Twitter" href="https://www.facebook.com/tripodcats"><i class="fab fa-twitter"></i></a></li>
-                     <li class="list-inline-item"><a  title="Instagram" href="https://www.facebook.com/tripodcats"><i class="fab fa-instagram"></i></a></li>
+                     <li class="list-inline-item"><a  title="Instagram" href="https://www.facebook.com/tripodcats"><i class="fab fa-instagram"></i></a></li> --}}
                   </ul>
                   <!-- /End Social Links -->
                </div>

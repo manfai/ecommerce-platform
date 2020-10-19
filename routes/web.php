@@ -11,7 +11,8 @@
 |
 */
 
-
+use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
+use Carbon\Carbon;
 
 Route::group(
     [
@@ -61,6 +62,12 @@ Route::group(
     Route::put('/address/{addressId}', 'UserAddressController@update')->name('address.update');
     Route::delete('/address/{addressId}', 'UserAddressController@destroy')->name('address.destroy');
 
-    Route::get('coupon_codes/{code}', 'CouponCodesController@show')->name('coupon_codes.show');
+    Route::get('coupon/codes/{code}', 'CouponCodesController@show')->name('coupon.codes.show');
+
+    Route::get('testing', function(){
+        $exchangeRates = new ExchangeRate();
+        $result = $exchangeRates->convert(100000, 'HKD', 'HKD', Carbon::now());
+        return $result;
+    });
 
 });

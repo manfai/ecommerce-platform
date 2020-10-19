@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InternalException;
+use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Spatie\Translatable\HasTranslations;
 
 class ProductSku extends Model
@@ -49,5 +52,16 @@ class ProductSku extends Model
         $this->increment('stock', $qty);
     }
     
+
+    public function getPriceAttribute()
+    {
+        $exchangeRates = new ExchangeRate();
+        if (Auth::check()) {
+            $userCurrency = Auth::user()->currency;
+        } else {
+            $userCurrency = Session::get('currency');
+        }
+        return number_format($exchangeRates->convert($this->attributes['price'], $this->attributes['currency'], $userCurrency), 0);
+    }
     
 }

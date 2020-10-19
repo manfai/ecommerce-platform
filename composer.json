@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ashallendesign/laravel-exchange-rates": "^3.2",
         "fideloper/proxy": "^4.0",
         "graham-campbell/markdown": "^13.0",
         "laravel/framework": "^6.0",

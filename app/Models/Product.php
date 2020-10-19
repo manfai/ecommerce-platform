@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
+use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Product extends Model
 {
@@ -37,6 +40,17 @@ class Product extends Model
             return $this->attributes['image'];
         }
         return Storage::disk('public')->url($this->attributes['image']);
+    }
+
+    public function getPriceAttribute()
+    {
+        $exchangeRates = new ExchangeRate();
+        if (Auth::check()) {
+            $userCurrency = Auth::user()->currency;
+        } else {
+            $userCurrency = Session::get('currency');
+        }
+        return number_format($exchangeRates->convert($this->attributes['price'], $this->attributes['currency'], $userCurrency), 0);
     }
 
 }
