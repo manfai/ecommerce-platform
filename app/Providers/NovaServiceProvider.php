@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Bolechen\NovaActivitylog\NovaActivitylog;
 use Davidpiesse\NovaToggle\Toggle;
 use Illuminate\Support\Facades\Gate;
+use KABBOUCHI\LogsTool\LogsTool;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Fields\Boolean;
@@ -15,6 +17,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use OptimistDigital\NovaSettings\NovaSettings;
+use Spatie\BackupTool\BackupTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -120,7 +123,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new NovaSettings
+            new BackupTool(),
+            new NovaSettings(),
+            new LogsTool(),
+            new NovaActivitylog(),
         ];
     }
 

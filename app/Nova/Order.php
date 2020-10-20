@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
@@ -11,6 +12,24 @@ use OptimistDigital\NovaNotesField\NotesField;
 
 class Order extends Resource
 {
+    /**
+     * The relationship columns that should be searched.
+     *
+     * @var array
+     */
+    public static $searchRelations = [
+        'user' => ['name', 'email'],
+    ];
+    
+    /**
+     * The relationship columns that should be searched globally.
+     *
+     * @var array
+     */
+    public static $globalSearchRelations = [
+        'user' => ['email'],
+    ];
+
     /**
      * The model the resource corresponds to.
      *
@@ -44,6 +63,7 @@ class Order extends Resource
     {
         return [
             Text::make('No')->sortable(),
+            BelongsTo::make('User'),
             Text::make('Remark'),
             Number::make('Total Amount'),
             Number::make('Real Amount'),

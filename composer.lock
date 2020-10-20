@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc49a23554df9f8cd5f415677821e7d3",
+    "content-hash": "fbfc5fe0277039edb3882f11452e103d",
     "packages": [
         {
             "name": "ashallendesign/laravel-exchange-rates",
@@ -120,6 +120,50 @@
                 "stack"
             ],
             "time": "2019-12-24T22:41:47+00:00"
+        },
+        {
+            "name": "bolechen/nova-activitylog",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bolechen/nova-activitylog.git",
+                "reference": "551ef009c04e11877da05dbf933b10beb8352597"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bolechen/nova-activitylog/zipball/551ef009c04e11877da05dbf933b10beb8352597",
+                "reference": "551ef009c04e11877da05dbf933b10beb8352597",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^2.0|^3.0",
+                "spatie/laravel-activitylog": "^3.9.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bolechen\\NovaActivitylog\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bolechen\\NovaActivitylog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A tool to activity logger to monitor the users of your Laravel Nova.",
+            "keywords": [
+                "activity",
+                "laravel",
+                "log",
+                "nova"
+            ],
+            "time": "2020-03-12T01:52:21+00:00"
         },
         {
             "name": "brick/math",
@@ -1361,6 +1405,118 @@
                 "url"
             ],
             "time": "2020-09-30T07:37:11+00:00"
+        },
+        {
+            "name": "kabbouchi/laravel-ward",
+            "version": "v0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KABBOUCHI/laravel-ward.git",
+                "reference": "4e5803330f67f34a69c79f7c98a262cb8618ab4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KABBOUCHI/laravel-ward/zipball/4e5803330f67f34a69c79f7c98a262cb8618ab4e",
+                "reference": "4e5803330f67f34a69c79f7c98a262cb8618ab4e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "illuminate/queue": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KABBOUCHI\\Ward\\WardServiceProvider"
+                    ],
+                    "aliases": {
+                        "Ward": "KABBOUCHI\\Ward\\Ward"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KABBOUCHI\\Ward\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Georges KABBOUCHI",
+                    "email": "georges.kabbouchi@gmail.com"
+                }
+            ],
+            "keywords": [
+                "Viewer",
+                "laravel",
+                "log",
+                "logs",
+                "ward"
+            ],
+            "time": "2020-09-08T17:45:28+00:00"
+        },
+        {
+            "name": "kabbouchi/nova-logs-tool",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KABBOUCHI/nova-logs-tool.git",
+                "reference": "c3d55c4f58c502ece8d9be89d75fa9d047222c9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KABBOUCHI/nova-logs-tool/zipball/c3d55c4f58c502ece8d9be89d75fa9d047222c9e",
+                "reference": "c3d55c4f58c502ece8d9be89d75fa9d047222c9e",
+                "shasum": ""
+            },
+            "require": {
+                "kabbouchi/laravel-ward": "^0.4.0",
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6",
+                "phpunit/phpunit": "7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KABBOUCHI\\LogsTool\\LogsToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KABBOUCHI\\LogsTool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Georges KABBOUCHI",
+                    "email": "georges.kabbouchi@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova tool to manage and keep track of each one of your logs files.",
+            "homepage": "https://github.com/KABBOUCHI/nova-logs-tool",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-09-09T22:58:25+00:00"
         },
         {
             "name": "laravel/framework",
@@ -4072,6 +4228,56 @@
             "time": "2019-09-12T12:06:00+00:00"
         },
         {
+            "name": "spatie/db-dumper",
+            "version": "2.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/db-dumper.git",
+                "reference": "d23bcb566443e862a8dbb6dbd5e8da03aaf98e2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/d23bcb566443e862a8dbb6dbd5e8da03aaf98e2a",
+                "reference": "d23bcb566443e862a8dbb6dbd5e8da03aaf98e2a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "symfony/process": "^4.2|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\DbDumper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Dump databases",
+            "homepage": "https://github.com/spatie/db-dumper",
+            "keywords": [
+                "database",
+                "db-dumper",
+                "dump",
+                "mysqldump",
+                "spatie"
+            ],
+            "time": "2020-09-10T14:52:52+00:00"
+        },
+        {
             "name": "spatie/eloquent-sortable",
             "version": "3.9.0",
             "source": {
@@ -4207,6 +4413,82 @@
             "time": "2020-09-16T15:28:13+00:00"
         },
         {
+            "name": "spatie/laravel-backup",
+            "version": "6.11.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-backup.git",
+                "reference": "3ab6fa26eeed1552571ed06d5be91dfa20477962"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/3ab6fa26eeed1552571ed06d5be91dfa20477962",
+                "reference": "3ab6fa26eeed1552571ed06d5be91dfa20477962",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.8.15|^6.0|^7.0|^8.0",
+                "illuminate/contracts": "^5.8.15|^6.0|^7.0|^8.0",
+                "illuminate/events": "^5.8.15|^6.0|^7.0|^8.0",
+                "illuminate/filesystem": "^5.8.15|^6.0|^7.0|^8.0",
+                "illuminate/notifications": "^5.8.15|^6.0|^7.0|^8.0",
+                "illuminate/support": "^5.8.15|^6.0|^7.0|^8.0",
+                "league/flysystem": "^1.0.49",
+                "php": "^7.3",
+                "spatie/db-dumper": "^2.12",
+                "spatie/temporary-directory": "^1.1",
+                "symfony/finder": "^4.2|^5.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "laravel/slack-notification-channel": "^1.0",
+                "league/flysystem-aws-s3-v3": "^1.0",
+                "mockery/mockery": "^1.3",
+                "orchestra/testbench": "3.8.*|4.*|5.*|6.*",
+                "phpunit/phpunit": "^8.4|^9.0"
+            },
+            "suggest": {
+                "laravel/slack-notification-channel": "Required for sending notifications via Slack"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Backup\\BackupServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Backup\\": "src"
+                },
+                "files": [
+                    "src/Helpers/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel package to backup your application",
+            "homepage": "https://github.com/spatie/laravel-backup",
+            "keywords": [
+                "backup",
+                "database",
+                "laravel-backup",
+                "spatie"
+            ],
+            "time": "2020-10-19T06:58:51+00:00"
+        },
+        {
             "name": "spatie/laravel-tags",
             "version": "2.7.2",
             "source": {
@@ -4338,6 +4620,65 @@
             "time": "2020-10-03T11:00:18+00:00"
         },
         {
+            "name": "spatie/nova-backup-tool",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/nova-backup-tool.git",
+                "reference": "18ba305073b69f16c2a6fca4535511ab59db2883"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/nova-backup-tool/zipball/18ba305073b69f16c2a6fca4535511ab59db2883",
+                "reference": "18ba305073b69f16c2a6fca4535511ab59db2883",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0|^8.0",
+                "laravel/nova": "^3.0",
+                "nesbot/carbon": "^2.31",
+                "php": "^7.3",
+                "spatie/laravel-backup": "^6.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0",
+                "phpunit/phpunit": "9.3",
+                "spatie/phpunit-snapshot-assertions": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\BackupTool\\BackupToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\BackupTool\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova tool to backup your application.",
+            "homepage": "https://github.com/spatie/nova-backup-tool",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-09-09T09:46:21+00:00"
+        },
+        {
             "name": "spatie/nova-tags-field",
             "version": "3.0.4",
             "source": {
@@ -4445,6 +4786,52 @@
                 "spatie"
             ],
             "time": "2020-02-18T15:10:38+00:00"
+        },
+        {
+            "name": "spatie/temporary-directory",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/temporary-directory.git",
+                "reference": "8efe8e61e0ca943d84341f10e51ef3a9606af932"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/temporary-directory/zipball/8efe8e61e0ca943d84341f10e51ef3a9606af932",
+                "reference": "8efe8e61e0ca943d84341f10e51ef3a9606af932",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\TemporaryDirectory\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily create, use and destroy temporary directories",
+            "homepage": "https://github.com/spatie/temporary-directory",
+            "keywords": [
+                "spatie",
+                "temporary-directory"
+            ],
+            "time": "2020-09-07T20:41:15+00:00"
         },
         {
             "name": "spatie/valuestore",
@@ -6572,6 +6959,42 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "titasgailius/search-relations",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TitasGailius/nova-search-relations.git",
+                "reference": "ac999c8d3230573fe5bb81f50cbabfaa62da26c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TitasGailius/nova-search-relations/zipball/ac999c8d3230573fe5bb81f50cbabfaa62da26c0",
+                "reference": "ac999c8d3230573fe5bb81f50cbabfaa62da26c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Titasgailius\\SearchRelations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "relations",
+                "search"
+            ],
+            "time": "2020-10-09T09:25:10+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

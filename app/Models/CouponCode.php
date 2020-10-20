@@ -10,6 +10,8 @@ class CouponCode extends Model
     // 用常量的方式定義支持的優惠券類型
     const TYPE_FIXED = 'fixed';
     const TYPE_PERCENT = 'percent';
+    
+    protected $table = 'coupons';
 
     public static $typeMap = [
         self::TYPE_FIXED   => '固定金額',
