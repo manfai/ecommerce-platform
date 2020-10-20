@@ -14,6 +14,13 @@ class UserPayment extends Resource
      * @var string
      */
     public static $model = 'App\\Models\\UserPayment';
+   
+    /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = true;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

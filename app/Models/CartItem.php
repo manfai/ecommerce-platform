@@ -3,10 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class CartItem extends Model
 {
-    protected $fillable = ['qty'];
+    use LogsActivity;
+
+    protected $table = 'carts';
+    protected $fillable = ['qty','amount'];
+
+    protected static $logName = 'cart';
+    protected static $logAttributes = ['productSku', 'qty', 'amount'];
+
     public $timestamps = false;
 
     public function user()

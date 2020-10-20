@@ -13,12 +13,12 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->string('value')->nullable();
-            $table->datetime('updated_at')->nullable();
-        });
+        // Schema::create('settings', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('name')->unique();
+        //     $table->string('value')->nullable();
+        //     $table->datetime('updated_at')->nullable();
+        // });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        // Schema::dropIfExists('settings');
     }
 }

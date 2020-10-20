@@ -16,13 +16,11 @@
 <div class="widget-area">
     <h5 class="sidebar-header">Categories</h5>
     <div class="list-group">
-        <a href="?type=food" class="list-group-item list-group-item-action">
-            Food
+        @foreach (\App\Models\Category::all() as $item)
+        <a href="?type={{$item->slug}}" class="list-group-item list-group-item-action">
+            {{$item->name}}
         </a>
-        <a href="?type=toys" class="list-group-item list-group-item-action">Toys</a>
-        <a href="?type=accessories" class="list-group-item list-group-item-action">Accessories</a>
-        <a href="?type=health" class="list-group-item list-group-item-action">Health</a>
-        <a href="?type=others" class="list-group-item list-group-item-action">Others</a>
+        @endforeach
     </div>
 </div>
 
@@ -30,13 +28,9 @@
 <div class="widget-area">
     <h5 class="sidebar-header">Tags</h5>
     <div class="tags-widget">
-        <a href="?tag=dogs" class="badge badge-pill badge-default">Dogs</a>
-        <a href="?tag=cats" class="badge badge-pill badge-default">Cats</a>
-        <a href="?tag=nutrition" class="badge badge-pill badge-default">Nutrition</a>
-        <a href="?tag=events" class="badge badge-pill badge-default">Events</a>
-        <a href="?tag=exotic_pets" class="badge badge-pill badge-default">Exotic pets</a>
-        <a href="?tag=adoption" class="badge badge-pill badge-default">Adoption</a>
-        <a href="?tag=insurance" class="badge badge-pill badge-default">Pet Insurance</a>
+        @foreach (\Spatie\Tags\Tag::all() as $item)
+            <a href="?tag={{$item->slug}}" class="badge badge-pill badge-default">{{$item->name}}</a>
+        @endforeach
     </div>
 </div>
 <!--/widget-area -->

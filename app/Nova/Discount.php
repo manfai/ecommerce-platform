@@ -3,26 +3,24 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Setting extends Resource
+class Discount extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Setting';
+    public static $model = \App\Models\Discount::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -30,7 +28,7 @@ class Setting extends Resource
      * @var array
      */
     public static $search = [
-        'name',
+        'id',
     ];
 
     /**
@@ -42,12 +40,7 @@ class Setting extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable()->hideFromIndex()->hideFromDetail(),
-            Text::make('Name')
-            ->rules('required', 'max:255'),
-            Text::make('Value')
-            ->rules('required', 'max:255'),
-            DateTime::make('Update At')->onlyOnIndex()
+            ID::make(__('ID'), 'id')->sortable(),
         ];
     }
 

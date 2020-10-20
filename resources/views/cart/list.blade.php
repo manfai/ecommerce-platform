@@ -225,7 +225,7 @@
                 return;
             }
             // 调用检查接口
-            axios.get('/coupon_codes/' + encodeURIComponent(code))
+            axios.get('/coupon/codes/' + encodeURIComponent(code))
                 .then(function (response) { // then 方法的第一个参数是回调，请求成功时会被调用
                     $('#coupon_desc').text(response.data.description); // 输出优惠信息
                     $('input[name=coupon_code]').prop('readonly', true); // 禁用输入框

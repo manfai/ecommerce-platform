@@ -53,11 +53,11 @@ class ProductSku extends Model
     }
     
 
-    public function getPriceAttribute()
+    public function getExchangedPriceAttribute()
     {
         $exchangeRates = new ExchangeRate();
         if (Auth::check()) {
-            $userCurrency = Auth::user()->currency;
+            $userCurrency = Auth::user()->currency?Auth::user()->currency:'HKD';
         } else {
             $userCurrency = Session::get('currency');
         }

@@ -4,11 +4,33 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use OptimistDigital\NovaNotesField\Traits\HasNotes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
-    use HasNotes;
+    use HasNotes, LogsActivity;
     
+    protected static $logName = 'order';
+
+    protected static $logAttributes = [ 
+    'no',
+    'address',
+    'total_amount',
+    'real_amount',
+    'remark',
+    'paid_at',
+    'paid_no',
+    'payment_status',
+    'payment_method',
+    'refund_status',
+    'refund_no',
+    'closed',
+    'reviewed',
+    'ship_status',
+    'ship_data',
+    'extra',
+    ];
+
     const PAYMENT_STATUS_PENDING    = 'pending';
     const PAYMENT_STATUS_PROCESSING = 'processing';
     const PAYMENT_STATUS_SUCCESS    = 'success';

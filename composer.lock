@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26d16817c8388295595906e080ce3ce4",
+    "content-hash": "dc49a23554df9f8cd5f415677821e7d3",
     "packages": [
         {
             "name": "ashallendesign/laravel-exchange-rates",
@@ -319,6 +319,88 @@
                 "stream_filter_register"
             ],
             "time": "2020-10-02T12:38:20+00:00"
+        },
+        {
+            "name": "davidpiesse/nova-toggle",
+            "version": "0.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davidpiesse/nova-toggle.git",
+                "reference": "97ddf9fa3914028432ec0d3694811fcfe755f9ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davidpiesse/nova-toggle/zipball/97ddf9fa3914028432ec0d3694811fcfe755f9ea",
+                "reference": "97ddf9fa3914028432ec0d3694811fcfe755f9ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Davidpiesse\\NovaToggle\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Davidpiesse\\NovaToggle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Boolean Toggle Switch Field",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2018-10-12T11:29:37+00:00"
+        },
+        {
+            "name": "dillingham/nova-attach-many",
+            "version": "1.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dillingham/nova-attach-many.git",
+                "reference": "66e0b01e1be3aecbbfc72e7df81b45bf7fb9674a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dillingham/nova-attach-many/zipball/66e0b01e1be3aecbbfc72e7df81b45bf7fb9674a",
+                "reference": "66e0b01e1be3aecbbfc72e7df81b45bf7fb9674a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NovaAttachMany\\Providers\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NovaAttachMany\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Attach Many Nova field",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-03-22T13:17:50+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -854,6 +936,55 @@
                 "validator"
             ],
             "time": "2020-09-26T15:48:38+00:00"
+        },
+        {
+            "name": "eminiarts/nova-tabs",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eminiarts/nova-tabs.git",
+                "reference": "1f3caad870fbfe262200604903abf890521ce825"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eminiarts/nova-tabs/zipball/1f3caad870fbfe262200604903abf890521ce825",
+                "reference": "1f3caad870fbfe262200604903abf890521ce825",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": ">=2.9.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Eminiarts\\Tabs\\TabsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Eminiarts\\Tabs\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emini Arts GmbH",
+                    "email": "support@eminiarts.ch",
+                    "homepage": "https://eminiarts.ch"
+                }
+            ],
+            "description": "Laravel Nova - Tabs.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-10-10T12:38:01+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -2574,6 +2705,51 @@
             "time": "2020-09-07T06:46:47+00:00"
         },
         {
+            "name": "optimistdigital/nova-settings",
+            "version": "2.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/optimistdigital/nova-settings.git",
+                "reference": "2c00bbda3392d79ccac85497ab1931a41d032689"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/optimistdigital/nova-settings/zipball/2c00bbda3392d79ccac85497ab1931a41d032689",
+                "reference": "2c00bbda3392d79ccac85497ab1931a41d032689",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^2.0.11 || ^3.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OptimistDigital\\NovaSettings\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OptimistDigital\\NovaSettings\\": "src/"
+                },
+                "files": [
+                    "./src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool for editing custom settings using native Nova fields.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-07-29T09:50:46+00:00"
+        },
+        {
             "name": "optimistdigital/nova-translatable",
             "version": "1.6.6",
             "source": {
@@ -3955,6 +4131,82 @@
             "time": "2020-09-15T06:48:07+00:00"
         },
         {
+            "name": "spatie/laravel-activitylog",
+            "version": "3.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-activitylog.git",
+                "reference": "a01fce5f3011c8b7eac86b18e2121da55f0564cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/a01fce5f3011c8b7eac86b18e2121da55f0564cd",
+                "reference": "a01fce5f3011c8b7eac86b18e2121da55f0564cd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^6.0 || ^7.0 || ^8.0",
+                "illuminate/database": "^6.0 || ^7.0 || ^8.0",
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Activitylog\\ActivitylogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Activitylog\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A very simple activity logger to monitor the users of your website or application",
+            "homepage": "https://github.com/spatie/activitylog",
+            "keywords": [
+                "activity",
+                "laravel",
+                "log",
+                "spatie",
+                "user"
+            ],
+            "time": "2020-09-16T15:28:13+00:00"
+        },
+        {
             "name": "spatie/laravel-tags",
             "version": "2.7.2",
             "source": {
@@ -4193,6 +4445,59 @@
                 "spatie"
             ],
             "time": "2020-02-18T15:10:38+00:00"
+        },
+        {
+            "name": "spatie/valuestore",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/valuestore.git",
+                "reference": "20970cdfd251bb0f347bd2f95ff573f3f3ac105c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/valuestore/zipball/20970cdfd251bb0f347bd2f95ff573f3f3ac105c",
+                "reference": "20970cdfd251bb0f347bd2f95ff573f3f3ac105c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Valuestore\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jolita Grazyte",
+                    "email": "jolita@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily store some values",
+            "homepage": "https://github.com/spatie/valuestore",
+            "keywords": [
+                "json",
+                "spatie",
+                "valuestore"
+            ],
+            "time": "2020-08-21T22:42:17+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

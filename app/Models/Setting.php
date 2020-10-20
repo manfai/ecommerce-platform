@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OptimistDigital\NovaSettings\Models\Settings;
 
-class Setting extends Model
+class Setting extends Settings
 {
-    protected $fillable = [
-        'name',
-        'value',
-    ];
-    public $timestamps = false;
+    protected $table = 'settings';
+    
 }

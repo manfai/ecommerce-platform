@@ -45,17 +45,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // if(\Schema::hasTable('setting')){
+        if(\Illuminate\Support\Facades\Schema::hasTable('settings')){
             config([
                 'global' => Setting::all([
-                    'name','value'
+                    'key','value'
                 ])
-                ->keyBy('name') // key every setting by its name
+                ->keyBy('key') // key every setting by its name
                 ->transform(function ($setting) {
                     return $setting->value; // return only the value
                 })
                 ->toArray()
             ]);
-        // }
+        }
     }
 }

@@ -14,18 +14,21 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('code')->unique();
-            $table->string('type');
-            $table->decimal('value');
-            $table->unsignedInteger('total');
-            $table->unsignedInteger('used')->default(0);
-            $table->decimal('min_amount', 10, 2);
-            $table->datetime('not_before')->nullable();
-            $table->datetime('not_after')->nullable();
-            $table->boolean('enabled');
+            $table->increments('id');
+            $table->json('name');
+            $table->json('slug');
+            $table->string('type')->nullable();
+            $table->integer('order_column')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('categoryables', function (Blueprint $table) {
+            $table->integer('category_id')->unsigned();
+            $table->morphs('categoryable');
+
+            $table->unique(['category_id', 'categoryable_id', 'categoryable_type'],'categoryable_id_type_unique');
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -36,6 +39,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::drop('categories');
+        Schema::drop('categoryables');
     }
 }

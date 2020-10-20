@@ -33,18 +33,17 @@ class CartController extends Controller
         $user   = $request->user();
         $skuId  = $request->input('sku_id');
         $qty = $request->input('qty');
-
-        // 从数据库中查询该商品是否已经在购物车中
+        $amount = ProductSku::find($skuId)->price;
+            // 从数据库中查询该商品是否已经在购物车中
         if ($cart = $user->cartItems()->where('product_sku_id', $skuId)->first()) {
-
             // 如果存在则直接叠加商品数量
             $cart->update([
                 'qty' => $cart->qty + $qty,
+                'amount' => ($cart->qty + $qty) * $amount
             ]);
         } else {
-
             // 否则创建一个新的购物车记录
-            $cart = new CartItem(['qty' => $qty]);
+            $cart = new CartItem(['qty' => $qty, 'amount' => $qty * $amount]);
             $cart->user()->associate($user);
             $cart->productSku()->associate($skuId);
             $cart->save();

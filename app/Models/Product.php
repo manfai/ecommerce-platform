@@ -10,10 +10,13 @@ use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use \Spatie\Tags\HasTags;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Laravel\Nova\Nova;
 
 class Product extends Model
 {
     use HasTags, HasTranslations;
+    
     protected $fillable = [
         'code', 'title', 'description', 'image', 'on_sale', 
         'rating', 'sold_count', 'review_count', 'price', 'currency'
@@ -24,6 +27,18 @@ class Product extends Model
     public $translatable = ['title','description'];
 
     // 与商品SKU关联
+    public static function getCategoryClassName(): string
+    {
+        return Category::class;
+    }
+
+    public function categories(): MorphToMany
+    {
+        return $this
+            ->morphToMany(self::getCategoryClassName(), 'categoryable', 'categoryables', null, 'category_id')
+            ->orderBy('order_column');
+    }
+
     public function skus()
     {
         return $this->hasMany(ProductSku::class);
@@ -38,11 +53,11 @@ class Product extends Model
         return Storage::disk('public')->url($this->attributes['image']);
     }
 
-    public function getPriceAttribute()
+    public function getExchangedPriceAttribute()
     {
         $exchangeRates = new ExchangeRate();
         if (Auth::check()) {
-            $userCurrency = Auth::user()->currency;
+            $userCurrency = Auth::user()->currency?Auth::user()->currency:'HKD';
         } else {
             $userCurrency = Session::get('currency');
         }
