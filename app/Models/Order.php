@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OptimistDigital\NovaNotesField\Traits\HasNotes;
 
 class Order extends Model
 {
+    use HasNotes;
+    
     const PAYMENT_STATUS_PENDING    = 'pending';
     const PAYMENT_STATUS_PROCESSING = 'processing';
     const PAYMENT_STATUS_SUCCESS    = 'success';

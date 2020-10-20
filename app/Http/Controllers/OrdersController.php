@@ -100,7 +100,8 @@ class OrdersController extends Controller
                 'remark'       => $orderData->remark,
                 'total_amount' => 0,
                 'real_amount'  => 0,
-                'payment_method' => $request->payment,
+                'payment_id' => $request->payment,
+                'payment_method' => Payment::find($request->payment)->title,
             ]);
             $order->user()->associate($user);             //訂單關聯到當前用戶
             $order->save(); // 寫入數據庫

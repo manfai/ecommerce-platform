@@ -1535,10 +1535,15 @@ Last change:2th April 2019
 /* bg-secondary */
 .bg-secondary label{color:#fff;}
 /* Patterns */
- .pattern1 {
-     background-image: url("../img/patterns/pattern1.png");
+ .pattern5 {
+     background-image: url("../img/patterns/pattern5.png");
      background-position:center bottom;
      background-repeat:repeat-x;
+}
+.pattern1 {
+    background-image: url("../img/patterns/pattern1.png");
+    background-position:center bottom;
+    background-repeat:repeat-x;
 }
  .pattern2{
      background-image: url("../img/patterns/pattern2.png");

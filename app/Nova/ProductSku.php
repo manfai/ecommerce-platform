@@ -55,8 +55,8 @@ class ProductSku extends Resource
             ->sortable()
             ->rules('required', 'max:255'),
             Boolean::make('On Sale'),
-            Number::make('price')->min(1)->step(0.01),
-            Number::make('stock')->min(1)->step(2),
+            Number::make('price')->nullable()->min(1)->step(0.01),
+            Number::make('stock')->nullable()->min(1)->step(2),
         ];
     }
 

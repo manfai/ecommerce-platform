@@ -4,7 +4,10 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use OptimistDigital\NovaNotesField\NotesField;
 
 class Order extends Resource
 {
@@ -20,7 +23,7 @@ class Order extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'no';
 
     /**
      * The columns that should be searched.
@@ -28,7 +31,7 @@ class Order extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'no',
     ];
 
     /**
@@ -40,7 +43,14 @@ class Order extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+            Text::make('No')->sortable(),
+            Text::make('Remark'),
+            Number::make('Total Amount'),
+            Number::make('Real Amount'),
+            NotesField::make('Notes')
+            ->placeholder('Add note') // Optional
+            ->addingNotesEnabled(false) // Optional
+            ->fullWidth(), // Optional
         ];
     }
 

@@ -193,7 +193,7 @@
         
         <!--/container-fluid-->
         <!-- ==== footer ==== -->
-        <footer class="bg-light pattern1">
+        <footer class="bg-light pattern5">
          <div class="container">
             <div class="row">
                <div class="col-lg-3 text-center ">
