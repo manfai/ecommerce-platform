@@ -65,6 +65,12 @@
          <!--/container -->
         </div>
         <!--/Preloader ends -->
+        @php 
+         $open_hour = nova_get_setting('open_hour');
+         $description = nova_get_setting('description');
+         $address = nova_get_setting('address');
+         $contact = nova_get_setting('contact');
+        @endphp
         <nav id="main-nav" class="navbar-expand-xl fixed-top">
             <!-- Start Top Bar -->
             <div class="container-fluid top-bar" >
@@ -73,9 +79,9 @@
                      <div class="col-md-12">
                         <!-- Start Contact Info -->
                         <ul class="contact-details float-left">
-                           <li><i class="fa fa-map-marker"></i>{{ nova_get_setting('address')[LaravelLocalization::getCurrentLocale()] }}</li>
-                           <li><i class="fa fa-envelope"></i><a href="mailto:{{ nova_get_setting('contact')['email'] }}">{{ nova_get_setting('contact')['email'] }}</a></li>
-                           <li><i class="fa fa-phone"></i>{{ nova_get_setting('contact')['phone_no'] }}</li>
+                           <li><i class="fa fa-map-marker"></i>{{ $address?$address[LaravelLocalization::getCurrentLocale()]:'' }}</li>
+                           <li><i class="fa fa-envelope"></i><a href="mailto:{{ $contact?$contact['email']:'' }}">{{ $contact?$contact['email']:'' }}</a></li>
+                           <li><i class="fa fa-phone"></i>{{ $contact?$contact['phone_no']:'' }}</li>
                         </ul>
                         <!-- End Contact Info -->
                         <!-- Start Social Links -->
@@ -219,7 +225,7 @@
                   <h5>About us</h5>
                   <!--divider -->
                   <hr class="small-divider left"/>
-                  <p class="mt-3">{{ nova_get_setting('description')[LaravelLocalization::getCurrentLocale()] }}</p>
+                  <p class="mt-3">{{ $description?$description['LaravelLocalization::getCurrentLocale()']:'' }}</p>
                </div>
                <!--/ col-lg -->
                <div class="col-lg-3">
@@ -227,9 +233,9 @@
                   <!--divider -->
                   <hr class="small-divider left"/>
                   <ul class="list-unstyled mt-3">
-                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>{{ nova_get_setting('contact')['phone_no'] }}</li>
-                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:{{ nova_get_setting('contact')['email'] }}">{{ nova_get_setting('contact')['email'] }}</a></li>
-                     <li><i class="fas fa-map-marker margin-icon"></i>{{ nova_get_setting('address')[LaravelLocalization::getCurrentLocale()] }}</li>
+                     <li class="mb-1"><i class="fas fa-phone margin-icon "></i>{{ $contact?$contact['phone_no']:'' }}</li>
+                     <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:{{ $contact?$contact['email']:'' }}">{{ $contact?$contact['email']:'' }}</a></li>
+                     <li><i class="fas fa-map-marker margin-icon"></i>{{ $address?$address['LaravelLocalization::getCurrentLocale()']:'' }}</li>
                   </ul>
                   <!--/ul -->
                </div>
@@ -239,9 +245,9 @@
                   <!--divider -->
                   <hr class="small-divider left"/>
                   <ul class="list-unstyled mt-3">
-                     <li class="mb-1">Open from {{ nova_get_setting('open_hour')['weekday']?nova_get_setting('open_hour')['weekday']:__('Closed') }}</li>
-                     <li class="mb-1">Holidays - {{ nova_get_setting('open_hour')['holiday']?nova_get_setting('open_hour')['holiday']:__('Closed') }}</li>
-                     <li>Weekends - {{ nova_get_setting('open_hour')['weekend']?nova_get_setting('open_hour')['weekend']:__('Closed') }}</li>
+                     <li class="mb-1">Open from {{ $open_hour?$open_hour['weekday']:__('Closed') }}</li>
+                     <li class="mb-1">Holidays - {{ $open_hour?$open_hour['holiday']:__('Closed') }}</li>
+                     <li>Weekends - {{ $open_hour?$open_hour['weekend']:__('Closed') }}</li>
                   </ul>
                   <!--/ul -->
                </div>
@@ -251,7 +257,8 @@
             <hr/>
             <div class="row">
                <div class="credits col-sm-12">
-                  <p>Copyright <a href="/careers">{{date('Y')}}</a> / Powered by <a href="https://manfai.me">ManFai</a> / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p>
+                  {{ nova_get_setting('copyright') }}
+                  <!-- <p>Copyright <a href="/careers">{{date('Y')}}</a> / Powered by <a href="https://manfai.me">ManFai</a> / Designed by <a href="http://www.ingridkuhn.com">Ingrid Kuhn</a></p> -->
                </div>
             </div>
             <!--/col-lg-12-->
