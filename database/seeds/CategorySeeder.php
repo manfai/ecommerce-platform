@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
             $category = new Category();
             $category->name = $value;
             $category->slug = strtolower($value);
-            $category->type = 'category';
+            $category->type = 'product';
             $category->save();
         }
 
