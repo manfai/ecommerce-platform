@@ -14,6 +14,7 @@ use Nikaia\Rating\Rating;
 use Spatie\TagsField\Tags;
 use Laravel\Nova\Fields\MorphToMany;
 use NovaAttachMany\AttachMany;
+use Ctessier\NovaAdvancedImageField\AdvancedImage;
 
 class Product extends Resource
 {
@@ -54,7 +55,11 @@ class Product extends Resource
             ->sortable()
             ->rules('required', 'max:255'),
             AttachMany::make('Categories'),
-            Image::make('Image'),
+            AdvancedImage::make('Image')->disk('product')->thumbnail(function(){
+                return $this->image_url;
+            })->preview(function(){
+                return $this->image_url;
+            })->croppable()->resize(400, 400),
             Text::make('Title')
             ->rules('required', 'max:255')->translatable(),
             Text::make('Currency')

@@ -11,6 +11,7 @@
         "php": "^7.4.2",
         "ashallendesign/laravel-exchange-rates": "^3.2",
         "bolechen/nova-activitylog": "^0.2.1",
+        "ctessier/nova-advanced-image-field": "^1.2",
         "davidpiesse/nova-toggle": "^0.0.6",
         "dillingham/nova-attach-many": "^1.0",
         "eminiarts/nova-tabs": "^1.2",
