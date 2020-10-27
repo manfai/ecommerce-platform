@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'subtitle'      => '為您服務協助解決您的問題',
+    'title'         => '聯繫我們',
     'send_message'  => '向我們發送消息',
     'name'          => '名稱',
     'email_address' => '電子郵件地址',

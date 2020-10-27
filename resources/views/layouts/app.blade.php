@@ -225,7 +225,7 @@
                   <h5>About us</h5>
                   <!--divider -->
                   <hr class="small-divider left"/>
-                  <p class="mt-3">{{ $description?$description['LaravelLocalization::getCurrentLocale()']:'' }}</p>
+                  <p class="mt-3">{{ $description?$description[LaravelLocalization::getCurrentLocale()]:'' }}</p>
                </div>
                <!--/ col-lg -->
                <div class="col-lg-3">
@@ -235,7 +235,7 @@
                   <ul class="list-unstyled mt-3">
                      <li class="mb-1"><i class="fas fa-phone margin-icon "></i>{{ $contact?$contact['phone_no']:'' }}</li>
                      <li class="mb-1"><i class="fas fa-envelope margin-icon"></i><a href="mailto:{{ $contact?$contact['email']:'' }}">{{ $contact?$contact['email']:'' }}</a></li>
-                     <li><i class="fas fa-map-marker margin-icon"></i>{{ $address?$address['LaravelLocalization::getCurrentLocale()']:'' }}</li>
+                     <li><i class="fas fa-map-marker margin-icon"></i>{{ $address?$address[LaravelLocalization::getCurrentLocale()]:'' }}</li>
                   </ul>
                   <!--/ul -->
                </div>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbfc5fe0277039edb3882f11452e103d",
+    "content-hash": "f1fe7a89f87a16dbac8d9a94910fd90f",
     "packages": [
         {
             "name": "ashallendesign/laravel-exchange-rates",
@@ -1193,6 +1193,59 @@
                 "laravel"
             ],
             "time": "2020-04-28T08:47:37+00:00"
+        },
+        {
+            "name": "gldrenthe89/nova-string-generator-field",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gldrenthe89/nova-string-generator-field.git",
+                "reference": "346476e2bddd9a5bafccfec4d9e69d661bfdc292"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gldrenthe89/nova-string-generator-field/zipball/346476e2bddd9a5bafccfec4d9e69d661bfdc292",
+                "reference": "346476e2bddd9a5bafccfec4d9e69d661bfdc292",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0|^8.0",
+                "laravel/nova": "~3.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gldrenthe89\\NovaStringGeneratorField\\NovaStringGeneratorFieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gldrenthe89\\NovaStringGeneratorField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Geert Lucas Drenthe",
+                    "email": "gl@drenthe.it",
+                    "homepage": "https://github.com/gldrenthe89",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Nova field for generating a random string. This can be used for a Text field and for a Password field.",
+            "homepage": "https://github.com/gldrenthe89/nova-string-generator-field",
+            "keywords": [
+                "laravel",
+                "nova",
+                "password"
+            ],
+            "time": "2020-10-21T14:14:03+00:00"
         },
         {
             "name": "graham-campbell/markdown",
@@ -3687,16 +3740,6 @@
                 "nosql",
                 "predis",
                 "redis"
-            ],
-            "support": {
-                "issues": "https://github.com/predis/predis/issues",
-                "source": "https://github.com/predis/predis/tree/v1.1.6"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/tillkruss",
-                    "type": "github"
-                }
             ],
             "time": "2020-09-11T19:18:05+00:00"
         },
@@ -7197,6 +7240,64 @@
                 "php"
             ],
             "time": "2020-07-22T23:32:04+00:00"
+        },
+        {
+            "name": "whitecube/nova-flexible-content",
+            "version": "v0.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/nova-flexible-content.git",
+                "reference": "6b48d047d864b1d8178d9dae1b3294ea1098d0d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/nova-flexible-content/zipball/6b48d047d864b1d8178d9dae1b3294ea1098d0d9",
+                "reference": "6b48d047d864b1d8178d9dae1b3294ea1098d0d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\NovaFlexibleContent\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\NovaFlexibleContent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toon Van den Bos",
+                    "email": "toon@whitecube.be"
+                }
+            ],
+            "description": "Flexible Content & Repeater Fields for Laravel Nova.",
+            "keywords": [
+                "Flexible",
+                "field",
+                "group",
+                "laravel",
+                "layout",
+                "nova",
+                "repeat"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/whitecube",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-14T17:15:59+00:00"
         }
     ],
     "packages-dev": [
@@ -9236,5 +9337,5 @@
         "php": "^7.4.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

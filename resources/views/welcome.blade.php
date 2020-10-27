@@ -10,16 +10,15 @@
         <img src="https://www.ikea.com/images/a-tabby-cat-peeks-out-a-gray-lurvig-cat-house-surrounded-by--069e85213bd9cbb8a4b9d437f611dc22.jpg?f=s" class="ls-bg" alt="" />
         <!-- ls-l  -->
         <!-- 1200x376 -->
-        <img width="500" src="https://pluspng.com/img-png/cat-png-cat-png-hd-1500.png" class="ls-l" alt="" style="top:196px; right:0
-            %;" data-ls="offsetxin:10; offsetyin:120; durationin:1100; rotatein:5; transformoriginin:59.3% 80.3% 0; offsetxout:-80; durationout:400; parallax:true; parallaxlevel:-4;">
+        <img width="500" src="https://pluspng.com/img-png/cat-png-cat-png-hd-1500.png" class="ls-l" alt="" style="top:196px; right:0%;" data-ls="offsetxin:10; offsetyin:120; durationin:1100; rotatein:5; transformoriginin:59.3% 80.3% 0; offsetxout:-80; durationout:400; parallax:true; parallaxlevel:-4;">
         <!-- text  -->
         <div class="ls-l header-wrapper" data-ls="offsetyin:150; durationin:700; delayin:200; easingin:easeOutQuint; rotatexin:20; scalexin:1.4; offsetyout:600; durationout:400; parallax:true; parallaxlevel:2;">
             <div class="header-text full-width text-light">
-                <h1>Welcome to <span>{{ config('app.name', 'Laravel') }}</span></h1>
+                <h1>{!! __('welcome.title') !!}</h1>
                 <!--the div below is hidden on small screens  -->
                 <div class="hidden-small">
-                <p class="header-p">We offer the best services for your pets, contact us today and book a service</p>
-                <a class="btn btn-primary" href="{{route('category')}}">Shop Now</a>
+                <p class="header-p">{{ __('welcome.slogan')}}</p>
+                <a class="btn btn-primary" href="{{route('category')}}">{{__('welcome.shop_now')}}</a>
                 </div>
                 <!--/d-none  -->
             </div>
@@ -38,13 +37,13 @@
         <!-- row -->
         <div class="row">
             <div class="col-lg-9">
-                <h3>Quality & Experience </h3>
-                <p>Whether you’re raising kittens or have a healthy grown cat, nutritious food is essential for their well being. This is what we aims to offer by delivering quality nutrition in standardized packaging that helps you keep your furry felines healthy and happy!</p>
+                <h3>{{ __('welcome.introduction.title') }}</h3>
+                <p>{{ __('welcome.introduction.subtitle') }}</p>
             </div>
             <!-- /col-lg-->
             <div class="col-lg-3 justify-content-center align-self-center">
                 <!-- button -->
-                <a href="contact.html" class="btn btn-secondary" data-aos="zoom-out">Shop Now</a>
+                <a href="contact.html" class="btn btn-secondary" data-aos="zoom-out">{{__('welcome.introduction.shop_now')}}</a>
             </div>
             <!-- /col-lg-->
         </div>
@@ -64,8 +63,8 @@
                 <div class="call-title">
                     <!-- call-info -->
                     <div class="call-info text-center">
-                        <p class="subtitle text-light">more info</p>
-                        <h3 class="text-light">About us</h3>
+                        <p class="subtitle text-light">{{__('welcome.more_info')}}</p>
+                        <h3 class="text-light">{{__('welcome.about_us')}}</h3>
                     </div>
                 </div>
             </a>
@@ -79,8 +78,8 @@
                 <div class="call-title">
                     <!-- call-info -->
                     <div class="call-info text-center">
-                        <p class="subtitle text-light">more info</p>
-                        <h3 class="text-light">Latest News</h3>
+                        <p class="subtitle text-light">{{__('welcome.more_info')}}</p>
+                        <h3 class="text-light">{{__('welcome.latest_news')}}</h3>
                     </div>
                 </div>
             </a>
@@ -94,8 +93,8 @@
                 <div class="call-title">
                     <!-- call-info -->
                     <div class="call-info text-center">
-                        <p class="subtitle text-light">more info</p>
-                        <h3 class="text-light">Delivery</h3>
+                        <p class="subtitle text-light">{{__('welcome.more_info')}}</p>
+                        <h3 class="text-light">{{__('welcome.delivery')}}</h3>
                     </div>
                 </div>
             </a>
@@ -111,8 +110,8 @@
     <div class="container">
         <!-- section heading -->
         <div class="section-heading text-center">
-            <p class="subtitle">Pet supplies at their very best for you!</p>
-            <h2>New Products</h2>
+            <p class="subtitle">{{__('welcome.products.subtitle')}}</p>
+            <h2>{{__('welcome.products.title')}}</h2>
         </div>
         <!-- /section-heading -->
     </div>
@@ -210,8 +209,8 @@
 <section id="contact-home" class="container-fluid">
     <!-- section heading -->
     <div class="section-heading text-center">
-        <p class="subtitle">Get in touch</p>
-        <h2>Contact us</h2>
+        <p class="subtitle">{{__('contact.subtitle')}}</p>
+        <h2>{{__('contact.title')}}</h2>
     </div>
     <!-- /section-heading -->
     <div class="container">
@@ -289,8 +288,8 @@
 <div class="container-fluid footer-bg block-padding overlay" style="background:url('https://www.spacesworks.com/wp-content/uploads/2017/08/Spaces-design-coloring-pencils-detail-nw-946x553.jpg') center; background-size:100%">
     <div class="container">
     <div class="col-lg-7 text-light text-left">
-        <h4>Subscribe and receive the latest news</h4>
-        <p>We send e-mails once a month, we never send Spam!</p>
+        <h4>{{__('welcome.subscribe.title')}} </h4>
+        <p>{{__('welcome.subscribe.subtitle')}}</p>
         <!-- Form -->				
         <div id="mc_embed_signup" >
             <!-- your form address in the line bellow -->

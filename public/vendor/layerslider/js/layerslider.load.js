@@ -5,6 +5,7 @@ $(document).ready(function () {
 		
         $('#slider').layerSlider({
             responsive: true,
+            allowFullscreen: false,
 			fitScreenWidth:false,
             responsiveUnder: 1280,
             layersContainer: 1280,

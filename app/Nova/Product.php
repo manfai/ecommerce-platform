@@ -54,15 +54,14 @@ class Product extends Resource
             ->sortable()
             ->rules('required', 'max:255'),
             AttachMany::make('Categories'),
-            Image::make('Image')->thumbnail(function(){
-                return $this->image_url;
-            })->disableDownload(),
+            Image::make('Image'),
             Text::make('Title')
             ->rules('required', 'max:255')->translatable(),
             Text::make('Currency')
             ->sortable()
             ->rules('required', 'max:3'),
-            Number::make('price')->min(1)->step(0.01),
+            Number::make('Price')->min(1)->step(0.01),
+            Number::make('Cost')->min(1)->step(0.01),
             Boolean::make('On Sale'),
             Rating::make('Rating')->withStyles([
                 'star-size' => 20,

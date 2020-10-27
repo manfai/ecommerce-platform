@@ -47,16 +47,16 @@ class ProductSku extends Resource
             ID::make()->sortable(),
             Text::make('Code')
             ->sortable()
-            ->rules('required', 'max:255')->translatable(),
+            ->rules('required', 'max:255'),
             Image::make('Image')->thumbnail(function(){
                 return $this->image;
             })->disableDownload(),
             Text::make('Title')
             ->sortable()
-            ->rules('required', 'max:255'),
+            ->rules('required', 'max:255')->translatable(),
             Boolean::make('On Sale'),
             Number::make('price')->nullable()->min(1)->step(0.01),
-            Number::make('stock')->nullable()->min(1)->step(2),
+            Number::make('stock')->min(1)->nullable(),
         ];
     }
 

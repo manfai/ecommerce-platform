@@ -16,6 +16,7 @@
         "eminiarts/nova-tabs": "^1.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "gldrenthe89/nova-string-generator-field": "^1.0",
         "graham-campbell/markdown": "^13.0",
         "guzzlehttp/guzzle": "^6.3",
         "kabbouchi/nova-logs-tool": "^0.3.0",
@@ -40,7 +41,8 @@
         "spatie/nova-backup-tool": "^4.0",
         "spatie/nova-tags-field": "^3.0",
         "spatie/valuestore": "^1.2",
-        "titasgailius/search-relations": "^1.0"
+        "titasgailius/search-relations": "^1.0",
+        "whitecube/nova-flexible-content": "^0.2.6"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
