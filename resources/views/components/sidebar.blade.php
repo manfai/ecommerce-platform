@@ -1,12 +1,12 @@
 <!--widget-area -->
 <div class="widget-area">
-    <h5 class="sidebar-header">Search</h5>
+    <h5 class="sidebar-header">{{__('sidebar.search')}}</h5>
     <div class="input-group">
         <form action="#" method="GET">
         <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Search for...">
+            <input type="text" name="search" class="form-control" placeholder="{{__('sidebar.search_placeholder')}}">
             <span class="input-group-btn">
-                <button class="btn btn-secondary btn-sm" type="submit">Go!</button>
+                <button class="btn btn-secondary btn-sm" type="submit">{{__('sidebar.search_button')}}!</button>
             </span>
         </div>
         </form>
@@ -14,7 +14,7 @@
 </div>
 <!--/widget-area -->
 <div class="widget-area">
-    <h5 class="sidebar-header">Categories</h5>
+    <h5 class="sidebar-header">{{__('sidebar.categories')}}</h5>
     <div class="list-group">
         @foreach (\App\Models\Category::all() as $item)
         <a href="?type={{$item->slug}}" class="list-group-item list-group-item-action">
@@ -26,16 +26,16 @@
 
 <!--/widget-area -->
 <div class="widget-area">
-    <h5 class="sidebar-header">Tags</h5>
+    <h5 class="sidebar-header">{{__('sidebar.tags')}}</h5>
     <div class="tags-widget">
         @foreach (\Spatie\Tags\Tag::all() as $item)
-            <a href="?tag={{$item->slug}}" class="badge badge-pill badge-default">{{$item->name}}</a>
+            <a href="?tag={{$item->name}}" class="badge badge-pill badge-default">{{$item->name}}</a>
         @endforeach
     </div>
 </div>
 <!--/widget-area -->
 <div class="widget-area">
-    <h5 class="sidebar-header">Follow us</h5>
+    <h5 class="sidebar-header">{{__('sidebar.follow_us')}}</h5>
     <div class="contact-icon-info">
         <ul class="social-media text-center">
             <!--social icons -->

@@ -19,11 +19,12 @@ class ProductController extends Controller
     }
     
     public function index(Request $request)
-    {
+    {   
+        $builder = Product::query()->where('on_sale', true);
+       
         // $products = Product::query()->where('on_sale', true)->paginate();
         // dd($products);
         // 创建一个查询构造器
-        $builder = Product::query()->where('on_sale', true);
         // 判断是否有提交 search 参数，如果有就赋值给 $search 变量
         // search 参数用来模糊搜索商品
         if ($search = $request->input('search', '')) {
@@ -39,6 +40,10 @@ class ProductController extends Controller
             });
         }
         
+        if($tag = $request->tag){
+            $builder->withAnyTagsOfAnyType([$tag],'product');
+        }
+
         // pricefrom 参数用来模糊搜索商品
         if ($pricefrom = $request->input('pricefrom', '')) {
             $builder->where('price','>=',$pricefrom);

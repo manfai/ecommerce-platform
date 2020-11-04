@@ -15,12 +15,12 @@
     <div class="container">
         <div class="jumbo-heading" data-aos="fade-up">
             <!-- jumbo-heading -->
-            <h1>Products</h1>
+            <h1>{{__('product.title')}}</h1>
             <!-- Breadcrumbs -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item" aria-current="page">Products</li>
+                    <li class="breadcrumb-item"><a href="index.html">{{__('menu.home')}}</a></li>
+                    <li class="breadcrumb-item" aria-current="page">{{__('menu.shop')}}</li>
                     @isset($_GET['type'])
                     <li class="breadcrumb-item active" aria-current="page">{{ucfirst($_GET['type'])}}</li>
                     @endisset
@@ -46,8 +46,8 @@
             <!--/sidebar -->
             <!-- Blog Entries Column -->
             <div class="col-lg-9 page-with-sidebar mb-5">
-                <h2>Pet  @isset($_GET['type']){{ucfirst($_GET['type'])}}@endisset</h2>
-                <span class="h7 mt-0">Adoption is an act of love, join one of our events and find your new best friend
+                <h2>@isset($_GET['type']){{ucfirst($_GET['type'])}} @else {{__('product.subtitle')}}@endisset</h2>
+                <span class="h7 mt-0">{{__('product.introduction')}}
                 </span>
                 <hr class="small-divider left">
                 <div class="row mt-5">
@@ -67,12 +67,11 @@
                                 </a>
                                 <ul class="list-unstyled colored-icons">
                                     <li><span><i class="fas fa-dollar-sign mr-2"></i>{{ $product->price }}</span></li>
-                                    <li><span><i class="fas fa-tag mr-2"></i>{{ $product->review_count }} Customer
-                                            Reviews</span></li>
+                                    <li><small><span><i class="fas fa-tag mr-2"></i>{{ $product->review_count }} {{__('product.customer_reviews')}}</span></small></li>
                                 </ul>
                                 <a href="{{ route('product.show',['productId'=>$product->id,'productTitle'=>$product->title]) }}"
-                                    class="btn btn-primary btn-sm mt-0">
-                                    View Detail
+                                    class="btn btn-primary btn-sm btn-block mt-0">
+                                    {{__('product.view_detail')}}
                                 </a>
                             </div>
                         </div>

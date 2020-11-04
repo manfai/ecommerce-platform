@@ -27,6 +27,28 @@
         <!-- ls-l  -->
     </div>
     <!-- ls-slide -->
+    <div class="ls-slide overlay2" data-ls="duration:4000; transition2d:7;">
+        <!-- bg image  -->
+        <img src="https://feedinspiration.com/wp-content/uploads/2015/04/interior-design-excellent-interior-design-home-decor-interior-decorations-home-interior-decorating-homes-interior-decorating-your-home-interior-design-your-home-interior-design-your-home-online.jpg" class="ls-bg" alt="" />
+        <!-- ls-l  -->
+        <!-- 1200x376 -->
+        <img width="500" src="https://www.freepnglogos.com/uploads/gift-png/white-gift-box-png-clipart-image-gallery-yopriceville-39.png" class="ls-l" alt="" style="top:196px; right:0%;" data-ls="offsetxin:10; offsetyin:120; durationin:1100; rotatein:5; transformoriginin:59.3% 80.3% 0; offsetxout:-80; durationout:400; parallax:true; parallaxlevel:-4;">
+        <!-- text  -->
+        <div class="ls-l header-wrapper" data-ls="offsetyin:150; durationin:700; delayin:200; easingin:easeOutQuint; rotatexin:20; scalexin:1.4; offsetyout:600; durationout:400; parallax:true; parallaxlevel:2;">
+            <div class="header-text full-width text-light">
+                <h1>雙倍積分雙倍開心. 積分當然都要打孖黎啦。</h1>
+                <!--the div below is hidden on small screens  -->
+                <div class="hidden-small">
+                <p class="header-p">讓你更易賺取積分，換領心愛獎賞!</p>
+                <a class="btn btn-primary" href="{{route('category')}}">{{__('welcome.shop_now')}}</a>
+                </div>
+                <!--/d-none  -->
+            </div>
+            <!-- header-text  -->
+        </div>
+        <!-- ls-l  -->
+    </div>
+    <!-- ls-slide -->
     </div>
     <!-- /slider -->
 </div>

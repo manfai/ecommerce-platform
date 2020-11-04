@@ -27,6 +27,11 @@ class Product extends Model
     public $translatable = ['title','description'];
 
     // 与商品SKU关联
+    public static function getTagClassName(): string
+    {
+        return Tag::class;
+    }
+
     public static function getCategoryClassName(): string
     {
         return Category::class;
