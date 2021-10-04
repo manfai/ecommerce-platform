@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh-hk',
     'currency' => env('APP_CURRENCY', 'HKD'),
 
     /*
