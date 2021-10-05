@@ -35,7 +35,7 @@
   <div class="">
   <div class="flex flex-col w-full mb-6 lg:justify-between lg:flex-row md:mb-8">
   <div class="max-w-xl mb-6">
-        <h2 class="font-sans text-3xl font-black leading-none tracking-tight text-gray-900 sm:text-4xl">
+        <h2 class="font-sans text-xl font-black leading-none tracking-tight text-gray-900 sm:text-2xl">
             <span class="inline-block mb-2">Product Detail</span>
             <div class="h-1 ml-auto duration-300 origin-left transform bg-deep-purple-accent-400 scale-x-30 group-hover:scale-x-100"></div>
         </h2>

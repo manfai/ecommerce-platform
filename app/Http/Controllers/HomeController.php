@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         // Auth::user()->deposit(100);
-        return view('home',[
+        return view('tailwindcss.home',[
             'orders'=> Auth::user()->orders->take(5),
             'addresses'=>Auth::user()->addresses->take(4),
             'products'=>Auth::user()->favoriteProducts,
@@ -53,21 +53,21 @@ class HomeController extends Controller
     public function faqs()
     {
         // Auth::user()->deposit(100);
-        return view('faqs');
+        return view('tailwindcss.faqs');
     }
 
     public function blog()
     {
-        return view('blog');
+        return view('tailwindcss.blog');
     }
 
     public function contact()
     {
-        return view('contact');
+        return view('tailwindcss.contact');
     }
    
     public function careers()
     {
-        return view('careers');
+        return view('tailwindcss.careers');
     }
 }
