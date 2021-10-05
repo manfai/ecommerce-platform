@@ -15,18 +15,30 @@ class UpdatePivotFieldController extends Controller
      */
     public function index(NovaRequest $request)
     {
-        $model = $request->findModelOrFail();
+        $resource = tap($request->findResourceOrFail(), function ($resource) use ($request) {
+            abort_unless($resource->hasRelatableField($request, $request->viaRelationship), 404);
+        });
 
-        $accessor = $model->{$request->viaRelationship}()->getPivotAccessor();
+        $model = $resource->model();
+
+        $relation = $model->{$request->viaRelationship}();
+
+        $accessor = $relation->getPivotAccessor();
+
+        if ($request->viaPivotId) {
+            tap($relation->getPivotClass(), function ($pivotClass) use ($relation, $request) {
+                $relation->wherePivot((new $pivotClass())->getKeyName(), $request->viaPivotId);
+            });
+        }
 
         $model->setRelation(
             $accessor,
-            $model->{$request->viaRelationship}()->withoutGlobalScopes()->findOrFail($request->relatedResourceId)->{$accessor}
+            $relation->withoutGlobalScopes()->findOrFail($request->relatedResourceId)->{$accessor}
         );
 
         return response()->json([
-            'title' => $request->newResourceWith($model)->title(),
-            'fields' => $request->newResourceWith($model)->updatePivotFields(
+            'title' => $resource->title(),
+            'fields' => $resource->updatePivotFields(
                 $request,
                 $request->relatedResource
             )->all(),

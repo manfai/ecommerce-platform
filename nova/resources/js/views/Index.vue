@@ -2,6 +2,7 @@
   <loading-view
     :loading="initialLoading"
     :dusk="resourceName + '-index-component'"
+    :data-relationship="viaRelationship"
   >
     <custom-index-header
       v-if="!viaResource"
@@ -47,6 +48,7 @@
           v-model="search"
           @keydown.stop="performSearch"
           @search="performSearch"
+          spellcheck="false"
         />
       </div>
 
@@ -82,7 +84,8 @@
             shouldShowDeleteMenu ||
             softDeletes ||
             !viaResource ||
-            hasFilters,
+            hasFilters ||
+            haveStandaloneActions,
         }"
       >
         <div class="flex items-center">
@@ -104,6 +107,7 @@
                       <checkbox-with-label
                         :checked="selectAllChecked"
                         @input="toggleSelectAll"
+                        dusk="select-all-button"
                       >
                         {{ __('Select All') }}
                       </checkbox-with-label>
@@ -131,6 +135,14 @@
         </div>
 
         <div class="flex items-center ml-auto px-3">
+          <resource-polling-button
+            v-if="shouldShowPollingToggle"
+            :currently-polling="currentlyPolling"
+            @start-polling="startPolling"
+            @stop-polling="stopPolling"
+            class="mr-1"
+          />
+
           <!-- Action Selector -->
           <action-selector
             v-if="selectedResources.length > 0 || haveStandaloneActions"
@@ -177,7 +189,9 @@
             :via-has-one="viaHasOne"
             :trashed="trashed"
             :per-page="perPage"
-            :per-page-options="perPageOptions"
+            :per-page-options="
+              perPageOptions || resourceInformation.perPageOptions
+            "
             @clear-selected-filters="clearSelectedFilters"
             @filter-changed="filterChanged"
             @trashed-changed="trashedChanged"
@@ -239,7 +253,10 @@
               />
             </svg>
 
-            <h3 class="text-base text-80 font-normal mb-6">
+            <h3
+              class="text-base text-80 font-normal"
+              :class="{ 'mb-6': authorizedToCreate && !resourceIsFull }"
+            >
               {{
                 __('No :resource matched the given criteria.', {
                   resource: singularName.toLowerCase(),
@@ -279,6 +296,7 @@
             :via-relationship="viaRelationship"
             :relationship-type="relationshipType"
             :update-selection-status="updateSelectionStatus"
+            :sortable="sortable"
             @order="orderByField"
             @reset-order-by="resetOrderBy"
             @delete="deleteResources"
@@ -322,19 +340,17 @@
 import {
   Capitalize,
   Deletable,
-  Errors,
   Filterable,
   HasCards,
-  Inflector,
   InteractsWithQueryString,
   InteractsWithResourceInformation,
   Minimum,
   Paginatable,
   PerPageable,
-  SingularOrPlural,
   mapProps,
 } from 'laravel-nova'
 import HasActions from '@/mixins/HasActions'
+import { CancelToken, Cancel } from 'axios'
 
 export default {
   mixins: [
@@ -382,10 +398,16 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    initialPerPage: {
+      type: Number,
+      required: false,
+    },
   },
 
   data: () => ({
     debouncer: null,
+    canceller: null,
     pollingListener: null,
     initialLoading: true,
     loading: true,
@@ -396,6 +418,7 @@ export default {
     selectedResources: [],
     selectAllMatchingResources: false,
     allMatchingResourceCount: 0,
+    sortable: true,
 
     deleteModalOpen: false,
 
@@ -410,24 +433,26 @@ export default {
 
     // Load More Pagination
     currentPageLoadMore: null,
+
+    currentlyPolling: false,
   }),
 
   /**
    * Mount the component and retrieve its initial data.
    */
   async created() {
+    if (Nova.missingResource(this.resourceName))
+      return this.$router.push({ name: '404' })
+
     this.debouncer = _.debounce(
       callback => callback(),
       this.resourceInformation.debounce
     )
 
-    if (Nova.missingResource(this.resourceName))
-      return this.$router.push({ name: '404' })
-
     // Bind the keydown even listener when the router is visited if this
     // component is not a relation on a Detail page
     if (!this.viaResource && !this.viaResourceId) {
-      document.addEventListener('keydown', this.handleKeydown)
+      Nova.addShortcut('c', this.handleKeydown)
     }
 
     this.initializeSearchFromQueryString()
@@ -435,7 +460,7 @@ export default {
     this.initializeTrashedFromQueryString()
     this.initializeOrderingFromQueryString()
 
-    this.perPage = this.resourceInformation.perPageOptions[0]
+    this.currentlyPolling = this.resourceInformation.polling
 
     await this.initializeFilters()
     await this.getResources()
@@ -460,6 +485,8 @@ export default {
         )
       },
       () => {
+        if (this.canceller !== null) this.canceller()
+
         this.getResources()
       }
     )
@@ -469,28 +496,28 @@ export default {
     })
 
     if (this.resourceInformation.polling) {
-      this.pollingListener = setInterval(() => {
-        if (document.hasFocus()) {
-          this.getResources()
-        }
-      }, this.resourceInformation.pollingInterval)
+      this.startPolling()
     }
   },
 
-  beforeRouteUpdate(to, from, next) {
-    next()
-    this.initializeState(false)
-  },
-
   /**
-   * Unbind the keydown even listener when the component is destroyed
+   * Unbind the keydown even listener when the before component is destroyed
    */
-  destroyed() {
+  beforeDestroy() {
     if (this.pollingListener) {
       clearInterval(this.pollingListener)
     }
 
-    document.removeEventListener('keydown', this.handleKeydown)
+    if (!this.viaResource && !this.viaResourceId) {
+      Nova.disableShortcut('c')
+    }
+  },
+
+  watch: {
+    $route(to, from) {
+      this.initializeSearchFromQueryString()
+      this.initializeState(false)
+    },
   },
 
   methods: {
@@ -501,13 +528,9 @@ export default {
       // `c`
       if (
         this.authorizedToCreate &&
-        !e.ctrlKey &&
-        !e.altKey &&
-        !e.metaKey &&
-        !e.shiftKey &&
-        e.keyCode == 67 &&
         e.target.tagName != 'INPUT' &&
-        e.target.tagName != 'TEXTAREA'
+        e.target.tagName != 'TEXTAREA' &&
+        e.target.contentEditable != 'true'
       ) {
         this.$router.push({
           name: 'create',
@@ -567,22 +590,38 @@ export default {
         return Minimum(
           Nova.request().get('/nova-api/' + this.resourceName, {
             params: this.resourceRequestQueryString,
+            cancelToken: new CancelToken(canceller => {
+              this.canceller = canceller
+            }),
           }),
           300
-        ).then(({ data }) => {
-          this.resources = []
+        )
+          .then(({ data }) => {
+            this.resources = []
 
-          this.resourceResponse = data
-          this.resources = data.resources
-          this.softDeletes = data.softDeletes
-          this.perPage = data.per_page
+            this.resourceResponse = data
+            this.resources = data.resources
+            this.softDeletes = data.softDeletes
+            this.perPage = data.per_page
+            this.sortable = data.sortable
 
-          this.loading = false
+            this.loading = false
 
-          this.getAllMatchingResourceCount()
+            if (data.total !== null) {
+              this.allMatchingResourceCount = data.total
+            } else {
+              this.getAllMatchingResourceCount()
+            }
 
-          Nova.$emit('resources-loaded')
-        })
+            Nova.$emit('resources-loaded')
+          })
+          .catch(e => {
+            if (e instanceof Cancel) {
+              return
+            }
+
+            throw e
+          })
       })
     },
 
@@ -652,10 +691,11 @@ export default {
             viaResourceId: this.viaResourceId,
             viaRelationship: this.viaRelationship,
             relationshipType: this.relationshipType,
+            display: 'index',
           },
         })
         .then(response => {
-          this.actions = _.filter(response.data.actions, a => a.showOnIndex)
+          this.actions = response.data.actions
           this.pivotActions = response.data.pivotActions
         })
     },
@@ -782,7 +822,11 @@ export default {
         this.resourceResponse = data
         this.resources = [...this.resources, ...data.resources]
 
-        this.getAllMatchingResourceCount()
+        if (data.total !== null) {
+          this.allMatchingResourceCount = data.total
+        } else {
+          this.getAllMatchingResourceCount()
+        }
 
         Nova.$emit('resources-loaded')
       })
@@ -800,7 +844,34 @@ export default {
      */
     initializePerPageFromQueryString() {
       this.perPage =
-        this.$route.query[this.perPageParameter] || _.first(this.perPageOptions)
+        this.$route.query[this.perPageParameter] ||
+        this.initialPerPage ||
+        this.resourceInformation.perPageOptions[0]
+    },
+
+    /**
+     * Pause polling for new resources.
+     */
+    stopPolling() {
+      clearInterval(this.pollingListener)
+
+      this.$nextTick(() => (this.currentlyPolling = false))
+    },
+
+    /**
+     * Start polling for new resources.
+     */
+    startPolling() {
+      this.pollingListener = setInterval(() => {
+        if (
+          document.hasFocus() &&
+          document.querySelectorAll('div.modal').length < 1
+        ) {
+          this.getResources()
+        }
+      }, this.resourceInformation.pollingInterval)
+
+      this.$nextTick(() => (this.currentlyPolling = true))
     },
   },
 
@@ -970,7 +1041,10 @@ export default {
      * Determine if the resource / relationship is "full".
      */
     resourceIsFull() {
-      return this.viaHasOne && this.resources.length > 0
+      return (
+        (Boolean(this.viaHasOne) && this.resources.length > 0) ||
+        Boolean(this.viaHasOneThrough && this.resources.length > 0)
+      )
     },
 
     /**
@@ -980,6 +1054,10 @@ export default {
       return (
         this.relationshipType == 'hasOne' || this.relationshipType == 'morphOne'
       )
+    },
+
+    viaHasOneThrough() {
+      return this.relationshipType == 'hasOneThrough'
     },
 
     /**
@@ -1204,6 +1282,13 @@ export default {
         this.resourceResponse &&
         this.resources.length > 0
       )
+    },
+
+    /**
+     * Determine if the polling toggle button should be shown.
+     */
+    shouldShowPollingToggle() {
+      return this.resourceInformation.showPollingToggle
     },
   },
 }

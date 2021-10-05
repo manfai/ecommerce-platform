@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -12,6 +13,8 @@ class UsersSeeder extends Seeder
     public function run()
     {
         // 通過 factory 方法生成 100 個用户並保存到數據庫中
-        factory(\App\Models\User::class, 100)->create();
+        User::factory()
+            ->count(100)
+            ->create();
     }
 }

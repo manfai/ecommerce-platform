@@ -28,6 +28,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    hourIncrement: {
+      type: Number,
+      default: 1,
+    },
+    minuteIncrement: {
+      type: Number,
+      default: 5,
+    },
     dateFormat: {
       type: String,
       default: 'Y-m-d H:i:S',
@@ -58,7 +66,9 @@ export default {
 
   watch: {
     value: function (newValue, oldValue) {
-      this.flatpickr.setDate(newValue)
+      if (this.flatpickr) {
+        this.flatpickr.setDate(newValue)
+      }
     },
   },
 
@@ -79,6 +89,8 @@ export default {
         allowInput: true,
         // static: true,
         time_24hr: !this.twelveHourTime,
+        hourIncrement: this.hourIncrement,
+        minuteIncrement: this.minuteIncrement,
         locale: { firstDayOfWeek: this.firstDayOfWeek },
       })
     },

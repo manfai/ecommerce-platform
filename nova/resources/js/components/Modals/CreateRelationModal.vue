@@ -11,6 +11,7 @@
       'flatpickr-weekday',
       'flatpickr-weekdays',
       'flatpickr-calendar',
+      'form-file-input',
     ]"
   >
     <div

@@ -63,6 +63,13 @@ export default {
     },
 
     /**
+     * Close the action response modal.
+     */
+    closeActionResponseModal() {
+      this.showActionResponseModal = false
+    },
+
+    /**
      * Initialize all of the action fields to empty strings.
      */
     initializeActionFields() {
@@ -117,34 +124,49 @@ export default {
      * Handle the action response. Typically either a message, download or a redirect.
      */
     handleActionResponse(data) {
-      if (data.message) {
+      let execute = callback => {
         this.$emit('actionExecuted')
         Nova.$emit('action-executed')
-        Nova.success(data.message)
+
+        if (typeof callback === 'function') {
+          callback()
+        }
+      }
+
+      if (data.modal) {
+        this.actionResponseData = data
+        this.showActionResponseModal = true
+      } else if (data.message) {
+        execute(() => {
+          Nova.success(data.message)
+        })
       } else if (data.deleted) {
-        this.$emit('actionExecuted')
-        Nova.$emit('action-executed')
+        execute()
       } else if (data.danger) {
-        this.$emit('actionExecuted')
-        Nova.$emit('action-executed')
-        Nova.error(data.danger)
+        execute(() => {
+          Nova.error(data.danger)
+        })
       } else if (data.download) {
-        let link = document.createElement('a')
-        link.href = data.download
-        link.download = data.name
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+        execute(() => {
+          let link = document.createElement('a')
+          link.href = data.download
+          link.download = data.name
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+        })
       } else if (data.redirect) {
         window.location = data.redirect
       } else if (data.push) {
         this.$router.push(data.push)
       } else if (data.openInNewTab) {
-        window.open(data.openInNewTab, '_blank')
+        execute(() => {
+          window.open(data.openInNewTab, '_blank')
+        })
       } else {
-        this.$emit('actionExecuted')
-        Nova.$emit('action-executed')
-        Nova.success(this.__('The action ran successfully!'))
+        execute(() => {
+          Nova.success(this.__('The action ran successfully!'))
+        })
       }
     },
   },
@@ -195,11 +217,37 @@ export default {
     },
 
     /**
+     * Get all of the available actions for the resource.
+     */
+    availableActions() {
+      return _(this.actions)
+        .filter(action => {
+          return this.selectedResources.length > 0 && !action.standalone
+        })
+        .value()
+    },
+
+    /**
+     * Get all of the available actions for the resource.
+     */
+    availableStandaloneActions() {
+      return _(this.actions)
+        .filter(action => {
+          return action.standalone
+        })
+        .value()
+    },
+
+    /**
      * Get all of the available pivot actions for the resource.
      */
     availablePivotActions() {
       return _(this.pivotActions.actions)
         .filter(action => {
+          if (this.selectedResources.length == 0) {
+            return action.standalone
+          }
+
           if (this.selectedResources != 'all') {
             return true
           }

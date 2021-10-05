@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InternalException;
 use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Spatie\Translatable\HasTranslations;
@@ -12,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
 class ProductSku extends Model
 {    
     
-    use HasTranslations;
+    use HasTranslations, HasFactory;
 
     protected $fillable = ['code', 'title', 'description', 'price', 'stock', 'image', 'meta', 'on_sale'];
     public $translatable = ['title','description'];

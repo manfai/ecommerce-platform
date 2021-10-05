@@ -123,13 +123,21 @@ export default {
    */
   mounted() {
     document.addEventListener('keydown', this.handleEscape)
+
+    Nova.$on('close-dropdowns', () => {
+      this.deleteSelectedModalOpen = false
+      this.forceDeleteSelectedModalOpen = false
+      this.restoreModalOpen = false
+    })
   },
 
   /**
    * Prepare the component to tbe destroyed.
    */
-  destroyed() {
+  beforeDestroy() {
     document.removeEventListener('keydown', this.handleEscape)
+
+    Nova.$off('close-dropdowns')
   },
 
   methods: {

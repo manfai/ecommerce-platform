@@ -213,13 +213,13 @@ abstract class Field extends FieldElement implements JsonSerializable, Resolvabl
 
         $attribute = $attribute ?? $this->attribute;
 
-        if ($attribute === 'ComputedField') {
-            $this->value = call_user_func($this->computedCallback, $resource);
-        }
-
         if (! $this->displayCallback) {
             $this->resolve($resource, $attribute);
         } elseif (is_callable($this->displayCallback)) {
+            if ($attribute === 'ComputedField') {
+                $this->value = call_user_func($this->computedCallback, $resource);
+            }
+
             tap($this->value ?? $this->resolveAttribute($resource, $attribute), function ($value) use ($resource, $attribute) {
                 $this->value = call_user_func($this->displayCallback, $value, $resource, $attribute);
             });
@@ -762,7 +762,11 @@ abstract class Field extends FieldElement implements JsonSerializable, Resolvabl
      */
     protected function resolveDefaultValue(NovaRequest $request)
     {
-        if ($request->isCreateOrAttachRequest() || $request->isResourceIndexRequest() || $request->isActionRequest()) {
+        if ($request->isCreateOrAttachRequest()
+            || $request->isResourceIndexRequest()
+            || $request->isResourceDetailRequest()
+            || $request->isActionRequest()
+        ) {
             if (is_null($this->value) && $this->defaultCallback instanceof Closure) {
                 return call_user_func($this->defaultCallback, $request);
             }

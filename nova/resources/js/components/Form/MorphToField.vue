@@ -14,7 +14,12 @@
         slot="field"
         :value="resourceType"
         @change="refreshResourcesForTypeChange"
-        class="block w-full form-control form-input form-input-bordered form-select mb-3"
+        class="
+          block
+          w-full
+          form-control form-input form-input-bordered form-select
+          mb-3
+        "
       >
         <option value="" selected :disabled="!field.nullable">
           {{ __('Choose Type') }}
@@ -126,6 +131,7 @@
             v-if="canShowNewRelationModal"
             @click="openRelationModal"
             class="ml-1"
+            :dusk="`${field.attribute}-inline-create`"
           />
         </div>
 
@@ -196,9 +202,7 @@ export default {
       this.initializingWithExistingResource = true
       this.resourceType = this.field.morphToType
       this.selectedResourceId = this.field.morphToId
-    }
-
-    if (this.creatingViaRelatedResource) {
+    } else if (this.creatingViaRelatedResource) {
       this.initializingWithExistingResource = true
       this.resourceType = this.viaResource
       this.selectedResourceId = this.viaResourceId
@@ -320,11 +324,13 @@ export default {
     },
 
     openRelationModal() {
+      Nova.$emit('create-relation-modal-opened')
       this.relationModalOpen = true
     },
 
     closeRelationModal() {
       this.relationModalOpen = false
+      Nova.$emit('create-relation-modal-closed')
     },
 
     handleSetResource({ id }) {
@@ -396,6 +402,11 @@ export default {
           viaResource: this.viaResource,
           viaResourceId: this.viaResourceId,
           viaRelationship: this.viaRelationship,
+          editing: true,
+          editMode:
+            _.isNil(this.resourceId) || this.resourceId === ''
+              ? 'create'
+              : 'update',
         },
       }
     },

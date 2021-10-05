@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function welcome(Request $request)
     {
-        return view('welcome');
+        return view('tailwindcss.welcome');
     }
     
     public function index(Request $request)
@@ -69,7 +69,7 @@ class ProductController extends Controller
             // 'search' => $search,
             'order'  => $order,
         ];
-        return view('products.list', ['products' => $products, 'filters'  => $filters]);
+        return view('tailwindcss.products.list', ['products' => $products, 'filters'  => $filters]);
     }
 
 
@@ -88,7 +88,7 @@ class ProductController extends Controller
             // boolval() 函数用于把值转为布尔值
             $favored = boolval($user->favoriteProducts()->find($productId->id));
         }
-        return view('products.detail',['product'=>$productId, 'favored' => $favored, 'tags' => $tags]);
+        return view('tailwindcss.products.detail',['product'=>$productId, 'favored' => $favored, 'tags' => $tags]);
     }
 
     public function favorites(Request $request)
@@ -99,19 +99,5 @@ class ProductController extends Controller
     }
 
     //for JS
-    public function favor(Product $productId, Request $request)
-    {
-        $user = $request->user();
-        if ($user->favoriteProducts()->find($productId->id)) {
-            return [];
-        }
-        $user->favoriteProducts()->attach($productId);
-        return [];
-    }
-    public function disfavor(Product $productId, Request $request)
-    {
-        $user = $request->user();
-        $user->favoriteProducts()->detach($productId);
-        return [];
-    }
+   
 }

@@ -53,7 +53,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     /**
      * The underlying model resource instance.
      *
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var \Illuminate\Database\Eloquent\Model|null
      */
     public $resource;
 
@@ -107,7 +107,16 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     public static $globalSearchResults = 5;
 
     /**
+     * The number of results to display when searching relatable resource without Scout.
+     *
+     * @var int|null
+     */
+    public static $relatableSearchResults = null;
+
+    /**
      * The number of results to display when searching the resource using Scout.
+     *
+     * @var int
      */
     public static $scoutSearchResults = 200;
 
@@ -182,6 +191,13 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     public static $pollingInterval = 15;
 
     /**
+     * Indicates whether to show the polling toggle button inside Nova.
+     *
+     * @var bool
+     */
+    public static $showPollingToggle = false;
+
+    /**
      * The debounce amount to use when searching this resource.
      *
      * @var float
@@ -191,7 +207,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     /**
      * Create a new resource instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $resource
+     * @param  \Illuminate\Database\Eloquent\Model|null  $resource
      * @return void
      */
     public function __construct($resource)
@@ -319,13 +335,25 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     }
 
     /**
+     * Prepare search column value.
+     *
+     * @param  string  $column
+     * @param  string  $search
+     * @return string
+     */
+    protected static function searchableKeyword($column, $search)
+    {
+        return '%'.$search.'%';
+    }
+
+    /**
      * Get the value that should be displayed to represent the resource.
      *
      * @return string
      */
     public function title()
     {
-        return $this->{static::$title};
+        return (string) data_get($this, static::$title);
     }
 
     /**
@@ -508,8 +536,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
      */
     public function isSoftDeleted()
     {
-        return static::softDeletes() &&
-               ! is_null($this->resource->{$this->resource->getDeletedAtColumn()});
+        return static::softDeletes() && $this->resource->trashed();
     }
 
     /**
@@ -519,7 +546,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
      */
     public function jsonSerialize()
     {
-        $this->serializeWithId($this->resolveFields(
+        return $this->serializeWithId($this->resolveFields(
             resolve(NovaRequest::class)
         ));
     }
@@ -566,11 +593,11 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
      * Return the location to redirect the user after deletion.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return string
+     * @return string|null
      */
     public static function redirectAfterDelete(NovaRequest $request)
     {
-        return '/resources/'.static::uriKey();
+        return null;
     }
 
     /**

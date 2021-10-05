@@ -90,7 +90,7 @@ class Panel extends MergeValue implements JsonSerializable
     {
         return __(':resource Details: :title', [
             'resource' => $resource->singularLabel(),
-            'title' => $resource->title(),
+            'title' => (string) $resource->title(),
         ]);
     }
 
@@ -103,7 +103,7 @@ class Panel extends MergeValue implements JsonSerializable
     public static function defaultNameForCreate(Resource $resource)
     {
         return __('Create :resource', [
-            'resource' => $resource->singularLabel(),
+            'resource' => (string) $resource->singularLabel(),
         ]);
     }
 

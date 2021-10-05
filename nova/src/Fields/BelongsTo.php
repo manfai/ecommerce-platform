@@ -5,15 +5,21 @@ namespace Laravel\Nova\Fields;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laravel\Nova\Contracts\QueryBuilder;
 use Laravel\Nova\Contracts\RelatableField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 use Laravel\Nova\Rules\Relatable;
 use Laravel\Nova\TrashedStatus;
+use Laravel\Nova\Util;
 
 class BelongsTo extends Field implements RelatableField
 {
-    use FormatsRelatableDisplayValues, ResolvesReverseRelation, DeterminesIfCreateRelationCanBeShown, Searchable;
+    use AssociatableRelation,
+        DeterminesIfCreateRelationCanBeShown,
+        FormatsRelatableDisplayValues,
+        ResolvesReverseRelation,
+        Searchable;
 
     /**
      * The field's component.
@@ -151,16 +157,14 @@ class BelongsTo extends Field implements RelatableField
 
         if ($resource->relationLoaded($this->attribute)) {
             $value = $resource->getRelation($this->attribute);
-        }
-
-        if (! $value) {
+        } else {
             $value = $resource->{$this->attribute}()->withoutGlobalScopes()->getResults();
         }
 
         if ($value) {
-            $this->belongsToId = $value->getKey();
-
             $resource = new $this->resourceClass($value);
+
+            $this->belongsToId = Util::safeInt($value->getKey());
 
             $this->value = $this->formatDisplayValue($resource);
 
@@ -190,7 +194,7 @@ class BelongsTo extends Field implements RelatableField
     {
         $query = $this->buildAssociatableQuery(
             $request, $request->{$this->attribute.'_trashed'} === 'true'
-        );
+        )->toBase();
 
         return array_merge_recursive(parent::getRules($request), [
             $this->attribute => array_filter([
@@ -253,7 +257,7 @@ class BelongsTo extends Field implements RelatableField
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  bool  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Laravel\Nova\Contracts\QueryBuilder
      */
     public function buildAssociatableQuery(NovaRequest $request, $withTrashed = false)
     {
@@ -261,15 +265,17 @@ class BelongsTo extends Field implements RelatableField
             [$resourceClass = $this->resourceClass, 'newModel']
         );
 
-        $query = $request->first === 'true'
-                        ? $model->newQueryWithoutScopes()->whereKey($request->current)
-                        : $resourceClass::buildIndexQuery(
+        $query = app()->make(QueryBuilder::class, [$resourceClass]);
+
+        $request->first === 'true'
+                        ? $query->whereKey($model->newQueryWithoutScopes(), $request->current)
+                        : $query->search(
                                 $request, $model->newQuery(), $request->search,
                                 [], [], TrashedStatus::fromBoolean($withTrashed)
                           );
 
         return $query->tap(function ($query) use ($request, $model) {
-            forward_static_call($this->associatableQueryCallable($request, $model), $request, $query);
+            forward_static_call($this->associatableQueryCallable($request, $model), $request, $query, $this);
         });
     }
 
@@ -316,7 +322,7 @@ class BelongsTo extends Field implements RelatableField
             'avatar' => $resource->resolveAvatarUrl($request),
             'display' => $this->formatDisplayValue($resource),
             'subtitle' => $resource->subtitle(),
-            'value' => $resource->getKey(),
+            'value' => Util::safeInt($resource->getKey()),
         ]);
     }
 

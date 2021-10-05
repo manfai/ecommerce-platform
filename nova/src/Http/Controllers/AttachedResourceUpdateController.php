@@ -21,10 +21,15 @@ class AttachedResourceUpdateController extends Controller
      */
     public function handle(NovaRequest $request)
     {
-        $this->validate(
-            $request, $model = $request->findModelOrFail(),
-            $resource = $request->resource()
-        );
+        $resource = $request->resource();
+
+        $model = $request->findModelOrFail();
+
+        tap(new $resource($model), function ($resource) use ($request) {
+            abort_unless($resource->hasRelatableField($request, $request->viaRelationship), 404);
+        });
+
+        $this->validate($request, $model, $resource);
 
         return DB::transaction(function () use ($request, $resource, $model) {
             $model->setRelation(
@@ -56,7 +61,7 @@ class AttachedResourceUpdateController extends Controller
      */
     protected function validate(NovaRequest $request, $model, $resource)
     {
-        $attribute = $resource::validationAttributeFor($request, $request->relatedResource);
+        $attribute = $resource::validationAttachableAttributeFor($request, $request->relatedResource);
 
         tap($this->updateRulesFor($request, $resource), function ($rules) use ($resource, $request, $attribute) {
             Validator::make($request->all(), $rules, [], $this->customRulesKeys($request, $attribute))->validate();
@@ -86,12 +91,20 @@ class AttachedResourceUpdateController extends Controller
      */
     protected function findPivot(NovaRequest $request, $model)
     {
-        $pivot = $model->{$request->viaRelationship}()->getPivotAccessor();
+        $relation = $model->{$request->viaRelationship}();
 
-        return $model->{$request->viaRelationship}()
+        if ($request->viaPivotId) {
+            tap($relation->getPivotClass(), function ($pivotClass) use ($relation, $request) {
+                $relation->wherePivot((new $pivotClass())->getKeyName(), $request->viaPivotId);
+            });
+        }
+
+        $accessor = $relation->getPivotAccessor();
+
+        return $relation
                     ->withoutGlobalScopes()
                     ->lockForUpdate()
-                    ->findOrFail($request->relatedResourceId)->{$pivot};
+                    ->findOrFail($request->relatedResourceId)->{$accessor};
     }
 
     /**

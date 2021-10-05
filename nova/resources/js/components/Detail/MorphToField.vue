@@ -14,7 +14,12 @@
       >
         {{ field.value }}
       </router-link>
-      <p v-else-if="field.value">{{ field.value }}</p>
+      <p v-else-if="field.value && field.resourceLabel === null">
+        {{ field.morphToType }}: {{ field.value }}
+      </p>
+      <p v-else-if="field.value && field.resourceLabel !== null">
+        {{ field.value }}
+      </p>
       <p v-else>&mdash;</p>
     </template>
   </panel-item>

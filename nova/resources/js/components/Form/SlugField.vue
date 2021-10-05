@@ -1,24 +1,35 @@
 <template>
   <default-field :field="field" :errors="errors" :show-help-text="showHelpText">
     <template slot="field">
-      <input
-        ref="theInput"
-        class="w-full form-control form-input form-input-bordered"
-        :id="field.attribute"
-        :dusk="field.attribute"
-        v-model="value"
-        :disabled="isReadonly"
-        v-bind="extraAttributes"
-      />
+      <div class="flex items-center">
+        <input
+          ref="theInput"
+          class="w-full form-control form-input form-input-bordered"
+          :id="field.attribute"
+          :dusk="field.attribute"
+          v-model="value"
+          :disabled="isReadonly"
+          v-bind="extraAttributes"
+        />
 
-      <button
-        class="btn btn-link rounded px-1 py-1 text-sm text-primary mt-2"
-        v-if="field.showCustomizeButton"
-        type="button"
-        @click="toggleCustomizeClick"
-      >
-        {{ __('Customize') }}
-      </button>
+        <button
+          class="
+            btn btn-link
+            rounded
+            px-1
+            py-1
+            inline-flex
+            text-sm text-primary
+            ml-1
+            mt-2
+          "
+          v-if="field.showCustomizeButton"
+          type="button"
+          @click="toggleCustomizeClick"
+        >
+          {{ __('Customize') }}
+        </button>
+      </div>
     </template>
   </default-field>
 </template>
@@ -30,10 +41,29 @@ import slugify from '@/util/slugify'
 export default {
   mixins: [HandlesValidationErrors, FormField],
 
+  data: () => ({
+    isListeningToChanges: false,
+  }),
+
   mounted() {
+    const listenToCreateModalClosed = () => {
+      if (this.isListeningToChanges === true) {
+        this.registerChangeListener()
+      }
+    }
+
+    Nova.$on('create-relation-modal-opened', this.removeChangeListener)
+    Nova.$on('create-relation-modal-closed', listenToCreateModalClosed)
+
     if (this.shouldRegisterInitialListener) {
       this.registerChangeListener()
     }
+
+    this.$once('hook:beforeDestroy', () => {
+      Nova.$off('create-relation-modal-opened', this.removeChangeListener)
+      Nova.$off('create-relation-modal-closed', listenToCreateModalClosed)
+      this.removeChangeListener()
+    })
   },
 
   methods: {
@@ -44,14 +74,25 @@ export default {
     },
 
     registerChangeListener() {
-      Nova.$on(this.eventName, value => {
-        this.value = slugify(value, this.field.separator)
-      })
+      Nova.$on(this.eventName, this.handleChange)
+
+      this.isListeningToChanges = true
+    },
+
+    removeChangeListener() {
+      if (this.isListeningToChanges === true) {
+        Nova.$off(this.eventName)
+      }
+    },
+
+    handleChange(value) {
+      this.value = slugify(value, this.field.separator)
     },
 
     toggleCustomizeClick() {
       if (this.field.readonly) {
-        Nova.$off(this.eventName)
+        this.removeChangeListener()
+        this.isListeningToChanges = false
         this.field.readonly = false
         this.field.extraAttributes.readonly = false
         this.field.showCustomizeButton = false

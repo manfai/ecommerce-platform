@@ -14,7 +14,7 @@ class AdoptionUploadSeeder extends Seeder
     public function run()
     {
         Adoption::all()->each(function (Adoption $adoption) {
-            factory(AdoptionUpload::class, random_int(1, 3))->create(['adoption_id' => $adoption->id]);
+            AdoptionUpload::factory()->count(random_int(1, 3))->create(['adoption_id' => $adoption->id]);
         });
     }
 }

@@ -588,7 +588,7 @@ textarea.form-input:read-only,
 }
 
 .markdown a {
-  color: blue;
+  @apply text-primary;
 }
 
 .markdown table {
@@ -715,6 +715,12 @@ textarea.form-input:read-only,
   position: absolute;
   top: 50%;
   transform: perspective(1px) translateY(-50%);
+}
+
+/* Override Place Field Positioning For Modal
+-----------------------------------------------------------------------------*/
+.modal .ap-dropdown-menu {
+  position: relative !important;
 }
 
 /* Override Form Field Widths For ConfirmActionModal

@@ -14,11 +14,11 @@
         <option value="" disabled selected>{{ __('Select Action') }}</option>
 
         <optgroup
-          v-if="actions.length > 0"
+          v-if="availableActions.length > 0"
           :label="resourceInformation.singularLabel"
         >
           <option
-            v-for="action in actions"
+            v-for="action in availableActions"
             :value="action.uriKey"
             :key="action.urikey"
             :selected="action.uriKey == selectedActionKey"
@@ -41,6 +41,33 @@
             {{ action.name }}
           </option>
         </optgroup>
+
+        <template v-if="availableStandaloneActions.length > 0">
+          <optgroup
+            class="standalone-option-group"
+            :label="__('Standalone Actions')"
+            v-if="selectedResources.length > 0"
+          >
+            <option
+              v-for="action in availableStandaloneActions"
+              :value="action.uriKey"
+              :key="action.urikey"
+              :selected="action.uriKey == selectedActionKey"
+            >
+              {{ action.name }}
+            </option>
+          </optgroup>
+          <template v-else>
+            <option
+              v-for="action in availableStandaloneActions"
+              :value="action.uriKey"
+              :key="action.urikey"
+              :selected="action.uriKey == selectedActionKey"
+            >
+              {{ action.name }}
+            </option>
+          </template>
+        </template>
       </select>
 
       <button
@@ -48,7 +75,13 @@
         dusk="run-action-button"
         @click.prevent="determineActionStrategy"
         :disabled="!selectedAction"
-        class="btn btn-default btn-primary flex items-center justify-center px-3"
+        class="
+          btn btn-default btn-primary
+          flex
+          items-center
+          justify-center
+          px-3
+        "
         :class="{ 'btn-disabled': !selectedAction }"
         :title="__('Run Action')"
       >
@@ -70,6 +103,13 @@
         @confirm="executeAction"
         @close="closeConfirmationModal"
       />
+
+      <component
+        :is="actionResponseData.modal"
+        @close="closeActionResponseModal"
+        v-if="showActionResponseModal"
+        :data="actionResponseData"
+      />
     </portal>
   </div>
 </template>
@@ -77,7 +117,7 @@
 <script>
 import _ from 'lodash'
 import HandlesActions from '@/mixins/HandlesActions'
-import { Errors, InteractsWithResourceInformation } from 'laravel-nova'
+import { InteractsWithResourceInformation } from 'laravel-nova'
 
 export default {
   mixins: [InteractsWithResourceInformation, HandlesActions],
@@ -90,6 +130,11 @@ export default {
     pivotActions: {},
     pivotName: String,
   },
+
+  data: () => ({
+    showActionResponseModal: false,
+    actionResponseData: {},
+  }),
 
   watch: {
     /**

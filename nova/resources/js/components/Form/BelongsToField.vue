@@ -78,6 +78,7 @@
           v-if="canShowNewRelationModal"
           @click="openRelationModal"
           class="ml-1"
+          :dusk="`${field.attribute}-inline-create`"
         />
       </div>
 
@@ -155,18 +156,16 @@ export default {
 
       this.selectedResourceId = this.field.value
 
-      // If a user is editing an existing resource with this relation
-      // we'll have a belongsToId on the field, and we should prefill
-      // that resource in this field
       if (this.editingExistingResource) {
+        // If a user is editing an existing resource with this relation
+        // we'll have a belongsToId on the field, and we should prefill
+        // that resource in this field
         this.initializingWithExistingResource = true
         this.selectedResourceId = this.field.belongsToId
-      }
-
-      // If the user is creating this resource via a related resource's index
-      // page we'll have a viaResource and viaResourceId in the params and
-      // should prefill the resource in this field with that information
-      if (this.creatingViaRelatedResource) {
+      } else if (this.creatingViaRelatedResource) {
+        // If the user is creating this resource via a related resource's index
+        // page we'll have a viaResource and viaResourceId in the params and
+        // should prefill the resource in this field with that information
         this.initializingWithExistingResource = true
         this.selectedResourceId = this.viaResourceId
       }
@@ -281,16 +280,19 @@ export default {
     },
 
     openRelationModal() {
+      Nova.$emit('create-relation-modal-opened')
       this.relationModalOpen = true
     },
 
     closeRelationModal() {
       this.relationModalOpen = false
+      Nova.$emit('create-relation-modal-closed')
     },
 
     handleSetResource({ id }) {
       this.closeRelationModal()
       this.selectedResourceId = id
+      this.initializingWithExistingResource = true
       this.getAvailableResources().then(() => this.selectInitialResource())
     },
   },
@@ -346,6 +348,11 @@ export default {
           viaResource: this.viaResource,
           viaResourceId: this.viaResourceId,
           viaRelationship: this.viaRelationship,
+          editing: true,
+          editMode:
+            _.isNil(this.resourceId) || this.resourceId === ''
+              ? 'create'
+              : 'update',
         },
       }
     },

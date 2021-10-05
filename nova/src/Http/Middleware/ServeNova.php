@@ -2,9 +2,9 @@
 
 namespace Laravel\Nova\Http\Middleware;
 
+use Illuminate\Support\Str;
 use Laravel\Nova\Events\NovaServiceProviderRegistered;
 use Laravel\Nova\Nova;
-use Laravel\Nova\NovaServiceProvider;
 
 class ServeNova
 {
@@ -18,8 +18,6 @@ class ServeNova
     public function handle($request, $next)
     {
         if ($this->isNovaRequest($request)) {
-            app()->register(NovaServiceProvider::class);
-
             NovaServiceProviderRegistered::dispatch();
         }
 
@@ -34,7 +32,24 @@ class ServeNova
      */
     protected function isNovaRequest($request)
     {
+        $domain = config('nova.domain');
         $path = trim(Nova::path(), '/') ?: '/';
+
+        if (! is_null($domain) && $domain !== config('app.url') && $path === '/') {
+            if (! Str::startsWith($domain, ['http://', 'https://', '://'])) {
+                $domain = $request->getScheme().'://'.$domain;
+            }
+
+            if (! in_array($port = $request->getPort(), [443, 80]) && ! Str::endsWith($domain, ":{$port}")) {
+                $domain = $domain.':'.$port;
+            }
+
+            $uri = parse_url($domain);
+
+            return isset($uri['port'])
+                        ? rtrim($request->getHttpHost(), '/') === $uri['host'].':'.$uri['port']
+                        : rtrim($request->getHttpHost(), '/') === $uri['host'];
+        }
 
         return $request->is($path) ||
                $request->is(trim($path.'/*', '/')) ||

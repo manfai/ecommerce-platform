@@ -1,16 +1,16 @@
 <template>
   <field-wrapper :stacked="field.stacked">
-    <div class="w-1/5 px-8" :class="field.stacked ? 'pt-6' : 'py-6'">
+    <div class="px-8" :class="field.stacked ? 'pt-6 w-full' : 'py-6 w-1/5'">
       <slot>
         <form-label
           :label-for="field.attribute"
           :class="{ 'mb-2': showHelpText && field.helpText }"
         >
-          {{ fieldLabel }}
-
-          <span v-if="field.required" class="text-danger text-sm">{{
-            __('*')
-          }}</span>
+          {{ fieldLabel }}&nbsp;<span
+            v-if="field.required"
+            class="text-danger text-sm"
+            >{{ __('*') }}</span
+          >
         </form-label>
       </slot>
     </div>
@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import { mapProps } from 'laravel-nova'
-import { HandlesValidationErrors, Errors } from 'laravel-nova'
+import { HandlesValidationErrors, mapProps } from 'laravel-nova'
 
 export default {
   mixins: [HandlesValidationErrors],

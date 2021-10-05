@@ -35,7 +35,8 @@
         v-else
         :id="field.attribute"
         :dusk="field.attribute"
-        v-model="value"
+        @change="handleChange"
+        :value="this.value"
         class="w-full form-control form-select"
         :class="errorClasses"
         :options="field.options"
@@ -101,6 +102,17 @@ export default {
     selectOption(option) {
       this.selectedOption = option
       this.value = option.value
+    },
+
+    /**
+     * Handle the selection change event.
+     */
+    handleChange(e) {
+      this.value = e.target.value
+
+      if (this.field) {
+        Nova.$emit(this.field.attribute + '-change', this.value)
+      }
     },
   },
 

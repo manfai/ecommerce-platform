@@ -3,6 +3,7 @@
 namespace Laravel\Nova;
 
 use Illuminate\Support\Facades\Validator;
+use Laravel\Nova\Contracts\PivotableField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait PerformsValidation
@@ -12,6 +13,7 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return void
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForCreation(NovaRequest $request)
@@ -25,7 +27,7 @@ trait PerformsValidation
      * Create a validator instance for a resource creation request.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public static function validatorForCreation(NovaRequest $request)
     {
@@ -77,6 +79,7 @@ trait PerformsValidation
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Resource|null  $resource
      * @return void
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForUpdate(NovaRequest $request, $resource = null)
@@ -91,7 +94,7 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Resource|null  $resource
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public static function validatorForUpdate(NovaRequest $request, $resource = null)
     {
@@ -144,6 +147,7 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return void
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForAttachment(NovaRequest $request)
@@ -155,7 +159,7 @@ trait PerformsValidation
      * Create a validator instance for a resource attachment request.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public static function validatorForAttachment(NovaRequest $request)
     {
@@ -182,6 +186,7 @@ trait PerformsValidation
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return void
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public static function validateForAttachmentUpdate(NovaRequest $request)
@@ -193,7 +198,7 @@ trait PerformsValidation
      * Create a validator instance for a resource attachment update request.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Validation\Validator
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public static function validatorForAttachmentUpdate(NovaRequest $request)
     {
@@ -252,6 +257,27 @@ trait PerformsValidation
     {
         return self::newResource()
                     ->availableFields($request)
+                    ->filter(function ($field) {
+                        return ! $field instanceof PivotableField;
+                    })
+                    ->firstWhere('resourceName', $field)
+                    ->getValidationAttribute($request);
+    }
+
+    /**
+     * Get the validation attachable attribute for a specific field.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  string  $field
+     * @return string
+     */
+    public static function validationAttachableAttributeFor(NovaRequest $request, $field)
+    {
+        return self::newResource()
+                    ->availableFields($request)
+                    ->filter(function ($field) {
+                        return $field instanceof PivotableField;
+                    })
                     ->firstWhere('resourceName', $field)
                     ->getValidationAttribute($request);
     }
@@ -260,7 +286,7 @@ trait PerformsValidation
      * Map field attributes to field names.
      *
      * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     * @return Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     private static function attributeNamesForFields(NovaRequest $request)
     {
@@ -290,7 +316,7 @@ trait PerformsValidation
      * Handle any post-creation validation processing.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
      * @return void
      */
     protected static function afterCreationValidation(NovaRequest $request, $validator)
@@ -302,7 +328,7 @@ trait PerformsValidation
      * Handle any post-update validation processing.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
      * @return void
      */
     protected static function afterUpdateValidation(NovaRequest $request, $validator)

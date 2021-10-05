@@ -11,6 +11,6 @@ class AdoptionSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Adoption::class, 10)->create();
+        \App\Models\Adoption::factory()->count(10)->create();
     }
 }

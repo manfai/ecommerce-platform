@@ -5,6 +5,7 @@ namespace Laravel\Nova\Fields;
 use Brick\Money\Context;
 use Brick\Money\Context\CustomContext;
 use Brick\Money\Money;
+use NumberFormatter;
 use Symfony\Component\Intl\Currencies;
 
 class Currency extends Number
@@ -78,7 +79,7 @@ class Currency extends Number
         $this->fillUsing(function ($request, $model, $attribute) {
             $value = $request->$attribute;
 
-            if ($this->minorUnits) {
+            if ($this->minorUnits && ! $this->isNullValue($value)) {
                 $model->$attribute = $this->toMoneyInstance($value)->getMinorAmount()->toInt();
             } else {
                 $model->$attribute = $value;
@@ -127,7 +128,18 @@ class Currency extends Number
     {
         $money = $this->toMoneyInstance($value, $currency);
 
-        return $money->formatTo($locale ?? $this->locale);
+        if (is_null($this->currencySymbol)) {
+            return $money->formatTo($locale ?? $this->locale);
+        }
+
+        return tap(new NumberFormatter($locale ?? $this->locale, NumberFormatter::CURRENCY), function ($formatter) use ($money) {
+            $scale = $money->getAmount()->getScale();
+
+            $formatter->setSymbol(NumberFormatter::CURRENCY_SYMBOL, $this->currencySymbol);
+            $formatter->setSymbol(NumberFormatter::INTL_CURRENCY_SYMBOL, $this->currencySymbol);
+            $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $scale);
+            $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $scale);
+        })->format($money->getAmount()->toFloat());
     }
 
     /**
@@ -222,6 +234,21 @@ class Currency extends Number
         $this->context = $context;
 
         return $this;
+    }
+
+    /**
+     * Check value for null value.
+     *
+     * @param  mixed $value
+     * @return bool
+     */
+    protected function isNullValue($value)
+    {
+        if (is_null($value)) {
+            return true;
+        }
+
+        return parent::isNullValue($value);
     }
 
     /**

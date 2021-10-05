@@ -18,7 +18,14 @@
 
         <template v-if="field.value && !imageUrl">
           <card
-            class="flex item-center relative border border-lg border-50 overflow-hidden p-4"
+            class="
+              flex
+              item-center
+              relative
+              border border-lg border-50
+              overflow-hidden
+              p-4
+            "
           >
             <span class="truncate mr-3"> {{ field.value }} </span>
 
@@ -273,7 +280,13 @@ export default {
      * The label attribute to use for the file field.
      */
     labelFor() {
-      return `file-${this.field.attribute}`
+      let name = this.resourceName
+
+      if (this.relatedResourceName) {
+        name += '-' + this.relatedResourceName
+      }
+
+      return `file-${name}-${this.field.attribute}`
     },
 
     /**
@@ -323,7 +336,7 @@ export default {
     },
 
     /**
-     * Determing if the field is a Vapor field.
+     * Determining if the field is a Vapor field.
      */
     isVaporField() {
       return this.field.component == 'vapor-file-field'

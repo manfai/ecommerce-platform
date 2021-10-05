@@ -7,7 +7,7 @@ trait Searchable
     /**
      * Indicates if this relationship is searchable.
      *
-     * @var bool
+     * @var bool|\Closure
      */
     public $searchable = false;
 
@@ -28,11 +28,12 @@ trait Searchable
     /**
      * Specify if the relationship should be searchable.
      *
+     * @param  bool|\Closure  $searchable
      * @return $this
      */
-    public function searchable()
+    public function searchable($searchable = true)
     {
-        $this->searchable = true;
+        $this->searchable = $searchable;
 
         return $this;
     }

@@ -70,6 +70,7 @@
   "No Prior Data": "No Prior Data",
   "No Increase": "No Increase",
   "No Results Found.": "No Results Found.",
+  "Standalone Actions": "Standalone Actions",
   "Run Action": "Run Action",
   "Select Action": "Select Action",
   "Search": "Search",
@@ -387,6 +388,8 @@
   "New :resource": "New :resource",
   "Edit :resource": "Edit :resource",
   "Update :resource": "Update :resource",
+  "Start Polling": "Start Polling",
+  "Stop Polling": "Stop Polling",
   "Choose :field": "Choose :field",
   "Download": "Download",
   "Action": "Action",
@@ -417,5 +420,8 @@
   "Year To Date": "Year To Date",
   "Customize": "Customize",
   "Update :resource: :title": "Update :resource: :title",
-  "Update attached :resource: :title": "Update attached :resource: :title"
+  "Update attached :resource: :title": "Update attached :resource: :title",
+  ":resource Details: :title": ":resource Details: :title",
+  "The HasOne relationship has already been filled.": "The HasOne relationship has already been filled.",
+  "An error occured while uploading the file.": "An error occured while uploading the file."
 }

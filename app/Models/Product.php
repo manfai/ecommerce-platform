@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
 use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use \Spatie\Tags\HasTags;
@@ -15,7 +16,7 @@ use Laravel\Nova\Nova;
 
 class Product extends Model
 {
-    use HasTags, HasTranslations;
+    use HasTags, HasTranslations, HasFactory;
     
     protected $fillable = [
         'code', 'title', 'description', 'image', 'on_sale', 

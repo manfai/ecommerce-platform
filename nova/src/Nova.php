@@ -6,12 +6,12 @@ use BadMethodCallException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laravel\Nova\Actions\ActionResource;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Http\Middleware\RedirectIfAuthenticated;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use ReflectionClass;
@@ -19,7 +19,8 @@ use Symfony\Component\Finder\Finder;
 
 class Nova
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests,
+        Concerns\InteractsWithEvents;
 
     /**
      * The registered dashboard names.
@@ -160,7 +161,11 @@ class Nova
      */
     public static function version()
     {
-        return '3.12.1';
+        return Cache::driver('array')->rememberForever('nova.version', function () {
+            $manifest = json_decode(File::get(__DIR__.'/../composer.json'), true);
+
+            return $manifest['version'] ?? '3.x';
+        });
     }
 
     /**
@@ -184,6 +189,19 @@ class Nova
     }
 
     /**
+     * Run callback when currently serving Nova.
+     *
+     * @param  callable  $callback
+     * @return mixed
+     */
+    public static function whenServing(callable $callback)
+    {
+        if (app()->bound(NovaRequest::class)) {
+            return $callback(app()->make(NovaRequest::class));
+        }
+    }
+
+    /**
      * Register the Nova routes.
      *
      * @return \Laravel\Nova\PendingRouteRegistration
@@ -193,17 +211,6 @@ class Nova
         Route::aliasMiddleware('nova.guest', RedirectIfAuthenticated::class);
 
         return new PendingRouteRegistration;
-    }
-
-    /**
-     * Register an event listener for the Nova "serving" event.
-     *
-     * @param  \Closure|string  $callback
-     * @return void
-     */
-    public static function serving($callback)
-    {
-        Event::listen(ServingNova::class, $callback);
     }
 
     /**
@@ -229,6 +236,7 @@ class Nova
                 'showColumnBorders' => $resource::showColumnBorders(),
                 'polling' => $resource::$polling,
                 'pollingInterval' => $resource::$pollingInterval * 1000,
+                'showPollingToggle' => $resource::$showPollingToggle,
                 'debounce' => $resource::$debounce * 1000,
             ], $resource::additionalInformation($request));
         })->values()->all();
@@ -286,7 +294,7 @@ class Nova
      * Get the resources available for the given request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Collection
+     * @return array
      */
     public static function resourcesForNavigation(Request $request)
     {
@@ -328,7 +336,7 @@ class Nova
      * Get the available resource groups for the given request.
      *
      * @param  Request $request
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public static function groups(Request $request)
     {
@@ -425,7 +433,7 @@ class Nova
      * Get the resource class name for a given model class.
      *
      * @param  object|string  $class
-     * @return string
+     * @return string|null
      */
     public static function resourceForModel($class)
     {
@@ -473,7 +481,7 @@ class Nova
     /**
      * Create a new user instance.
      *
-     * @param  \Illuminate\Console\Command
+     * @param  \Illuminate\Console\Command  $command
      * @return mixed
      */
     public static function createUser($command)
@@ -700,7 +708,7 @@ class Nova
      * Get the available dashboard cards for the given request.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function allAvailableDashboardCards(NovaRequest $request)
     {
@@ -721,7 +729,7 @@ class Nova
      *
      * @param  string  $dashboard
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function dashboardForKey($dashboard, NovaRequest $request)
     {
@@ -823,9 +831,7 @@ class Nova
      */
     public static function remoteScript($path)
     {
-        static::$scripts[md5($path)] = $path;
-
-        return new static;
+        return static::script(md5($path), $path);
     }
 
     /**
@@ -840,6 +846,17 @@ class Nova
         static::$styles[$name] = $path;
 
         return new static;
+    }
+
+    /**
+     * Register the given remote CSS file with Nova.
+     *
+     * @param  string  $path
+     * @return static
+     */
+    public static function remoteStyle($path)
+    {
+        return static::style(md5($path), $path);
     }
 
     /**
@@ -893,7 +910,9 @@ class Nova
     public static function jsonVariables(Request $request)
     {
         return collect(static::$jsonVariables)->map(function ($variable) use ($request) {
-            return is_callable($variable) ? $variable($request) : $variable;
+            return is_object($variable) && is_callable($variable)
+                        ? $variable($request)
+                        : $variable;
         })->all();
     }
 
@@ -948,9 +967,7 @@ class Nova
     /**
      * Register the callback used to set a custom Nova error reporter.
      *
-     * @var \Closure
-     *
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return static
      */
     public static function report($callback)
@@ -1011,9 +1028,7 @@ class Nova
     /**
      * Register the callback used to sort Nova resources in the sidebar.
      *
-     * @var \Closure
-     *
-     * @param \Closure $callback
+     * @param  \Closure  $callback
      * @return static
      */
     public static function sortResourcesBy($callback)
@@ -1026,7 +1041,7 @@ class Nova
     /**
      * Get the sorting strategy to use for Nova resources.
      *
-     * @return array
+     * @return \Closure
      */
     public static function sortResourcesWith()
     {
@@ -1038,7 +1053,8 @@ class Nova
     /**
      * Return the debounce amount to use when using global search.
      *
-     * @var int
+     * @param  int  $debounce
+     * @return static
      */
     public static function globalSearchDebounce($debounce)
     {

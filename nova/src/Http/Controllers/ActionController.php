@@ -16,11 +16,17 @@ class ActionController extends Controller
      */
     public function index(NovaRequest $request)
     {
+        $resource = $request->newResourceWith(
+            ($request->resourceId
+                ? $request->findModelQuery()->first()
+                : null) ?? $request->model()
+        );
+
         return response()->json([
-            'actions' => $request->newResource()->availableActions($request),
+            'actions' => $this->availableActions($request, $resource),
             'pivotActions' => [
                 'name' => $request->pivotName(),
-                'actions' => $request->newResource()->availablePivotActions($request),
+                'actions' => $resource->availablePivotActions($request),
             ],
         ]);
     }
@@ -36,5 +42,28 @@ class ActionController extends Controller
         $request->validateFields();
 
         return $request->action()->handleRequest($request);
+    }
+
+    /**
+     * Get available actions for request.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return \Illuminate\Support\Collection
+     */
+    protected function availableActions(NovaRequest $request, $resource)
+    {
+        switch ($request->display) {
+            case 'index':
+                $method = 'availableActionsOnIndex';
+                break;
+            case 'detail':
+                $method = 'availableActionsOnDetail';
+                break;
+            default:
+                $method = 'availableActions';
+        }
+
+        return $resource->{$method}($request);
     }
 }

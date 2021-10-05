@@ -16,13 +16,14 @@ class ResourceShowController extends Controller
     public function handle(ResourceDetailRequest $request)
     {
         $resource = $request->newResourceWith(tap($request->findModelQuery(), function ($query) use ($request) {
-            $request->newResource()->detailQuery($request, $query);
+            $resource = $request->resource();
+            $resource::detailQuery($request, $query);
         })->firstOrFail());
 
         $resource->authorizeToView($request);
 
         return response()->json([
-            'title' => $resource->title(),
+            'title' => (string) $resource->title(),
             'panels' => $resource->availablePanelsForDetail($request, $resource),
             'resource' => $resource->serializeForDetail($request, $resource),
         ]);

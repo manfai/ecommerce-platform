@@ -12,6 +12,7 @@
       <form-panel
         class="mb-8"
         v-for="panel in panelsWithFields"
+        @field-changed="onUpdateFormStatus"
         @file-upload-started="handleFileUploadStarted"
         @file-upload-finished="handleFileUploadFinished"
         :shown-via-new-relation-modal="shownViaNewRelationModal"
@@ -62,10 +63,15 @@ import {
   Minimum,
   InteractsWithResourceInformation,
 } from 'laravel-nova'
+import HandlesFormRequest from '@/mixins/HandlesFormRequest'
 import HandlesUploads from '@/mixins/HandlesUploads'
 
 export default {
-  mixins: [InteractsWithResourceInformation, HandlesUploads],
+  mixins: [
+    InteractsWithResourceInformation,
+    HandlesFormRequest,
+    HandlesUploads,
+  ],
 
   metaInfo() {
     if (this.shouldOverrideMeta && this.resourceInformation) {
@@ -105,7 +111,6 @@ export default {
     submittedViaCreateResource: false,
     fields: [],
     panels: [],
-    validationErrors: new Errors(),
   }),
 
   async created() {
@@ -129,7 +134,21 @@ export default {
       this.relationResponse = data
 
       if (this.isHasOneRelationship && this.alreadyFilled) {
-        Nova.error(this.__('The HasOne relationship has already filled.'))
+        Nova.error(this.__('The HasOne relationship has already been filled.'))
+
+        this.$router.push({
+          name: 'detail',
+          params: {
+            resourceId: this.viaResourceId,
+            resourceName: this.viaResource,
+          },
+        })
+      }
+
+      if (this.isHasOneThroughRelationship && this.alreadyFilled) {
+        Nova.error(
+          this.__('The HasOneThrough relationship has already been filled.')
+        )
 
         this.$router.push({
           name: 'detail',
@@ -228,17 +247,7 @@ export default {
             this.canLeave = false
           }
 
-          if (error.response.status == 422) {
-            this.validationErrors = new Errors(error.response.data.errors)
-            Nova.error(this.__('There was a problem submitting the form.'))
-          } else {
-            Nova.error(
-              this.__('There was a problem submitting the form.') +
-                ' "' +
-                error.response.statusText +
-                '"'
-            )
-          }
+          this.handleOnCreateResponseError(error)
         }
       }
 
@@ -342,9 +351,16 @@ export default {
       return this.relationResponse && this.relationResponse.hasOneRelationship
     },
 
+    isHasOneThroughRelationship() {
+      return (
+        this.relationResponse && this.relationResponse.hasOneThroughRelationship
+      )
+    },
+
     shouldShowAddAnotherButton() {
       return (
-        this.inFormMode && !this.alreadyFilled && !this.isHasOneRelationship
+        Boolean(this.inFormMode && !this.alreadyFilled) &&
+        !Boolean(this.isHasOneRelationship || this.isHasOneThroughRelationship)
       )
     },
   },

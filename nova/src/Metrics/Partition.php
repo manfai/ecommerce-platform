@@ -3,6 +3,7 @@
 namespace Laravel\Nova\Metrics;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\DB;
 
 abstract class Partition extends Metric
@@ -34,7 +35,7 @@ abstract class Partition extends Metric
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Builder|string  $model
      * @param  string  $groupBy
-     * @param  string|null  $column
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
     public function count($request, $model, $groupBy, $column = null)
@@ -47,7 +48,7 @@ abstract class Partition extends Metric
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Builder|string  $model
-     * @param  string|null  $column
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  string  $groupBy
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
@@ -61,7 +62,7 @@ abstract class Partition extends Metric
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Builder|string  $model
-     * @param  string|null  $column
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  string  $groupBy
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
@@ -75,7 +76,7 @@ abstract class Partition extends Metric
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Builder|string  $model
-     * @param  string|null  $column
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  string  $groupBy
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
@@ -89,7 +90,7 @@ abstract class Partition extends Metric
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Builder|string  $model
-     * @param  string|null  $column
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  string  $groupBy
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
@@ -104,7 +105,7 @@ abstract class Partition extends Metric
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Database\Eloquent\Builder|string  $model
      * @param  string  $function
-     * @param  string  $column
+     * @param  \Illuminate\Database\Query\Expression|string|null  $column
      * @param  string  $groupBy
      * @return \Laravel\Nova\Metrics\PartitionResult
      */
@@ -112,9 +113,11 @@ abstract class Partition extends Metric
     {
         $query = $model instanceof Builder ? $model : (new $model)->newQuery();
 
-        $wrappedColumn = $query->getQuery()->getGrammar()->wrap(
-            $column = $column ?? $query->getModel()->getQualifiedKeyName()
-        );
+        $wrappedColumn = $column instanceof Expression
+                ? (string) $column
+                : $query->getQuery()->getGrammar()->wrap(
+                    $column ?? $query->getModel()->getQualifiedKeyName()
+                );
 
         $results = $query->select(
             $groupBy, DB::raw("{$function}({$wrappedColumn}) as aggregate")

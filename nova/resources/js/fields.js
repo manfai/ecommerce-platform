@@ -232,10 +232,22 @@ Vue.component(
   require('./components/Detail/HasOneField.vue')
 )
 
+// Has One Through Field...
+Vue.component(
+  'detail-has-one-through-field',
+  require('./components/Detail/HasOneThroughField.vue')
+)
+
 // Has Many Field...
 Vue.component(
   'detail-has-many-field',
   require('./components/Detail/HasManyField.vue')
+)
+
+// Has Many Through Field...
+Vue.component(
+  'detail-has-many-through-field',
+  require('./components/Detail/HasManyThroughField.vue')
 )
 
 // Belongs To Field...

@@ -10,6 +10,8 @@
           :placeholder="placeholder"
           :dateFormat="pickerFormat"
           :alt-format="pickerDisplayFormat"
+          :hour-increment="pickerHourIncrement"
+          :minute-increment="pickerMinuteIncrement"
           :value="localizedValue"
           :twelve-hour-time="usesTwelveHourTime"
           :first-day-of-week="firstDayOfWeek"
@@ -41,7 +43,6 @@
 
 <script>
 import {
-  Errors,
   FormField,
   HandlesValidationErrors,
   InteractsWithDates,
@@ -101,6 +102,14 @@ export default {
 
     pickerDisplayFormat() {
       return this.field.pickerDisplayFormat || 'Y-m-d H:i:S'
+    },
+
+    pickerHourIncrement() {
+      return this.field.pickerHourIncrement || 1
+    },
+
+    pickerMinuteIncrement() {
+      return this.field.pickerMinuteIncrement || 5
     },
   },
 }

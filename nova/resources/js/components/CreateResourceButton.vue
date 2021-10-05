@@ -56,6 +56,10 @@ export default {
     relationshipType: {},
     authorizedToCreate: {},
     authorizedToRelate: {},
+    alreadyFilled: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
@@ -81,7 +85,11 @@ export default {
      * Determine if the create button should be displayed.
      */
     shouldShowCreateButton() {
-      return this.authorizedToCreate && this.authorizedToRelate
+      return (
+        this.authorizedToCreate &&
+        this.authorizedToRelate &&
+        !this.alreadyFilled
+      )
     },
   },
 }

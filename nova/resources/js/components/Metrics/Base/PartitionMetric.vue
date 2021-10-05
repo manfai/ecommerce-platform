@@ -9,7 +9,7 @@
     </h3>
 
     <div v-if="helpText" class="absolute pin-r pin-b p-2">
-      <tooltip trigger="hover">
+      <tooltip trigger="hover" placement="top-start">
         <icon
           type="help"
           viewBox="0 0 17 17"
@@ -26,33 +26,35 @@
       </tooltip>
     </div>
 
-    <div class="overflow-hidden overflow-y-auto max-h-90px">
-      <ul class="list-reset">
-        <li
-          v-for="item in formattedItems"
-          class="text-xs text-80 leading-normal"
-        >
-          <span
-            class="inline-block rounded-full w-2 h-2 mr-2"
-            :style="{
-              backgroundColor: item.color,
-            }"
-          />{{ item.label }} ({{ item.value }} - {{ item.percentage }}%)
-        </li>
-      </ul>
-    </div>
+    <div class="min-h-90px">
+      <div class="overflow-hidden overflow-y-auto max-h-90px">
+        <ul class="list-reset">
+          <li
+            v-for="item in formattedItems"
+            class="text-xs text-80 leading-normal"
+          >
+            <span
+              class="inline-block rounded-full w-2 h-2 mr-2"
+              :style="{
+                backgroundColor: item.color,
+              }"
+            />{{ item.label }} ({{ item.value }} - {{ item.percentage }}%)
+          </li>
+        </ul>
+      </div>
 
-    <div
-      ref="chart"
-      :class="chartClasses"
-      style="
-        width: 90px;
-        height: 90px;
-        right: 20px;
-        bottom: 30px;
-        top: calc(50% + 15px);
-      "
-    />
+      <div
+        ref="chart"
+        :class="chartClasses"
+        style="
+          width: 90px;
+          height: 90px;
+          right: 20px;
+          bottom: 30px;
+          top: calc(50% + 15px);
+        "
+      />
+    </div>
   </loading-card>
 </template>
 
@@ -132,7 +134,7 @@ export default {
         'rounded-b-lg',
         'ct-chart',
         'mr-4',
-        this.formattedTotal <= 0 ? 'invisible' : '',
+        this.currentTotal <= 0 ? 'invisible' : '',
       ]
     },
 
@@ -148,10 +150,10 @@ export default {
             value: item.value,
             color: this.getItemColor(item, index),
             percentage:
-              this.formattedTotal > 0
+              this.currentTotal > 0
                 ? Nova.formatNumber(
                     new String(
-                      ((item.value * 100) / this.formattedTotal).toFixed(2)
+                      ((item.value * 100) / this.currentTotal).toFixed(2)
                     )
                   )
                 : '0',
@@ -178,6 +180,17 @@ export default {
     },
 
     formattedTotal() {
+      let total = this.currentTotal.toFixed(2)
+      let roundedTotal = Math.round(total)
+
+      if (roundedTotal.toFixed(2) == total) {
+        return Nova.formatNumber(new String(roundedTotal))
+      }
+
+      return Nova.formatNumber(new String(total))
+    },
+
+    currentTotal() {
       return _.sumBy(this.chartData, 'value')
     },
   },

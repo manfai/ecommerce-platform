@@ -16,10 +16,28 @@ class MorphedResourceAttachController extends ResourceAttachController
      */
     protected function initializePivot(NovaRequest $request, $relationship)
     {
+        $model = tap($request->findResourceOrFail(), function ($resource) use ($request) {
+            abort_unless($resource->hasRelatableField($request, $request->viaRelationship), 404);
+        })->model();
+
+        $parentKey = $request->resourceId;
+        $relatedKey = $request->input($request->relatedResource);
+
+        $parentKeyName = $relationship->getParentKeyName();
+        $relatedKeyName = $relationship->getRelatedKeyName();
+
+        if ($parentKeyName !== $request->model()->getKeyName()) {
+            $parentKey = $request->findModelOrFail()->{$parentKeyName};
+        }
+
+        if ($relatedKeyName !== ($request->newRelatedResource()::newModel())->getKeyName()) {
+            $relatedKey = $request->findRelatedModelOrFail()->{$relatedKeyName};
+        }
+
         ($pivot = $relationship->newPivot())->forceFill([
-            $relationship->getForeignPivotKeyName() => $request->resourceId,
-            $relationship->getRelatedPivotKeyName() => $request->input($request->relatedResource),
-            $relationship->getMorphType() => $request->findModelOrFail()->{$request->viaRelationship}()->getMorphClass(),
+            $relationship->getForeignPivotKeyName() => $parentKey,
+            $relationship->getRelatedPivotKeyName() => $relatedKey,
+            $relationship->getMorphType() => $model->{$request->viaRelationship}()->getMorphClass(),
         ]);
 
         if ($relationship->withTimestamps) {

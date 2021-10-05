@@ -10,8 +10,9 @@
         class="w-full form-control form-input form-input-bordered py-3 h-auto"
         :id="field.attribute"
         :dusk="field.attribute"
-        v-model="value"
         v-bind="extraAttributes"
+        :value="value"
+        @input="handleChange"
       />
     </template>
   </default-field>
