@@ -1,6 +1,4 @@
-@extends('layouts.tailwindcss')
-
-@section('content')
+<x-layout>
 <!-- <section class="px-4 pb-16 mx-auto pt-10 sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:pb-20">
 
 
@@ -455,4 +453,4 @@
     </div>
   </div>
 </div>
-@endsection
+</x-layout>
