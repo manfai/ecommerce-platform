@@ -25,6 +25,7 @@ Route::group(
     Auth::routes(['verify' => true]);
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/events', 'HomeController@events')->name('events');
     Route::get('/faqs', 'HomeController@faqs')->name('faqs');
     Route::get('/blog', 'HomeController@blog')->name('blog');
     Route::get('/contact', 'HomeController@contact')->name('contact');

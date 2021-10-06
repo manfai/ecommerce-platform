@@ -1,5 +1,34 @@
 <div class="flex flex-wrap">
-      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="{{$product->image_url}}">
+      <div class="lg:w-1/2 w-full">
+      <img alt="ecommerce" class="w-full lg:h-auto lg:max-h-96 h-48 object-cover object-center rounded" src="{{$product->image_url}}">
+
+      <div class="w-full py-4 space-x-4 carousel carousel-center">
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/500/256/144" class="rounded">
+        </div> 
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/501/256/144" class="rounded">
+        </div> 
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/502/256/144" class="rounded">
+        </div> 
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/503/256/144" class="rounded">
+        </div> 
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/504/256/144" class="rounded">
+        </div> 
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/505/256/144" class="rounded">
+        </div> 
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/506/256/144" class="rounded">
+        </div>
+      </div>
+
+      </div>
+
+
       <div class="lg:w-1/2 w-full lg:pl-10 lg:pb-6 mt-6 lg:mt-0">
       <h1 class="text-gray-900 text-4xl title-font font-bold mb-1">{{$product->title}}</h1>
       <h2 class="text-sm title-font text-gray-500 tracking-widest">By BRAND</h2>

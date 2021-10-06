@@ -6,15 +6,13 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class OrderList extends Component
+class WishList extends Component
 {
-
     use WithPagination;
 
     public function render()
     {
-        $products = Product::paginate(5);
-        return view('livewire.order-list',['orders'=>$products]);
+        $products = Product::paginate(4);
+        return view('livewire.wish-list',['products'=>$products]);
     }
-
 }
