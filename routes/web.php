@@ -42,6 +42,8 @@ Route::group(
     Route::post('/product/{productId}/favorite', 'ProductController@favor')->name('product.favor');
     Route::delete('/product/{productId}/favorite', 'ProductController@disfavor')->name('product.disfavor');
 
+    Route::get('/checkout', 'CheckoutController@index')->name('checkout');
+
     Route::get('/cart', 'CartController@index')->name('cart');
     Route::post('/cart', 'CartController@add')->name('cart.add');
     Route::delete('/cart/{sku}', 'CartController@remove')->name('cart.remove');

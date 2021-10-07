@@ -19,7 +19,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
     }
 
     /**
@@ -30,6 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         // Auth::user()->deposit(100);
+        $this->middleware(['auth','verified']);
         return view('tailwindcss.home',[
             'orders'=> Auth::user()->orders->take(5),
             'addresses'=>Auth::user()->addresses->take(4),

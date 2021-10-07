@@ -1,33 +1,37 @@
-<div class="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+<div class="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
     <div class="relative flex items-center justify-between">
         <div class="flex items-center">
-            <a href="/" aria-label="Company" title="Company" class="inline-flex items-center mr-8">
-                <svg class="w-8 text-deep-purple-accent-400" viewBox="0 0 24 24" stroke-linejoin="round" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" stroke="currentColor" fill="none">
-                    <rect x="3" y="1" width="7" height="12"></rect>
-                    <rect x="3" y="17" width="7" height="6"></rect>
-                    <rect x="14" y="1" width="7" height="6"></rect>
-                    <rect x="14" y="11" width="7" height="12"></rect>
-                </svg>
-                <span class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">Company</span>
-            </a>
-          
+            <x-logo class="w-12 text-deep-purple-accent-400">
+                <span class="ml-2 text-2xl font-black tracking-wide text-base-content uppercase">{{ config('app.name') }}</span>
+            </x-logo>
             <x-navigation />
         </div>
         <ul class="flex items-center hidden space-x-8 lg:flex">
             @if(\Auth::check())
-            <li>{{auth()->user()->name}}</li>
+            <li><a href="{{route('home')}}">
+                {{auth()->user()->name}}
+            </a></li>
             <li>Cart
                 <span class="badge badge-primary">
                     0
                 </span>
             </li>
-            <li> Logout</li>
+            <li> 
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+                
+            </li>
             @else
             <li><a href="{{route('login')}}" aria-label="Sign in" title="Sign in" class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400">Sign in</a></li>
             <li>
                 <a href="{{route('register')}}" class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none" aria-label="Sign up" title="Sign up">
                     Sign up
                 </a>
+                 
             </li>
             @endif
         </ul>

@@ -1,7 +1,4 @@
-@extends('layouts.tailwindcss')
-
-@section('content')
-
+<x-layout>
 <div class="grid grid-cols-8 gap-8 px-4 pb-16 pt-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:pb-20">
 
 <aside class="hidden lg:block col-span-2">
@@ -39,28 +36,28 @@
         </ul>
     </div>
 
-    <div class="w-full mb-6 carousel rounded-box">
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/500/256/144" class="w-full">
-    </div> 
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/501/256/144" class="w-full">
-    </div> 
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/502/256/144" class="w-full">
-    </div> 
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/503/256/144" class="w-full">
-    </div> 
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/504/256/144" class="w-full">
-    </div> 
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/505/256/144" class="w-full">
-    </div> 
-    <div class="w-full carousel-item">
-        <img src="https://picsum.photos/id/506/256/144" class="w-full">
-    </div>
+    <div class="w-full mb-6 carousel shadow-md rounded-box">
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/500/256/144" class="w-full">
+        </div> 
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/501/256/144" class="w-full">
+        </div> 
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/502/256/144" class="w-full">
+        </div> 
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/503/256/144" class="w-full">
+        </div> 
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/504/256/144" class="w-full">
+        </div> 
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/505/256/144" class="w-full">
+        </div> 
+        <div class="w-full carousel-item">
+            <img src="https://picsum.photos/id/506/256/144" class="w-full">
+        </div>
     </div>
 </aside>
 
@@ -81,10 +78,10 @@
             </a>
         </div>
     </div>
-   @livewire('product-list')
+    <livewire:product-list />
 </section>
 
 </div>
 
 
-@endsection
+</x-layout>

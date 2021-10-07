@@ -1,7 +1,7 @@
-<div class="card shadow-lg bg-base-300 text-base-content">
-    <div class="flex flex-col flex-shrink-0 col-span-3 row-span-3 mx-2 xl:mx-0 w-72 place-self-start xl:w-full">
+<div class="card shadow-lg bg-gray-100 text-base-content">
+    <div class="flex flex-col flex-shrink-0 xl:mx-0 w-72 place-self-start w-full">
       
-        <div class="grid flex-grow gap-3 p-6 shadow rounded bg-base-200 w-full rounded-tl-none">
+        <div class="grid flex-grow gap-3 p-6 w-full rounded-tl-none">
             <div class="flex items-center space-x-2">
                 <div class="avatar online">
                     <div class="w-16 h-16 p-px bg-opacity-10 mask mask-squircle bg-base-content">

@@ -49,37 +49,20 @@
         <p class="leading-relaxed">
         {!! $product->description !!}
         </p>
-        <div class="mt-6 flex border-t border-gray-200 py-2">
-          <span class="my-auto text-gray-500">Color</span>
-          <!-- <span class="ml-auto text-gray-900">Blue</span> -->
-          <div class="ml-auto py-1">
-            <button class="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-            <button class="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-            <button class="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button>
+        <div class="my-6 border-gray-200 py-2">
+          <div class="text-gray-500 mb-4">Color</div>
+          <div class="">
+            <button class="ml-1 bg-gray-700 rounded-full w-8 h-8 focus:outline-none"></button>
+            <button class="ml-1 bg-red-700 rounded-full w-8 h-8 focus:outline-none"></button>
+            <button class="ml-1 bg-pink-300 rounded-full w-8 h-8 focus:outline-none"></button>
+            <button class="ml-1 bg-indigo-500 rounded-full w-8 h-8 focus:outline-none"></button>
           </div>
         </div>
-        <div class="flex border-t border-gray-200 py-2">
-          <span class="my-auto text-gray-500">Size</span>
-          <!-- <span class="ml-auto text-gray-900">Medium</span> -->
-          <div class="relative ml-auto">
-              <select class="w-20 text-sm rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 pl-3 pr-10">
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
-              </select>
-              <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
-                  <path d="M6 9l6 6 6-6"></path>
-                </svg>
-              </span>
-            </div>
-        </div>
-        <div class="flex border-t border-b mb-6 border-gray-200 py-2">
-          <span class="my-auto text-gray-500">Quantity</span>
+        <div class="mb-6 border-gray-200">
+          <div class="text-gray-500 mb-4">Quantity</div>
           <!-- <span class="ml-auto text-gray-900">4</span> -->
-          <div class="relative ml-auto">
-              <select class="w-20 text-sm rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 pl-3 pr-10">
+            <div class="relative w-32">
+              <select class="w-full py-3 px-4 text-sm text-center rounded-md border appearance-none border-gray-900 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 pl-3 pr-10">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -91,6 +74,137 @@
                   <path d="M6 9l6 6 6-6"></path>
                 </svg>
               </span>
+            </div>
+        </div>
+        <div class="mb-6 border-gray-200 py-2">
+      
+          <div class="text-gray-500 mb-4">Size</div>
+          <!-- <span class="ml-auto text-gray-900">Medium</span> -->
+          <div class="relative">
+          <div class="grid grid-cols-4 gap-4">
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="XXS" class="sr-only" aria-labelledby="size-choice-0-label">
+                        <p id="size-choice-0-label">
+                          XXS
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
+                        <p id="size-choice-1-label">
+                          XS
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="S" class="sr-only" aria-labelledby="size-choice-2-label">
+                        <p id="size-choice-2-label">
+                          S
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label">
+                        <p id="size-choice-3-label">
+                          M
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
+                        <p id="size-choice-4-label">
+                          L
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label">
+                        <p id="size-choice-5-label">
+                          XL
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-white shadow-sm text-gray-900 cursor-pointer">
+                        <input type="radio" name="size-choice" value="XXL" class="sr-only" aria-labelledby="size-choice-6-label">
+                        <p id="size-choice-6-label">
+                          XXL
+                        </p>
+
+                        <!--
+                          Active: "border", Not Active: "border-2"
+                          Checked: "border-indigo-500", Not Checked: "border-transparent"
+                        -->
+                        <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                      </label>
+
+                      <!-- Active: "ring-2 ring-indigo-500" -->
+                      <label class="group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 bg-gray-50 text-gray-200 cursor-not-allowed">
+                        <input type="radio" name="size-choice" value="XXXL" disabled class="sr-only" aria-labelledby="size-choice-7-label">
+                        <p id="size-choice-7-label">
+                          XXXL
+                        </p>
+
+                        <div aria-hidden="true" class="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none">
+                          <svg class="absolute inset-0 w-full h-full text-gray-200 stroke-2" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                            <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                          </svg>
+                        </div>
+                      </label>
+                    </div>
+              <!-- <select class="w-20 text-sm rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 pl-3 pr-10">
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+              </select>
+              <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4" viewBox="0 0 24 24">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span> -->
             </div>
         </div>
         <div class="flex">

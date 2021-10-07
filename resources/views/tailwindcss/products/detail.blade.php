@@ -1,6 +1,4 @@
-@extends('layouts.tailwindcss')
-
-@section('content')
+<x-layout>
 <!-- <div class="relative bg-deep-purple-accent-400">
   <div class="absolute inset-x-0 bottom-0">
     <svg viewBox="0 0 224 12" fill="currentColor" class="w-full -mb-1 text-white" preserveAspectRatio="none">
@@ -51,10 +49,7 @@
     @livewire('product-detail', ['product'=>$product])
 </section>
 
-@livewire('related-product')
-
-@endsection
-
+<livewire:related-product />
 
 @push('scripts')
 <script>
@@ -157,3 +152,5 @@
     // }
 </script>
 @endpush
+
+</x-layout>
