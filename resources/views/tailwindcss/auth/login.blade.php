@@ -3,20 +3,20 @@
   <section class="flex flex-col md:flex-row h-screen items-center">
 
     <div class="relative bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
-      <img src="https://images.pexels.com/photos/3228766/pexels-photo-3228766.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" alt="" class="w-full h-full object-cover">
+      <img src="https://www.ikea.com.hk/dairyfarm/hk/pageImages/page__en_hk_1575431456__1.jpeg" alt="" class="w-full h-full object-cover">
       <div class="absolute top-0 left-0 w-full h-full bg-opacity-50 bg-deep-purple-accent-700">
         <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div class="w-full max-w-xl mb-12 pt-24 xl:mb-0 xl:pr-16 xl:w-7/12">
 
-            <x-logo class="w-20 -mt-6 text-teal-accent-400">
+            <x-logo class="w-20 -mt-6 text-white">
               <span class="ml-2 text-4xl font-black tracking-wide text-white uppercase">{{ config('app.name') }}</span>
             </x-logo>
 
-            <h2 class="max-w-lg mt-6 mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
+            <h2 class="max-w-lg mt-6 mb-6 font-sans text-3xl tracking-tight text-white sm:text-4xl sm:leading-none">
               The quick, brown fox <br class="hidden md:block" />
               jumps over a <span class="text-teal-accent-400">lazy dog</span>
             </h2>
-            <p class="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
+            <p class="max-w-xl mb-4 text-base text-gray-200 md:text-lg">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
             </p>
             <a href="/" aria-label="" class="inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-teal-accent-400 hover:text-teal-accent-700">

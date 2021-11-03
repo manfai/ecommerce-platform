@@ -61,6 +61,16 @@ class HomeController extends Controller
         return view('tailwindcss.blog');
     }
 
+    public function news()
+    {
+        return view('tailwindcss.news');
+    }
+    
+    public function about()
+    {
+        return view('tailwindcss.about');
+    }
+   
     public function events()
     {
         return view('tailwindcss.events.list');

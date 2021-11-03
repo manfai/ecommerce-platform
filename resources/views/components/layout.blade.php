@@ -15,8 +15,12 @@
 </head>
 <body class="bg-base-100">
        
+  
     @if(!\Request::is('*/login') && !\Request::is('*/register')) 
-        <x-header />
+        <p class="bg-deep-purple-accent-400 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
+        Get free delivery on orders over $100
+        </p>
+       <x-header />
     @endif
 
     <!-- ==== Page Content ==== -->

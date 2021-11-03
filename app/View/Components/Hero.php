@@ -12,7 +12,7 @@ class Hero extends Component
      * @return void
      */
     public $style;
-    public $background = 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260';
+    public $background = 'https://www.ikea.com.hk/dairyfarm/hk/pageImages/page__en_hk_1575441389__0.jpeg';
     public function __construct($style = 'style-1')
     {
         $this->style = $style;

@@ -1,7 +1,8 @@
 <div class="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+
     <div class="relative flex items-center justify-between">
         <div class="flex items-center">
-            <x-logo class="w-12 text-deep-purple-accent-400">
+            <x-logo class="w-12 text-black">
                 <span class="ml-2 text-2xl font-black tracking-wide text-base-content uppercase">{{ config('app.name') }}</span>
             </x-logo>
             <x-navigation />

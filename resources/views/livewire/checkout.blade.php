@@ -23,13 +23,14 @@
         </div>
 
         <div class="px-10 pb-10">
-            <div class="">
-                <label class="block text-sm text-gray-00" for="cus_name">Name</label>
+            <p class="mt-4 text-gray-800 font-medium">Base Infomation</p>
+            <div class="inline-block mt-2 w-1/2 pr-1">
+                <label class="hidden block text-sm text-gray-600" for="cus_email">First Name</label>
                 <input class="input input-bordered w-full" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name">
             </div>
-            <div class="mt-4">
-                <label class="block text-sm text-gray-600" for="cus_email">Email</label>
-                <input class="input input-bordered w-full" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email">
+            <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
+                <label class="hidden block text-sm text-gray-600" for="cus_email">Last Name</label>
+                <input class="input input-bordered w-full" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name">
             </div>
             <p class="mt-4 text-gray-800 font-medium">Delivery Addresses</p>
             <div class="mt-2">

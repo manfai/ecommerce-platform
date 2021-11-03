@@ -59,24 +59,7 @@
         </div>
       </div>
       <div class="md:max-w-md lg:col-span-2">
-        <span class="text-base font-medium tracking-wide text-gray-300">Subscribe for updates</span>
-        <form class="flex flex-col mt-4 md:flex-row">
-          <input
-            placeholder="Email"
-            required=""
-            type="text"
-            class="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
-          />
-          <button
-            type="submit"
-            class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-          >
-            Subscribe
-          </button>
-        </form>
-        <p class="mt-4 text-sm text-gray-500">
-          Bacon ipsum dolor amet short ribs pig sausage prosciuto chicken spare ribs salami.
-        </p>
+          <livewire:subscribe-widget />
       </div>
     </div>
     <div class="flex flex-col justify-between pt-5 pb-10 border-t border-gray-800 sm:flex-row">
