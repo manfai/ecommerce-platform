@@ -52,6 +52,7 @@ class Product extends Model
 
     public function getImageUrlAttribute()
     {
+        return 'https://www.ikea.com.hk/dairyfarm/hk/pageImages/page__en_hk_15706123561.jpeg';
         // 如果 image 字段本身就已经是完整的 url 就直接返回
         if (Str::startsWith($this->attributes['image'], ['http://', 'https://'])) {
             return $this->attributes['image'];
